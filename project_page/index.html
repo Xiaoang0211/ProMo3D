@@ -114,7 +114,7 @@
             <span class="stage-title"><span>04</span> SAM2 refinement</span>
             <span class="stage-panel refinement-input"><img src="assets/videos/rhino-coarse.png" alt="PMD coarse mask supplied to SAM2 refinement" loading="lazy"><span>Coarse mask</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
-            <span class="stage-model external-model"><img class="sam2-logo" src="assets/method/sam2-meta-logo.svg" alt="Meta logo from the official SAM 2 demo" width="80" height="16" loading="lazy"><span>SAM2</span></span>
+            <span class="stage-model external-model">SAM2</span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
             <span class="stage-panel"><img src="assets/videos/rhino-refined.png" alt="Stored SAM2-refined PMD overlay for rhino frame 70" loading="lazy"><span>Refined mask</span></span>
             <span class="stage-note">Extent and boundary refinement</span>
@@ -122,7 +122,7 @@
         </div>
         <figcaption>Click a stage to inspect the pipeline. Image panels use stored Pi3X-PMD outputs for the same rhino frame; the token and probe diagrams are schematic.</figcaption>
       </figure>
-      <div class="step-detail"><span id="step-number" class="step-number">01</span><div><h3 id="step-title">Input frames</h3><p id="step-copy">An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks.</p></div><button id="animate-pipeline" class="text-button" aria-pressed="false">Animate pipeline <span aria-hidden="true">&#8594;</span></button></div>
+      <div class="step-detail"><span id="step-number" class="step-number">01</span><div><h3 id="step-title">Input frames</h3><p id="step-copy">An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks.</p></div></div>
       <div class="method-foot"><p><strong>Only the probe is learned.</strong> Compatibility with a static reference gives the static score; its complement gives the dynamic score. Scores are averaged across blocks, bilinearly upsampled, and binarized.</p><p><strong>Coarse and refined are separate.</strong> SAM2 is an optional external mask-refinement stage. Motion decoding is evaluated before refinement.</p></div>
     </section>
 

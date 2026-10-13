@@ -114,9 +114,7 @@ const steps = [
   ['Dense motion-mask extraction', 'In the padded example shown here, token 0 is static by design. Compatibility with it gives the static score; its complement gives the dynamic score. Scores are averaged across blocks, upsampled, and binarized.'],
   ['SAM2 refinement', 'Optional SAM2 refinement uses the coarse mask to improve its extent and boundaries. Coarse and refined results remain separate.']
 ];
-let stepIndex = 0, walkthrough;
 function showStep(index) {
-  stepIndex = index;
   selected('[data-step]', String(index), 'step');
   selected('.method-stage', String(index), 'stage');
   document.querySelector('#step-number').textContent = String(index + 1).padStart(2, '0');
@@ -126,20 +124,8 @@ function showStep(index) {
   detail.classList.remove('active');
   requestAnimationFrame(() => detail.classList.add('active'));
 }
-function stopWalkthrough() {
-  clearInterval(walkthrough); walkthrough = null;
-  document.querySelector('#animate-pipeline').textContent = 'Animate pipeline';
-  document.querySelector('#animate-pipeline').setAttribute('aria-pressed', 'false');
-}
-document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => { stopWalkthrough(); showStep(Number(button.dataset.step)); }));
-document.querySelectorAll('.method-stage').forEach(button => button.addEventListener('click', () => { stopWalkthrough(); showStep(Number(button.dataset.stage)); }));
-document.querySelector('#animate-pipeline').addEventListener('click', () => {
-  if (walkthrough) { stopWalkthrough(); return; }
-  showStep(0);
-  const button = document.querySelector('#animate-pipeline');
-  button.textContent = 'Pause animation'; button.setAttribute('aria-pressed', 'true');
-  walkthrough = setInterval(() => { if (stepIndex === 3) stopWalkthrough(); else showStep(stepIndex + 1); }, 2800);
-});
+document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => showStep(Number(button.dataset.step))));
+document.querySelectorAll('.method-stage').forEach(button => button.addEventListener('click', () => showStep(Number(button.dataset.stage))));
 
 const panels = {
   layerwise: ['layerwise.png', 'Layer-wise motion decodability on Pi3X, DA3, and DUSt3R.'],
