@@ -123,6 +123,15 @@ def test_method_figure_uses_matched_real_outputs():
         assert hashlib.sha256(image_path.read_bytes()).hexdigest() == provenance["method"]["context_sha256"][str(frame)]
 
 
+def test_input_frames_decrease_in_size_with_depth():
+    css = (PAGE / "style.css").read_text()
+    for index, width, left in ((1, 80, 10), (2, 90, 5), (3, 100, 0)):
+        rule = re.search(rf"\.input-stack img:nth-child\({index}\)\{{([^}}]+)\}}", css).group(1)
+        assert f"width:{width}%" in rule
+        assert f"left:{left}" in rule
+        assert f"z-index:{index}" in rule
+
+
 def test_static_build_versions_changed_assets(tmp_path):
     scripts = tmp_path / "scripts"
     scripts.mkdir()
@@ -144,6 +153,8 @@ def test_static_build_versions_changed_assets(tmp_path):
 
 def test_method_figure_matches_paper_score_notation_and_refinement_input():
     html = (PAGE / "index.html").read_text()
+    assert '<span class="stage-title"><span>01</span> Input frames</span>' in html
+    assert '<h3 id="step-title">Input frames</h3>' in html
     assert "Target frame + context frames" in html
     assert "Target frame + two context frames" not in html
     assert "Low-rank quadratic probe" in html

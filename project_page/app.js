@@ -109,7 +109,7 @@ document.querySelectorAll('[data-view]').forEach(button => button.addEventListen
 fetch('assets/samples.json').then(response => { if (!response.ok) throw Error('Missing sample manifest'); return response.json(); }).then(data => { samples = data; showSample('rhino', 'coarse'); }).catch(() => { counter.textContent = 'Sequence unavailable'; play.disabled = true; });
 
 const steps = [
-  ['Frozen geometric features', "An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks."],
+  ['Input frames', "An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks."],
   ['Low-rank quadratic probe', 'A low-rank quadratic probe is trained on token pairs from 160 YouTube-VOS videos. The backbone remains frozen.'],
   ['Dense motion-mask extraction', 'In the padded example shown here, token 0 is static by design. Compatibility with it gives the static score; its complement gives the dynamic score. Scores are averaged across blocks, upsampled, and binarized.'],
   ['SAM2 refinement', 'Optional SAM2 refinement uses the coarse mask to improve its extent and boundaries. Coarse and refined results remain separate.']

@@ -68,12 +68,12 @@
 
     <section id="method" class="section shell">
       <div class="section-heading"><div><span class="eyebrow">02 / Probing-based motion distillation</span><h2>Method overview</h2></div><p>PMD tests motion-state decodability through a low-rank pairwise probe. Backbone features remain frozen throughout probe training.</p></div>
-      <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Frozen geometry<small>Multi-frame tokens</small></button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank quadratic probe<small>Pairwise compatibility</small></button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion<small>Scores to masks</small></button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement<small>SAM2</small></button></div>
+      <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Input frames<small>Multi-frame tokens</small></button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank quadratic probe<small>Pairwise compatibility</small></button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion<small>Scores to masks</small></button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement<small>SAM2</small></button></div>
       <figure class="method-figure">
         <div class="method-visual" role="group" aria-label="Interactive PMD pipeline">
-          <button class="method-stage" data-stage="0" aria-pressed="true" aria-label="Inspect frozen geometry">
-            <span class="stage-title"><span>01</span> Frozen geometry</span>
-            <span class="stage-kind">Frozen representations</span>
+          <button class="method-stage" data-stage="0" aria-pressed="true" aria-label="Inspect input frames">
+            <span class="stage-title"><span>01</span> Input frames</span>
+            <span class="stage-kind">Temporal / multi-view context</span>
             <span class="input-stack">
               <img src="assets/method/rhino-context-68.png" alt="Rhino context frame 68" loading="lazy">
               <img src="assets/method/rhino-context-72.png" alt="Rhino context frame 72" loading="lazy">
@@ -126,7 +126,7 @@
         </div>
         <figcaption>Click a stage to inspect the pipeline. Image panels use stored Pi3X-PMD outputs for the same rhino frame; the token and probe diagrams are schematic.</figcaption>
       </figure>
-      <div class="step-detail"><span id="step-number" class="step-number">01</span><div><h3 id="step-title">Frozen geometric features</h3><p id="step-copy">An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks.</p></div><button id="animate-pipeline" class="text-button" aria-pressed="false">Animate pipeline <span aria-hidden="true">&#8594;</span></button></div>
+      <div class="step-detail"><span id="step-number" class="step-number">01</span><div><h3 id="step-title">Input frames</h3><p id="step-copy">An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks.</p></div><button id="animate-pipeline" class="text-button" aria-pressed="false">Animate pipeline <span aria-hidden="true">&#8594;</span></button></div>
       <div class="method-foot"><p><strong>Only the probe is learned.</strong> Compatibility with a static reference gives the static score; its complement gives the dynamic score. Scores are averaged across blocks, bilinearly upsampled, and binarized.</p><p><strong>Coarse and refined are separate.</strong> SAM2 is an optional external mask-refinement stage. Motion decoding is evaluated before refinement.</p></div>
     </section>
 
