@@ -1,0 +1,43 @@
+{
+  "protocol": {
+    "gpu": "NVIDIA GeForce RTX 5070 Ti",
+    "precision": "float32",
+    "batch_size_target_frames": 1,
+    "model": "FlowI-SAM",
+    "rgb_encoder": null,
+    "flow_encoder": "SAM ViT-H",
+    "flow_encoder_batching": "serial over flow gaps",
+    "flow_gaps": [
+      1,
+      -1,
+      2,
+      -2
+    ],
+    "grid_size": [
+      10,
+      10
+    ],
+    "prompt_batch_size": 10,
+    "warmup_sequence": "cows",
+    "warmup_frames": 10,
+    "sequence": "parkour",
+    "measured_frames": 100,
+    "model_loading_included": false,
+    "source_image_and_flow_disk_io_included": false,
+    "mask_writes_included": false,
+    "cpu_preprocessing_included": true,
+    "host_to_device_transfer_included": true,
+    "nms_and_mask_overlay_included": true
+  },
+  "flowisam": {
+    "mean_ms": 1624.0492228697985,
+    "median_ms": 1625.3890204970958,
+    "p95_ms": 1629.63182531239,
+    "inference_only": {
+      "mean_ms": 1597.7302803704515,
+      "median_ms": 1598.6587849911302,
+      "p95_ms": 1603.0959739458922
+    },
+    "peak_vram_gib": 5.649615287780762
+  }
+}

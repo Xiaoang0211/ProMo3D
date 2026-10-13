@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "J": {
+      "M": 0.659658365836782,
+      "R": 0.840456258010225,
+      "D": 0.01511869240689837
+    },
+    "F": {
+      "M": 0.6394632100464687,
+      "R": 0.6526755649401793,
+      "D": 0.019569968399213374
+    },
+    "J_and_F": {
+      "M": 0.6495607879416253,
+      "R": 0.7465659114752021,
+      "D": 0.01734433040305587
+    }
+  },
+  "model": "dust3r",
+  "group": "dec_view1__head_in_view1",
+  "benchmark": "segtrackv2",
+  "variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+  "num_sequences": 14,
+  "num_frames": 1066,
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/outputs/isdynamic_motion_masks_eval/dust3r/dec_view1__head_in_view1/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/segtrackv2.json"
+}

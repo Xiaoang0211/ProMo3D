@@ -1,0 +1,35 @@
+[
+  {
+    "Backbone": "pi3x",
+    "Experiment": "correct_rank_4",
+    "Split": "YouTube-VOS val",
+    "Blocks": 18,
+    "Pair accuracy (%)": 95.70359389354954,
+    "Always-same baseline (%)": 84.47489218639409,
+    "Gain (pp)": 11.228701707155441,
+    "Balanced accuracy (%)": 91.59837273531608,
+    "Source": "results/reference/experiments/controls/pi3x/correct_rank_4"
+  },
+  {
+    "Backbone": "pi3x",
+    "Experiment": "correct_rank_8",
+    "Split": "YouTube-VOS val",
+    "Blocks": 18,
+    "Pair accuracy (%)": 95.71955484899084,
+    "Always-same baseline (%)": 84.47489218639409,
+    "Gain (pp)": 11.244662662596749,
+    "Balanced accuracy (%)": 91.66916967186644,
+    "Source": "results/reference/experiments/controls/pi3x/correct_rank_8"
+  },
+  {
+    "Backbone": "pi3x",
+    "Experiment": "shuffled_rank_8",
+    "Split": "YouTube-VOS val",
+    "Blocks": 18,
+    "Pair accuracy (%)": 84.48487778533722,
+    "Always-same baseline (%)": 84.47489218639409,
+    "Gain (pp)": 0.00998559894312967,
+    "Balanced accuracy (%)": 50.34422933830939,
+    "Source": "results/reference/experiments/controls/pi3x/shuffled_rank_8"
+  }
+]

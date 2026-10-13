@@ -1,0 +1,15 @@
+scope,evidence,entrypoint,inputs,verification
+main,benchmark tables,scripts/main/run.sh export/train/masks/refine/eval,datasets and checkpoints,Pi3X two-frame coarse/refined integration passed
+main,layer-wise probes Figure 2,scripts/main/run.sh layerwise and figures --panels layerwise,sampled tokens then numeric logs,reference panel regenerated with embedded TrueType
+main,probe-induced subspace Figure 4,scripts/main/run.sh figures pi3x --panels pca,sampled test tokens and probes,existing PCA/spectral implementation reused
+main,rank capacity,scripts/main/run.sh ranks and tables --table ranks,sampled tokens and per-block metrics,probe CLI and settings checked
+main,scene diversity Figure 5,scripts/main/run.sh starvation/starvation_masks and figures,subset manifests and evaluations,existing metric definitions reused
+main,unseen qualitative examples Figure 3,scripts/main/run.sh qualitative,Pi3X probes and benchmark images,fixed example datasets present
+experiments,label selectivity,scripts/experiments/run.sh controls,sampled native tokens,reference control table regenerated
+experiments,binarization robustness,scripts/experiments/run.sh thresholds,Pi3X continuous coarse scores,two-frame integration checked
+experiments,source validation masks,scripts/experiments/run.sh val_masks,80 validation sequences and six probes,archived source-val evaluations imported
+experiments,backbone diagnostic,scripts/experiments/run.sh diagnostic,six probe logs and evaluations,exact archived diagnostic recomputed
+experiments,wall-clock latency and VRAM,scripts/experiments/run.sh runtime,native baseline environments and checkpoints,reference table regenerated; external asset volume unavailable
+additional,repeated context,scripts/experiments/run.sh repeated_context pi3x,Pi3X probes and images,implemented
+additional,position residualization,scripts/experiments/run.sh position_residual,sampled tokens and images,implemented
+additional,padding and geometry consistency,scripts/experiments/run.sh padding,native checkpoints and datasets,implemented

@@ -1,0 +1,83 @@
+{
+  "dataset": "davis",
+  "benchmark": "davis_all",
+  "sequence": "bear",
+  "sequence_tag": "bear",
+  "frame_idx": 0,
+  "probe_root": "/home/xiaoang/FF_Reconstruction/isDynamicProbe/outputs/model_outputs/depth_anything_3/rank_8/isdynamic_blockwise_youtubevos/pair_lowrank_quadratic",
+  "threshold": 0.5,
+  "query": {
+    "name": "q0",
+    "idx": 0
+  },
+  "patch_size": 14,
+  "output_mode": "bilinear_upsample",
+  "input_frame_indices": [
+    0,
+    2,
+    4
+  ],
+  "input_image_paths": [
+    "/home/xiaoang/Datasets/DAVIS-2017-trainval-480p/DAVIS/JPEGImages/480p/bear/00000.jpg",
+    "/home/xiaoang/Datasets/DAVIS-2017-trainval-480p/DAVIS/JPEGImages/480p/bear/00002.jpg",
+    "/home/xiaoang/Datasets/DAVIS-2017-trainval-480p/DAVIS/JPEGImages/480p/bear/00004.jpg"
+  ],
+  "target_mask_ref": "/home/xiaoang/Datasets/DAVIS-2017-trainval-480p/DAVIS/Annotations/480p/bear/00000.png",
+  "timing_seconds": {
+    "backbone_feature_inference": 0.43345820999820717,
+    "backbone_feature_inference_per_input_frame": 0.1444860699994024,
+    "additional_motion_mask_inference": 0.09530737003660761,
+    "additional_motion_mask_inference_per_input_frame": 0.03176912334553587,
+    "probe_scoring": 0.09520947502460331,
+    "score_averaging": 9.789501200430095e-05,
+    "total_compute_excluding_load_and_io": 0.5287655800348148,
+    "total_compute_excluding_load_and_io_per_input_frame": 0.17625519334493825
+  },
+  "target_frame_idx": 0,
+  "context_frame_indices": [
+    2,
+    4
+  ],
+  "group": "inter_frame_block",
+  "usable_blocks": [
+    "inter_frame_block_0",
+    "inter_frame_block_1",
+    "inter_frame_block_2",
+    "inter_frame_block_3",
+    "inter_frame_block_4",
+    "inter_frame_block_5",
+    "inter_frame_block_6",
+    "inter_frame_block_7",
+    "inter_frame_block_8",
+    "inter_frame_block_9",
+    "inter_frame_block_10",
+    "inter_frame_block_11",
+    "inter_frame_block_12",
+    "inter_frame_block_13"
+  ],
+  "invert_when_query_idx_zero": true,
+  "process_res": 518,
+  "process_res_method": "upper_bound_resize",
+  "input_protocol": {
+    "target_frames": 1,
+    "context_frames": 2,
+    "total_input_frames": 3,
+    "target_view_index": 0
+  },
+  "image_path": "/home/xiaoang/Datasets/DAVIS-2017-trainval-480p/DAVIS/JPEGImages/480p/bear/00000.jpg",
+  "mask_path": "/home/xiaoang/Datasets/DAVIS-2017-trainval-480p/DAVIS/Annotations/480p/bear/00000.png",
+  "content_bbox_xyxy": [
+    0,
+    0,
+    518,
+    294
+  ],
+  "content_hw": [
+    294,
+    518
+  ],
+  "threshold_mode": "otsu",
+  "threshold_offset": 0.2,
+  "threshold_value": 0.658984375,
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/outputs/isdynamic_motion_masks/depth_anything_3/inter_frame_block/davis_all/bear/bilinear_upsample/frame_00000/meta.json"
+}

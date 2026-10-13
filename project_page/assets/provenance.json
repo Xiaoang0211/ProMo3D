@@ -1,0 +1,139 @@
+{
+  "backbone": "pi3x",
+  "rank": 8,
+  "visualization_fps": 12,
+  "sequences": [
+    {
+      "id": "rhino",
+      "source": "isdynamic_motion_masks/pi3x/inter_frame_block/davis_all/rhino",
+      "frames": 90,
+      "frame_range": [
+        0,
+        89
+      ],
+      "poster_frame": 70,
+      "refinement_variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+      "blocks": [
+        "inter_frame_block_0",
+        "inter_frame_block_1",
+        "inter_frame_block_2",
+        "inter_frame_block_3",
+        "inter_frame_block_4",
+        "inter_frame_block_5",
+        "inter_frame_block_6",
+        "inter_frame_block_7",
+        "inter_frame_block_8",
+        "inter_frame_block_9",
+        "inter_frame_block_10",
+        "inter_frame_block_11",
+        "inter_frame_block_12",
+        "inter_frame_block_13",
+        "inter_frame_block_14",
+        "inter_frame_block_15",
+        "inter_frame_block_16",
+        "inter_frame_block_17"
+      ],
+      "input_protocol": {
+        "target_frames": 1,
+        "context_frames": 2,
+        "total_input_frames": 3,
+        "target_view_index": 0
+      },
+      "metadata_sha256": "4834f309397d0a5fcf74a574f8b0296b97801760b415c85cc4b676c5fa9d92c3"
+    },
+    {
+      "id": "koala",
+      "source": "isdynamic_motion_masks/pi3x/inter_frame_block/davis_all/koala",
+      "frames": 100,
+      "frame_range": [
+        0,
+        99
+      ],
+      "poster_frame": 70,
+      "refinement_variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+      "blocks": [
+        "inter_frame_block_0",
+        "inter_frame_block_1",
+        "inter_frame_block_2",
+        "inter_frame_block_3",
+        "inter_frame_block_4",
+        "inter_frame_block_5",
+        "inter_frame_block_6",
+        "inter_frame_block_7",
+        "inter_frame_block_8",
+        "inter_frame_block_9",
+        "inter_frame_block_10",
+        "inter_frame_block_11",
+        "inter_frame_block_12",
+        "inter_frame_block_13",
+        "inter_frame_block_14",
+        "inter_frame_block_15",
+        "inter_frame_block_16",
+        "inter_frame_block_17"
+      ],
+      "input_protocol": {
+        "target_frames": 1,
+        "context_frames": 2,
+        "total_input_frames": 3,
+        "target_view_index": 0
+      },
+      "metadata_sha256": "af70279f54643df425cfc096d17da33245172239539523dccfc3b14475182c9d"
+    },
+    {
+      "id": "bird_of_paradise",
+      "source": "isdynamic_motion_masks/pi3x/inter_frame_block/segtrackv2/bird_of_paradise",
+      "frames": 98,
+      "frame_range": [
+        0,
+        97
+      ],
+      "poster_frame": 50,
+      "refinement_variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+      "blocks": [
+        "inter_frame_block_0",
+        "inter_frame_block_1",
+        "inter_frame_block_2",
+        "inter_frame_block_3",
+        "inter_frame_block_4",
+        "inter_frame_block_5",
+        "inter_frame_block_6",
+        "inter_frame_block_7",
+        "inter_frame_block_8",
+        "inter_frame_block_9",
+        "inter_frame_block_10",
+        "inter_frame_block_11",
+        "inter_frame_block_12",
+        "inter_frame_block_13",
+        "inter_frame_block_14",
+        "inter_frame_block_15",
+        "inter_frame_block_16",
+        "inter_frame_block_17"
+      ],
+      "input_protocol": {
+        "target_frames": 1,
+        "context_frames": 2,
+        "total_input_frames": 3,
+        "target_view_index": 0
+      },
+      "metadata_sha256": "96b6fb412780515d67d66c6e1eb8735c0dafdb9e73e8a21b01bb11eafa42c951"
+    }
+  ],
+  "figures": {
+    "layerwise": {
+      "source": "isdynamic_visualizations/comparisons/blockwise/pi3x_da3_dust3r_blockwise_widescreen_panel.pdf",
+      "sha256": "c8feba715427ad22af20d89918b68e362a9771b8bf2f53c2d54fee2cb0bf73b8"
+    },
+    "layerwise-extended": {
+      "source": "isdynamic_visualizations/comparisons/blockwise/vggt_pi3_mapanything_blockwise_widescreen_panel.pdf",
+      "sha256": "262be02e1e6b07b08036c1a92dc90af847aa1bbdb7672f7e4388404e286a7029"
+    },
+    "pca": {
+      "source": "isdynamic_visualizations/pi3x/comparisons/pi3x_test_davis_rank8_pca_lowrank_panel.pdf",
+      "sha256": "c6876a5b1698dc2d15180360c84b180092049ed6efe17d3ca2aae71b2a6175e6"
+    },
+    "starvation": {
+      "source": "isdynamic_visualizations/comparisons/data_starvation/pi3x_da3_dust3r_test_davis_normalized_gain_panel.pdf",
+      "sha256": "5e5c2ae02ae8f376696986e5ac7900d28fbee3ca0a678d3659d6101180c5b25a"
+    }
+  }
+}

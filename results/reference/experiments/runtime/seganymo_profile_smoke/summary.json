@@ -1,0 +1,64 @@
+{
+  "method": "SegAnyMo",
+  "protocol": {
+    "warmup": "3 frames from DAVIS/cows",
+    "measured": "3 frames from DAVIS/parkour",
+    "grid_size": 10,
+    "query_stride": 8,
+    "model_loading_included": false,
+    "source_image_disk_reads_included": false,
+    "result_file_writes_included": false,
+    "latency_statistic": "whole-sequence total divided by output frames",
+    "peak_statistic": "maximum allocated VRAM across sequential stages"
+  },
+  "measured": {
+    "sequence": "parkour",
+    "num_frames": 3,
+    "measured": true,
+    "total_seconds": 13.617519456995069,
+    "amortized_ms_per_frame": 4539.173152331689,
+    "peak_vram_gib": 2.269169807434082,
+    "stages": [
+      {
+        "sequence": "parkour",
+        "stage": "BootsTAPIR",
+        "num_frames": 3,
+        "total_seconds": 11.358131896005943,
+        "amortized_ms_per_frame": 3786.0439653353146,
+        "peak_vram_gib": 0.3124580383300781
+      },
+      {
+        "sequence": "parkour",
+        "stage": "DINOv2",
+        "num_frames": 3,
+        "total_seconds": 0.4490352559951134,
+        "amortized_ms_per_frame": 149.6784186650378,
+        "peak_vram_gib": 0.6714658737182617
+      },
+      {
+        "sequence": "parkour",
+        "stage": "Depth Anything V2",
+        "num_frames": 3,
+        "total_seconds": 0.9431906649988377,
+        "amortized_ms_per_frame": 314.39688833294593,
+        "peak_vram_gib": 2.269169807434082
+      },
+      {
+        "sequence": "parkour",
+        "stage": "motion head",
+        "num_frames": 3,
+        "total_seconds": 0.3536834239930613,
+        "amortized_ms_per_frame": 117.89447466435377,
+        "peak_vram_gib": 1.151869297027588
+      },
+      {
+        "sequence": "parkour",
+        "stage": "iterative SAM2",
+        "num_frames": 3,
+        "total_seconds": 0.5134782160021132,
+        "amortized_ms_per_frame": 171.15940533403773,
+        "peak_vram_gib": 1.7421760559082031
+      }
+    ]
+  }
+}

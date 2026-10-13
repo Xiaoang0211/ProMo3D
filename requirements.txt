@@ -1,0 +1,10 @@
+# Install the CUDA-enabled PyTorch build and each backbone's dependencies first.
+numpy
+Pillow
+matplotlib
+scipy
+scikit-learn
+tqdm
+einops
+safetensors
+gdown

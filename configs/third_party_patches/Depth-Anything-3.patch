@@ -1,0 +1,214 @@
+diff --git a/src/depth_anything_3/api.py b/src/depth_anything_3/api.py
+index d5c25dd..9135585 100644
+--- a/src/depth_anything_3/api.py
++++ b/src/depth_anything_3/api.py
+@@ -96,6 +96,15 @@ class DepthAnything3(nn.Module, PyTorchModelHubMixin):
+         # Device management (set by user)
+         self.device = None
+ 
++    def enable_attention_recording(self, enabled: bool = True) -> None:
++        if hasattr(self.model, "enable_attention_recording"):
++            self.model.enable_attention_recording(enabled)
++
++    def collect_attention_maps(self):
++        if hasattr(self.model, "collect_attention_recordings"):
++            return self.model.collect_attention_recordings()
++        return None
++
+     @torch.inference_mode()
+     def forward(
+         self,
+diff --git a/src/depth_anything_3/model/da3.py b/src/depth_anything_3/model/da3.py
+index 916ebe1..4475804 100644
+--- a/src/depth_anything_3/model/da3.py
++++ b/src/depth_anything_3/model/da3.py
+@@ -30,6 +30,7 @@ from depth_anything_3.utils.alignment import (
+     set_sky_regions_to_max_depth,
+ )
+ from depth_anything_3.utils.geometry import affine_inverse, as_homogeneous, map_pdf_to_opacity
++from depth_anything_3.model.utils.attention_recorder import VisionAttentionRecorder
+ 
+ 
+ def _wrap_cfg(cfg_obj):
+@@ -69,6 +70,7 @@ class DepthAnything3Net(nn.Module):
+         super().__init__()
+         self.backbone = net if isinstance(net, nn.Module) else create_object(_wrap_cfg(net))
+         self.head = head if isinstance(head, nn.Module) else create_object(_wrap_cfg(head))
++        self.attention_recorder = VisionAttentionRecorder(self.backbone)
+         self.cam_dec, self.cam_enc = None, None
+         if cam_dec is not None:
+             self.cam_dec = (
+@@ -126,6 +128,8 @@ class DepthAnything3Net(nn.Module):
+         feats, aux_feats = self.backbone(
+             x, cam_token=cam_token, export_feat_layers=export_feat_layers
+         )
++        if self.attention_recorder is not None:
++            self.attention_recorder.update_sequence_info(x.shape[0], x.shape[1])
+         # feats = [[item for item in feat] for feat in feats]
+         H, W = x.shape[-2], x.shape[-1]
+ 
+@@ -141,6 +145,15 @@ class DepthAnything3Net(nn.Module):
+ 
+         return output
+ 
++    def enable_attention_recording(self, enabled: bool = True) -> None:
++        if self.attention_recorder is not None:
++            self.attention_recorder.set_enabled(enabled)
++
++    def collect_attention_recordings(self):
++        if self.attention_recorder is None:
++            return None
++        return self.attention_recorder.collect()
++
+     def _process_depth_head(
+         self, feats: list[torch.Tensor], H: int, W: int
+     ) -> Dict[str, torch.Tensor]:
+@@ -307,6 +320,17 @@ class NestedDepthAnything3Net(nn.Module):
+ 
+         return output
+ 
++    def enable_attention_recording(self, enabled: bool = True) -> None:
++        if hasattr(self.da3, "enable_attention_recording"):
++            self.da3.enable_attention_recording(enabled)
++        if hasattr(self.da3_metric, "enable_attention_recording"):
++            self.da3_metric.enable_attention_recording(enabled)
++
++    def collect_attention_recordings(self):
++        if hasattr(self.da3, "collect_attention_recordings"):
++            return self.da3.collect_attention_recordings()
++        return None
++
+     def _apply_metric_scaling(
+         self, output: Dict[str, torch.Tensor], metric_output: Dict[str, torch.Tensor]
+     ) -> Dict[str, torch.Tensor]:
+diff --git a/src/depth_anything_3/model/dinov2/layers/attention.py b/src/depth_anything_3/model/dinov2/layers/attention.py
+index 096b9d4..addae71 100644
+--- a/src/depth_anything_3/model/dinov2/layers/attention.py
++++ b/src/depth_anything_3/model/dinov2/layers/attention.py
+@@ -43,6 +43,18 @@ class Attention(nn.Module):
+         self.proj = nn.Linear(dim, dim, bias=proj_bias)
+         self.proj_drop = nn.Dropout(proj_drop)
+         self.rope = rope
++        self.record_attention: bool = False
++        self._last_attention: Tensor | None = None
++
++    def set_record_attention(self, enabled: bool) -> None:
++        self.record_attention = enabled
++        if not enabled:
++            self._last_attention = None
++
++    def pop_last_attention(self) -> Tensor | None:
++        attn = self._last_attention
++        self._last_attention = None
++        return attn
+ 
+     def forward(self, x: Tensor, pos=None, attn_mask=None) -> Tensor:
+         B, N, C = x.shape
+@@ -56,7 +68,8 @@ class Attention(nn.Module):
+         if self.rope is not None and pos is not None:
+             q = self.rope(q, pos)
+             k = self.rope(k, pos)
+-        if self.fused_attn:
++        use_fused = self.fused_attn and not self.record_attention
++        if use_fused:
+             x = F.scaled_dot_product_attention(
+                 q,
+                 k,
+@@ -71,9 +84,17 @@ class Attention(nn.Module):
+         else:
+             q = q * self.scale
+             attn = q @ k.transpose(-2, -1)
++            if attn_mask is not None:
++                mask = attn_mask[:, None].repeat(1, self.num_heads, 1, 1)
++                if mask.dtype == torch.bool:
++                    attn = attn.masked_fill(mask, float("-inf"))
++                else:
++                    attn = attn + mask
+             attn = attn.softmax(dim=-1)
+             attn = self.attn_drop(attn)
+             x = attn @ v
++            if self.record_attention:
++                self._last_attention = attn.detach().to("cpu", non_blocking=False)
+ 
+         x = x.transpose(1, 2).reshape(B, N, C)
+         x = self.proj(x)
+diff --git a/src/depth_anything_3/model/utils/attention_recorder.py b/src/depth_anything_3/model/utils/attention_recorder.py
+new file mode 100644
+index 0000000..25df3bc
+--- /dev/null
++++ b/src/depth_anything_3/model/utils/attention_recorder.py
+@@ -0,0 +1,74 @@
++from __future__ import annotations
++
++from typing import Dict, Optional
++import torch
++
++
++class VisionAttentionRecorder:
++    """
++    Helper that toggles attention recording for DinoV2 vision transformers and
++    retrieves the stored attention maps after a forward pass.
++    """
++
++    def __init__(self, backbone) -> None:
++        self.enabled = False
++        self.vit = getattr(backbone, "pretrained", None)
++        if self.vit is None or not hasattr(self.vit, "blocks"):
++            self.blocks = []
++            self.patch_size = None
++            self.patch_token_start = None
++            self.batch_size = None
++            self.seq_len = None
++            self.block_modes = {}
++            return
++        self.blocks = list(self.vit.blocks)
++        self.patch_size = getattr(self.vit, "patch_size", 14)
++        patch_start = getattr(self.vit, "patch_start_idx", 1)
++        num_register = getattr(self.vit, "num_register_tokens", 0)
++        self.patch_token_start = patch_start + num_register
++        self.batch_size = None
++        self.seq_len = None
++        self.block_modes: Dict[int, str] = {}
++        alt_start = getattr(self.vit, "alt_start", -1)
++        for idx, _ in enumerate(self.blocks):
++            is_global = alt_start != -1 and idx >= alt_start and idx % 2 == 1
++            self.block_modes[idx] = "global" if is_global else "local"
++
++    def is_available(self) -> bool:
++        return bool(self.blocks) and self.patch_size is not None
++
++    def set_enabled(self, enabled: bool) -> None:
++        if not self.is_available():
++            return
++        self.enabled = enabled
++        for block in self.blocks:
++            attn = getattr(block, "attn", None)
++            if hasattr(attn, "set_record_attention"):
++                attn.set_record_attention(enabled)
++            if not enabled and hasattr(attn, "pop_last_attention"):
++                attn.pop_last_attention()
++
++    def update_sequence_info(self, batch_size: int, seq_len: int) -> None:
++        self.batch_size = batch_size
++        self.seq_len = seq_len
++
++    def collect(self) -> Optional[Dict]:
++        if not self.enabled or not self.is_available():
++            return None
++        attn_maps: Dict[int, torch.Tensor] = {}
++        for idx, block in enumerate(self.blocks):
++            attn = getattr(block, "attn", None)
++            if hasattr(attn, "pop_last_attention"):
++                recorded = attn.pop_last_attention()
++                if recorded is not None:
++                    attn_maps[idx] = recorded
++        if not attn_maps:
++            return None
++        return {
++            "maps": attn_maps,
++            "patch_size": self.patch_size,
++            "patch_token_start": self.patch_token_start,
++            "batch_size": self.batch_size,
++            "sequence_length": self.seq_len,
++            "block_modes": self.block_modes,
++        }

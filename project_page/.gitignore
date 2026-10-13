@@ -1,0 +1,5 @@
+dist/
+node_modules/
+.sites-runtime/
+.sites-checkout*/
+.openai/*.local.*

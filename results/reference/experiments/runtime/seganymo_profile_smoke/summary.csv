@@ -1,0 +1,2 @@
+method,amortized_ms_per_frame,peak_vram_gib,num_frames,grid_size,query_stride
+SegAnyMo,4539.173152331689,2.269169807434082,3,10,8

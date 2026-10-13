@@ -1,0 +1,80 @@
+[
+  {
+    "id": "rhino",
+    "description": "Rhino behind a foreground tree",
+    "benchmark": "davis_all",
+    "frames": 90,
+    "fps": 12,
+    "poster_frame": 70,
+    "views": {
+      "input": {
+        "video": "assets/videos/rhino-input.mp4",
+        "poster": "assets/videos/rhino-input.png"
+      },
+      "scores": {
+        "video": "assets/videos/rhino-scores.mp4",
+        "poster": "assets/videos/rhino-scores.png"
+      },
+      "coarse": {
+        "video": "assets/videos/rhino-coarse.mp4",
+        "poster": "assets/videos/rhino-coarse.png"
+      },
+      "refined": {
+        "video": "assets/videos/rhino-refined.mp4",
+        "poster": "assets/videos/rhino-refined.png"
+      }
+    }
+  },
+  {
+    "id": "koala",
+    "description": "Koala against a textured background",
+    "benchmark": "davis_all",
+    "frames": 100,
+    "fps": 12,
+    "poster_frame": 70,
+    "views": {
+      "input": {
+        "video": "assets/videos/koala-input.mp4",
+        "poster": "assets/videos/koala-input.png"
+      },
+      "scores": {
+        "video": "assets/videos/koala-scores.mp4",
+        "poster": "assets/videos/koala-scores.png"
+      },
+      "coarse": {
+        "video": "assets/videos/koala-coarse.mp4",
+        "poster": "assets/videos/koala-coarse.png"
+      },
+      "refined": {
+        "video": "assets/videos/koala-refined.mp4",
+        "poster": "assets/videos/koala-refined.png"
+      }
+    }
+  },
+  {
+    "id": "bird_of_paradise",
+    "description": "Bird of paradise amid foliage",
+    "benchmark": "segtrackv2",
+    "frames": 98,
+    "fps": 12,
+    "poster_frame": 50,
+    "views": {
+      "input": {
+        "video": "assets/videos/bird_of_paradise-input.mp4",
+        "poster": "assets/videos/bird_of_paradise-input.png"
+      },
+      "scores": {
+        "video": "assets/videos/bird_of_paradise-scores.mp4",
+        "poster": "assets/videos/bird_of_paradise-scores.png"
+      },
+      "coarse": {
+        "video": "assets/videos/bird_of_paradise-coarse.mp4",
+        "poster": "assets/videos/bird_of_paradise-coarse.png"
+      },
+      "refined": {
+        "video": "assets/videos/bird_of_paradise-refined.mp4",
+        "poster": "assets/videos/bird_of_paradise-refined.png"
+      }
+    }
+  }
+]

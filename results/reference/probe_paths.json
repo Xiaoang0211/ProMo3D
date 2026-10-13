@@ -1,0 +1,8 @@
+{
+  "pi3X": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/main/probes/pi3x/rank_8/pair_lowrank_quadratic",
+  "pi3": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/main/probes/pi3/rank_8/pair_lowrank_quadratic",
+  "VGGT": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/main/probes/vggt/rank_8/pair_lowrank_quadratic",
+  "DA3": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/main/probes/da3/rank_8/pair_lowrank_quadratic",
+  "MapAnything": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/main/probes/mapanything/rank_8/pair_lowrank_quadratic",
+  "DUSt3R": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/main/probes/dust3r/rank_8/pair_lowrank_quadratic"
+}

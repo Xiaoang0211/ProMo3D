@@ -1,0 +1,542 @@
+[
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2016",
+    "J-M": 68.76460872011047,
+    "J-R": 84.5225292288,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/bilinear_upsample/davis2016.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2017",
+    "J-M": 69.57471070722512,
+    "J-R": 85.81668346869006,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/bilinear_upsample/davis2017.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis_all",
+    "J-M": 66.32955246900725,
+    "J-R": 78.72175591054429,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/bilinear_upsample/davis_all.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "fbms59",
+    "J-M": 69.83111679491482,
+    "J-R": 81.41930841002106,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/bilinear_upsample/fbms59.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "segtrackv2",
+    "J-M": 66.32479617145177,
+    "J-R": 80.33016550992097,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/bilinear_upsample/segtrackv2.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2016",
+    "J-M": 75.86757917408005,
+    "J-R": 85.57552176505666,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2016.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2017",
+    "J-M": 77.67333111846149,
+    "J-R": 88.2026112178567,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2017.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis_all",
+    "J-M": 75.72635738548652,
+    "J-R": 84.84256318354038,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis_all.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "fbms59",
+    "J-M": 82.27394748181712,
+    "J-R": 88.63306185340085,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/fbms59.json"
+  },
+  {
+    "Backbone": "depth_anything_3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "segtrackv2",
+    "J-M": 75.7048672322113,
+    "J-R": 89.81680567179222,
+    "Source": "results/reference/main/eval/depth_anything_3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/segtrackv2.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2016",
+    "J-M": 58.51516884585537,
+    "J-R": 60.52755712818006,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/bilinear_upsample/davis2016.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2017",
+    "J-M": 62.19893328448885,
+    "J-R": 69.96466511050936,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/bilinear_upsample/davis2017.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis_all",
+    "J-M": 58.261999410754726,
+    "J-R": 66.30414533129192,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/bilinear_upsample/davis_all.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "fbms59",
+    "J-M": 63.953851018504956,
+    "J-R": 74.54268976745027,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/bilinear_upsample/fbms59.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "segtrackv2",
+    "J-M": 58.62081506455894,
+    "J-R": 77.25051076376565,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/bilinear_upsample/segtrackv2.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2016",
+    "J-M": 61.45593810132207,
+    "J-R": 61.57058716016357,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2016.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2017",
+    "J-M": 66.46594330349616,
+    "J-R": 70.64022370556718,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2017.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis_all",
+    "J-M": 63.79422355049482,
+    "J-R": 70.52066019658324,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis_all.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "fbms59",
+    "J-M": 74.00010219986571,
+    "J-R": 78.29514882480983,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/fbms59.json"
+  },
+  {
+    "Backbone": "dust3r",
+    "Token group": "dec_view1__head_in_view1",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "segtrackv2",
+    "J-M": 65.9658365836782,
+    "J-R": 84.04562580102251,
+    "Source": "results/reference/main/eval/dust3r/dec_view1__head_in_view1/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/segtrackv2.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2016",
+    "J-M": 68.89388158641495,
+    "J-R": 84.97650801579374,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/bilinear_upsample/davis2016.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2017",
+    "J-M": 69.22397593684433,
+    "J-R": 85.96751992607756,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/bilinear_upsample/davis2017.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis_all",
+    "J-M": 67.3067732459875,
+    "J-R": 81.63019307944309,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/bilinear_upsample/davis_all.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "fbms59",
+    "J-M": 69.08837742966654,
+    "J-R": 79.85070535836715,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/bilinear_upsample/fbms59.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "segtrackv2",
+    "J-M": 62.26746448254534,
+    "J-R": 75.69613114389,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/bilinear_upsample/segtrackv2.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2016",
+    "J-M": 75.68748889946487,
+    "J-R": 84.09417626024769,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2016.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2017",
+    "J-M": 77.2591240218547,
+    "J-R": 86.62102357231757,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2017.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis_all",
+    "J-M": 75.45988269741056,
+    "J-R": 83.97466764545786,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis_all.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "fbms59",
+    "J-M": 75.773071063318,
+    "J-R": 78.53016517896877,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/fbms59.json"
+  },
+  {
+    "Backbone": "map_anything",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "segtrackv2",
+    "J-M": 75.52630260603426,
+    "J-R": 88.21480130283895,
+    "Source": "results/reference/main/eval/map_anything/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/segtrackv2.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2016",
+    "J-M": 71.75352417058782,
+    "J-R": 88.74893562970806,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/bilinear_upsample/davis2016.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2017",
+    "J-M": 72.73738312826417,
+    "J-R": 89.90669782721278,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/bilinear_upsample/davis2017.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis_all",
+    "J-M": 70.84024883399378,
+    "J-R": 86.26059120222436,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/bilinear_upsample/davis_all.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "fbms59",
+    "J-M": 72.64532274501936,
+    "J-R": 83.41672063300656,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/bilinear_upsample/fbms59.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "segtrackv2",
+    "J-M": 72.94098059137922,
+    "J-R": 92.94816306928662,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/bilinear_upsample/segtrackv2.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2016",
+    "J-M": 79.4837761734671,
+    "J-R": 89.78783542039356,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2016.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2017",
+    "J-M": 80.19946105570368,
+    "J-R": 91.09312484816361,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2017.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis_all",
+    "J-M": 79.6316800609782,
+    "J-R": 90.08036562429137,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis_all.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "fbms59",
+    "J-M": 81.06911173003762,
+    "J-R": 85.42207792207792,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/fbms59.json"
+  },
+  {
+    "Backbone": "pi3",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "segtrackv2",
+    "J-M": 84.54356345640835,
+    "J-R": 97.52681495878774,
+    "Source": "results/reference/main/eval/pi3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/segtrackv2.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2016",
+    "J-M": 72.54057132208212,
+    "J-R": 89.95681580324437,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/bilinear_upsample/davis2016.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2017",
+    "J-M": 73.67286261446586,
+    "J-R": 91.00001711985838,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/bilinear_upsample/davis2017.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis_all",
+    "J-M": 70.73369344951972,
+    "J-R": 86.51127125477855,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/bilinear_upsample/davis_all.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "fbms59",
+    "J-M": 73.52841654360095,
+    "J-R": 88.84751159345853,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/bilinear_upsample/fbms59.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "segtrackv2",
+    "J-M": 72.8598394393529,
+    "J-R": 93.99543350638811,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/bilinear_upsample/segtrackv2.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2016",
+    "J-M": 81.38392546451236,
+    "J-R": 91.64166666666667,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2016.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2017",
+    "J-M": 81.91880224940132,
+    "J-R": 92.32901234567899,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2017.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis_all",
+    "J-M": 80.159109897562,
+    "J-R": 90.45895495436365,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis_all.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "fbms59",
+    "J-M": 83.23599015748623,
+    "J-R": 89.32038300682368,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/fbms59.json"
+  },
+  {
+    "Backbone": "pi3x",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "segtrackv2",
+    "J-M": 86.39766875079073,
+    "J-R": 99.31657848324514,
+    "Source": "results/reference/main/eval/pi3x/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/segtrackv2.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2016",
+    "J-M": 72.22743936603167,
+    "J-R": 90.35506086419434,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/bilinear_upsample/davis2016.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis2017",
+    "J-M": 72.55323633804231,
+    "J-R": 89.88210665578423,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/bilinear_upsample/davis2017.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "davis_all",
+    "J-M": 70.52369359084909,
+    "J-R": 86.06981964780294,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/bilinear_upsample/davis_all.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "fbms59",
+    "J-M": 73.54648491856955,
+    "J-R": 85.91094251282166,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/bilinear_upsample/fbms59.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "bilinear_upsample",
+    "Benchmark": "segtrackv2",
+    "J-M": 70.83366154051595,
+    "J-R": 84.66590759810394,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/bilinear_upsample/segtrackv2.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2016",
+    "J-M": 81.14615514764955,
+    "J-R": 91.76395018915511,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2016.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis2017",
+    "J-M": 80.76969404213749,
+    "J-R": 92.3486308958531,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis2017.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "davis_all",
+    "J-M": 79.57115225399346,
+    "J-R": 91.20773750142995,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis_all.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "fbms59",
+    "J-M": 82.91262916235365,
+    "J-R": 90.78930956049601,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/fbms59.json"
+  },
+  {
+    "Backbone": "vggt",
+    "Token group": "inter_frame_block",
+    "Variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+    "Benchmark": "segtrackv2",
+    "J-M": 83.63061236948974,
+    "J-R": 96.38492963322895,
+    "Source": "results/reference/main/eval/vggt/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/segtrackv2.json"
+  }
+]

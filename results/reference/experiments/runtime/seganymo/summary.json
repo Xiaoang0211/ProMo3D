@@ -1,0 +1,65 @@
+{
+  "method": "SegAnyMo",
+  "protocol": {
+    "warmup": "10 frames from DAVIS/cows",
+    "measured": "100 frames from DAVIS/parkour",
+    "grid_size": 10,
+    "query_stride": 8,
+    "model_loading_included": false,
+    "initial_source_image_disk_reads_included": false,
+    "sam2_frame_decode_included": true,
+    "result_file_writes_included": false,
+    "latency_statistic": "whole-sequence total divided by output frames",
+    "peak_statistic": "maximum allocated VRAM across sequential stages"
+  },
+  "measured": {
+    "sequence": "parkour",
+    "num_frames": 100,
+    "measured": true,
+    "total_seconds": 292.10695114299597,
+    "amortized_ms_per_frame": 2921.0695114299597,
+    "peak_vram_gib": 3.0189056396484375,
+    "stages": [
+      {
+        "sequence": "parkour",
+        "stage": "BootsTAPIR",
+        "num_frames": 100,
+        "total_seconds": 232.11860038500163,
+        "amortized_ms_per_frame": 2321.1860038500163,
+        "peak_vram_gib": 2.1277294158935547
+      },
+      {
+        "sequence": "parkour",
+        "stage": "DINOv2",
+        "num_frames": 100,
+        "total_seconds": 3.509845704989857,
+        "amortized_ms_per_frame": 35.09845704989857,
+        "peak_vram_gib": 0.6953525543212891
+      },
+      {
+        "sequence": "parkour",
+        "stage": "Depth Anything V2",
+        "num_frames": 100,
+        "total_seconds": 20.094050865998724,
+        "amortized_ms_per_frame": 200.94050865998724,
+        "peak_vram_gib": 2.267544746398926
+      },
+      {
+        "sequence": "parkour",
+        "stage": "motion head",
+        "num_frames": 100,
+        "total_seconds": 0.6683754050027346,
+        "amortized_ms_per_frame": 6.683754050027346,
+        "peak_vram_gib": 1.434420108795166
+      },
+      {
+        "sequence": "parkour",
+        "stage": "iterative SAM2",
+        "num_frames": 100,
+        "total_seconds": 35.716078782003024,
+        "amortized_ms_per_frame": 357.16078782003024,
+        "peak_vram_gib": 3.0189056396484375
+      }
+    ]
+  }
+}

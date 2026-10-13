@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "J": {
+      "M": 0.80159109897562,
+      "R": 0.9045895495436365,
+      "D": 0.024792025229433648
+    },
+    "F": {
+      "M": 0.8051690755732474,
+      "R": 0.8953322079459702,
+      "D": 0.02748718787024505
+    },
+    "J_and_F": {
+      "M": 0.8033800872744337,
+      "R": 0.8999608787448033,
+      "D": 0.02613960654983935
+    }
+  },
+  "model": "pi3x",
+  "group": "inter_frame_block",
+  "benchmark": "davis_all",
+  "variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+  "num_sequences": 90,
+  "num_frames": 6208,
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/outputs/isdynamic_motion_masks_eval/pi3x/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/davis_all.json"
+}

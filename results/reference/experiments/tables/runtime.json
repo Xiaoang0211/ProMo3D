@@ -1,0 +1,51 @@
+[
+  {
+    "Method": "Pi3X backbone",
+    "Mean latency (ms/frame)": 480.58195745004923,
+    "Peak VRAM (GiB)": 4.469125270843506,
+    "Frames": 100,
+    "Source": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/pi3x_sam2_feature_cache/summary.csv"
+  },
+  {
+    "Method": "Pi3X + PMD coarse",
+    "Mean latency (ms/frame)": 484.8200636495312,
+    "Peak VRAM (GiB)": 4.469125270843506,
+    "Frames": 100,
+    "Source": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/pi3x_sam2_feature_cache/summary.csv"
+  },
+  {
+    "Method": "Pi3X + PMD + SAM2",
+    "Mean latency (ms/frame)": 952.761028379464,
+    "Peak VRAM (GiB)": 4.469125270843506,
+    "Frames": 100,
+    "Source": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/pi3x_sam2_feature_cache/summary.csv"
+  },
+  {
+    "Method": "Flow-SAM (FlowP + FlowI, including RAFT)",
+    "Mean latency (ms/frame)": 3104.524704218493,
+    "Peak VRAM (GiB)": 12.330277442932129,
+    "Frames": 100,
+    "Source": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/flowsam/summary.csv"
+  },
+  {
+    "Method": "SegAnyMo",
+    "Mean latency (ms/frame)": 2921.0695114299597,
+    "Peak VRAM (GiB)": 3.0189056396484375,
+    "Frames": 100,
+    "Source": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/seganymo/summary.csv"
+  },
+  {
+    "Method": "GeoMotion coarse",
+    "Mean latency (ms/frame)": 371.25492524006404,
+    "Peak VRAM (GiB)": 8.827551364898682,
+    "Frames": 100,
+    "Source": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/geomotion/summary.json"
+  },
+  {
+    "Method": "GeoMotion + SAM2",
+    "Mean latency (ms/frame)": 526.712727729755,
+    "Peak VRAM (GiB)": 9.80280876159668,
+    "Frames": 100,
+    "Source": "/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/geomotion/summary.json"
+  }
+]

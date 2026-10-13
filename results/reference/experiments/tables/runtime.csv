@@ -1,0 +1,8 @@
+Method,Mean latency (ms/frame),Peak VRAM (GiB),Frames,Source
+Pi3X backbone,480.58195745004923,4.469125270843506,100,/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/pi3x_sam2_feature_cache/summary.csv
+Pi3X + PMD coarse,484.8200636495312,4.469125270843506,100,/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/pi3x_sam2_feature_cache/summary.csv
+Pi3X + PMD + SAM2,952.761028379464,4.469125270843506,100,/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/pi3x_sam2_feature_cache/summary.csv
+"Flow-SAM (FlowP + FlowI, including RAFT)",3104.524704218493,12.330277442932129,100,/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/flowsam/summary.csv
+SegAnyMo,2921.0695114299597,3.0189056396484375,100,/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/seganymo/summary.csv
+GeoMotion coarse,371.25492524006404,8.827551364898682,100,/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/geomotion/summary.json
+GeoMotion + SAM2,526.712727729755,9.80280876159668,100,/home/xiaoang/FF_Reconstruction/promo3d/results/reference/experiments/runtime/geomotion/summary.json

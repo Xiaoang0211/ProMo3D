@@ -1,0 +1,357 @@
+% Prior-aware three-table comparison for the revised main paper.
+% Every benchmark cell is J-M / J-R.
+% Keep -- unless the cited paper reports J-R for the same benchmark split and protocol.
+%
+% Recommended framing:
+% - Task-specific supervision: direct task masks/labels and target-domain adaptation.
+% - Available priors: method-defining motion, geometry, appearance, tracking, depth,
+%   and segmentation priors beyond that supervision.
+% - Generic ImageNet-style RGB backbone pretraining is omitted.
+%
+% The three tables separate:
+% (1) no SAM/SAM2,
+% (2) SAM/SAM2 used only as external refinement, and
+% (3) SAM/SAM2 used as a native pipeline component.
+
+\begin{table*}[t]
+\centering
+\caption{
+Motion-segmentation comparison without SAM/SAM2. We separate task-specific
+supervision from available priors and report J-M / J-R; ``--'' denotes a value
+unavailable under the same split and protocol. Non-PMD values follow the cited
+papers; generic RGB pretraining is omitted.
+}
+\label{tab:sota_no_sam_jm_jr}
+\scriptsize
+\setlength{\tabcolsep}{2.0pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\textwidth}{@{}
+>{\raggedright\arraybackslash}p{2.12cm}
+>{\raggedright\arraybackslash}p{2.25cm}
+>{\raggedright\arraybackslash}X
+*{5}{c}
+@{}}
+\toprule
+Method
+& Task-specific supervision
+& \makecell[l]{Available\\priors}
+& \makecell{D16\\J-M / J-R}
+& \makecell{D17\\J-M / J-R}
+& \makecell{D-all\\J-M / J-R}
+& \makecell{STv2\\J-M / J-R}
+& \makecell{FBMS\\J-M / J-R} \\
+\midrule
+
+\rowcolor{gray!10}
+\multicolumn{8}{l}{\textit{Human-label-free, synthetic, or self-supervised methods}} \\
+
+CIS~\citep{cis}
+& None
+& PWC-Net optical flow
+& 71.5 / 86.5
+& --
+& --
+& 62.0 / --
+& 63.6 / 78.2 \\
+
+EM-OFS~\citep{em_ofs}
+& None
+& Optical flow
+& 69.3 / 78.9
+& --
+& --
+& 55.5 / --
+& 57.8 / -- \\
+
+OCLR-flow~\citep{oclr}
+& Synthetic masks
+& RAFT optical flow
+& 72.1 / --
+& --
+& --
+& 67.6 / --
+& 70.0 / -- \\
+
+OCLR-TTA~\citep{oclr}
+& Synthetic masks; test-time adaptation
+& RAFT optical flow; DINO appearance
+& 80.9 / --
+& --
+& --
+& 72.3 / --
+& 72.7 / -- \\
+
+DyStaB (no human masks)~\citep{dystab}
+& None
+& Optical flow during bootstrapping
+& 80.0 / --
+& --
+& --
+& 74.2 / --
+& 73.2 / -- \\
+
+RCF-All (w/o final pp.)~\citep{rcf}
+& Target-set self-supervision
+& RAFT optical flow; appearance features
+& 80.9 / --
+& --
+& --
+& 76.7 / --
+& 69.9 / -- \\
+
+ABR/OCMOS~\citep{ocmos}
+& Synthetic masks; target adaptation
+& RAFT optical flow; DINO appearance
+& 81.1 / --
+& --
+& --
+& 76.6 / --
+& 81.9 / -- \\
+
+ARP~\citep{arp}
+& None
+& Optical flow
+& 76.2 / 91.1
+& --
+& --
+& 57.2 / --
+& 59.8 / -- \\
+
+\midrule
+\rowcolor{gray!10}
+\multicolumn{8}{l}{\textit{Human-supervised motion/appearance methods}} \\
+
+COSNet~\citep{cosnet}
+& Human VOS masks
+& RGB appearance only
+& 80.5 / 93.1
+& --
+& --
+& 49.7 / --
+& 75.6 / -- \\
+
+MATNet~\citep{matnet}
+& Human VOS masks
+& PWC-Net optical flow
+& 82.4 / 94.5
+& --
+& --
+& 50.4 / --
+& 76.1 / -- \\
+
+DyStaB (with human masks)~\citep{dystab}
+& Human object masks
+& Optical flow during bootstrapping
+& 82.8 / --
+& --
+& --
+& 74.2 / --
+& 75.8 / -- \\
+
+AMC-Net~\citep{amc_net}
+& Human VOS masks
+& PWC-Net optical flow
+& 84.5 / --
+& --
+& --
+& --
+& 76.5 / -- \\
+
+\midrule
+\rowcolor{gray!10}
+\multicolumn{8}{l}{\textit{Feed-forward 3D/4D foundation-model methods}} \\
+
+VGGT4D~\citep{vggt4d}
+& None
+& VGGT multi-view 3D prior
+& 62.1 / 76.8
+& 56.5 / 65.6
+& 50.8 / 55.6
+& --
+& -- \\
+
+Easi3R\textsubscript{DUSt3R}~\citep{easi3r}
+& None for Easi3R
+& DUSt3R multi-view 3D prior
+& 53.1 / 60.4
+& 49.0 / 56.4
+& 44.5 / 49.6
+& --
+& -- \\
+
+Easi3R\textsubscript{MonST3R}~\citep{easi3r}
+& None for Easi3R
+& MonST3R dynamic-3D prior
+& 57.7 / 71.6
+& 56.5 / 68.6
+& 53.0 / 63.4
+& --
+& -- \\
+
+GeoMotion (coarse)~\citep{geomotion}
+& Dynamic masks from five datasets
+& $\pi^3$ 4D-geometry prior; RAFT flow; DINOv2
+& --
+& 75.4 / 87.2
+& --
+& --
+& -- \\
+
+\rowcolor{gray!10}
+$\pi^3$X-PMD (coarse, ours)
+& 160 YT-VOS mask videos
+& $\pi^3$X multi-view 3D/4D prior
+& --
+& 73.7 / 91.0
+& 70.7 / --
+& 72.9 / 94.0
+& 73.5 / 88.8 \\
+
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\parbox{\textwidth}{\scriptsize GeoMotion is supervised using dynamic masks from HOI4D, Dynamic Replica, OmniWorld-motion, YTVOS18-m, and GOT-Motion.}
+\end{table*}
+
+
+\begin{table*}[t]
+\centering
+\caption{
+Motion-segmentation comparison with SAM/SAM2 used only for external mask
+refinement. We separate task-specific supervision from available priors and
+report J-M / J-R; ``--'' denotes a value unavailable under the same split and
+protocol. Non-PMD values follow the cited papers; generic RGB pretraining is omitted.
+}
+\label{tab:sota_external_sam_jm_jr}
+\scriptsize
+\setlength{\tabcolsep}{2.0pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\textwidth}{@{}
+>{\raggedright\arraybackslash}p{2.12cm}
+>{\raggedright\arraybackslash}p{2.25cm}
+>{\raggedright\arraybackslash}X
+*{5}{c}
+@{}}
+\toprule
+Method
+& Task-specific supervision
+& \makecell[l]{Available\\priors}
+& \makecell{D16\\J-M / J-R}
+& \makecell{D17\\J-M / J-R}
+& \makecell{D-all\\J-M / J-R}
+& \makecell{STv2\\J-M / J-R}
+& \makecell{FBMS\\J-M / J-R} \\
+\midrule
+
+OCLR-flow + SAM~\citep{oclr,sam}
+& Synthetic masks
+& RAFT optical flow; SAM
+& 80.6 / --
+& --
+& --
+& 71.5 / --
+& 79.2 / -- \\
+
+ABR/OCMOS + SAM~\citep{ocmos,sam}
+& Synthetic masks; target adaptation
+& RAFT optical flow; DINO appearance; SAM
+& 86.6 / --
+& --
+& --
+& 81.3 / --
+& 85.7 / -- \\
+
+Easi3R\textsubscript{DUSt3R} + SAM2~\citep{easi3r,sam2}
+& None for Easi3R
+& DUSt3R multi-view 3D prior; SAM2
+& 67.9 / 71.4
+& 60.1 / 65.3
+& 54.7 / 60.6
+& --
+& -- \\
+
+Easi3R\textsubscript{MonST3R} + SAM2~\citep{easi3r,sam2}
+& None for Easi3R
+& MonST3R dynamic-3D prior; SAM2
+& 70.7 / 79.9
+& 67.9 / 76.1
+& 63.1 / 72.6
+& --
+& -- \\
+
+GeoMotion + SAM2~\citep{geomotion,sam2}
+& Dynamic masks from five datasets
+& $\pi^3$ 4D-geometry prior; RAFT flow; DINOv2; SAM2
+& 84.5 / 96.1
+& 81.1 / 92.6
+& 74.8 / 84.5
+& 77.3 / --
+& 72.5 / -- \\
+
+\rowcolor{gray!10}
+$\pi^3$X-PMD + SAM2 (ours)
+& 160 YT-VOS mask videos
+& $\pi^3$X multi-view 3D/4D prior; SAM2
+& 81.4 / --
+& 81.9 / 92.3
+& 80.2 / --
+& 86.4 / 99.3
+& 83.2 / 89.3 \\
+
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\parbox{\textwidth}{\scriptsize GeoMotion is supervised using dynamic masks from HOI4D, Dynamic Replica, OmniWorld-motion, YTVOS18-m, and GOT-Motion.}
+\end{table*}
+
+
+\begin{table*}[t]
+\centering
+\caption{
+Motion-segmentation comparison for methods using SAM/SAM2 as a native pipeline
+component. We separate task-specific supervision from available priors and
+report J-M / J-R; ``--'' denotes a value unavailable under the same split and
+protocol. Non-PMD values follow the cited papers; generic RGB pretraining is omitted.
+}
+\label{tab:sota_native_sam_jm_jr}
+\scriptsize
+\setlength{\tabcolsep}{2.0pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\textwidth}{@{}
+>{\raggedright\arraybackslash}p{2.12cm}
+>{\raggedright\arraybackslash}p{2.25cm}
+>{\raggedright\arraybackslash}X
+*{5}{c}
+@{}}
+\toprule
+Method
+& Task-specific supervision
+& \makecell[l]{Available\\priors}
+& \makecell{D16\\J-M / J-R}
+& \makecell{D17\\J-M / J-R}
+& \makecell{D-all\\J-M / J-R}
+& \makecell{STv2\\J-M / J-R}
+& \makecell{FBMS\\J-M / J-R} \\
+\midrule
+
+Flow-SAM~\citep{flow_sam}
+& Synthetic masks; DAVIS fine-tuning
+& RAFT optical flow; SAM
+& 86.2 / --
+& 71.6 / --
+& --
+& 84.2 / --
+& 88.7 / -- \\
+
+SegAnyMo~\citep{seg_any_mo}
+& Dynamic masks from Kubric-Movie-F, Dynamic Replica, and HOI4D
+& TAPIR tracks; Depth Anything v2; DINOv2 appearance; SAM2
+& 90.6 / --
+& --
+& --
+& 76.3 / --
+& 78.3 / -- \\
+
+\bottomrule
+\end{tabularx}
+\end{table*}

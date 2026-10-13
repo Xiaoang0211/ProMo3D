@@ -1,0 +1,22 @@
+{
+  "metrics": {
+    "J": {
+      "M": 0.5617788918813289,
+      "R": 0.6561561514601876,
+      "D": -0.001397347518759659
+    },
+    "F": {
+      "M": 0.48166163921740973,
+      "R": 0.49808627815380113,
+      "D": 0.0007545450066874682
+    },
+    "J_and_F": {
+      "M": 0.5217202655493693,
+      "R": 0.5771212148069944,
+      "D": -0.00032140125603609545
+    }
+  },
+  "benchmark": "davis_all",
+  "variant": "bilinear_upsample",
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/rebuttal/youtubevos_val/eval/dust3r/dec_view1__head_in_view1/bilinear_upsample/davis_all.json"
+}

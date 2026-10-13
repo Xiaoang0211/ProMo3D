@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "J": {
+      "M": 0.8227394748181711,
+      "R": 0.8863306185340084,
+      "D": -0.011281773240792178
+    },
+    "F": {
+      "M": 0.8505668253383664,
+      "R": 0.9248382737789518,
+      "D": -0.0042245776528706406
+    },
+    "J_and_F": {
+      "M": 0.8366531500782688,
+      "R": 0.9055844461564801,
+      "D": -0.00775317544683141
+    }
+  },
+  "model": "depth_anything_3",
+  "group": "inter_frame_block",
+  "benchmark": "fbms59",
+  "variant": "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3",
+  "num_sequences": 59,
+  "num_frames": 720,
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/outputs/isdynamic_motion_masks_eval/depth_anything_3/inter_frame_block/sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3/fbms59.json"
+}

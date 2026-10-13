@@ -1,0 +1,9 @@
+representation_diagnostic,diagnostic_split,backbones_included,backbone_names,spearman_with_coarse_j_mean,pearson_with_coarse_j_mean
+Mean Normalized Gain across selected blocks,youtubevos_val,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.9280570924919157
+Mean Normalized Gain across selected blocks,youtubevos_val,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.8015790336584557
+Mean pairwise compatibility accuracy across selected blocks,youtubevos_val,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.9649974286442534
+Mean pairwise compatibility accuracy across selected blocks,youtubevos_val,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.898330877753261
+Mean Normalized Gain across selected blocks,test_davis,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.9570595431050457
+Mean Normalized Gain across selected blocks,test_davis,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.9430484312634623
+Mean pairwise compatibility accuracy across selected blocks,test_davis,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.9886523874360011
+Mean pairwise compatibility accuracy across selected blocks,test_davis,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.9642111634914307

@@ -1,0 +1,144 @@
+{
+  "protocol": {
+    "gpu": "NVIDIA GeForce RTX 5070 Ti",
+    "sequence": "parkour",
+    "measured_frames": 100,
+    "staged_pipeline": true,
+    "latency_note": "Shared RAFT, FlowP-SAM, and FlowI-SAM per-frame latencies are summed.",
+    "peak_vram_note": "The official components run sequentially; peak VRAM is their maximum.",
+    "raft": {
+      "gpu": "NVIDIA GeForce RTX 5070 Ti",
+      "precision": "float32",
+      "batch_size_target_frames": 1,
+      "flow_pair_batch_size": 4,
+      "flow_gaps": [
+        1,
+        -1,
+        2,
+        -2
+      ],
+      "raft_iterations": 20,
+      "warmup_sequence": "cows",
+      "warmup_frames": 10,
+      "sequence": "parkour",
+      "measured_frames": 100,
+      "model_loading_included": false,
+      "source_image_disk_io_included": false,
+      "flow_cache_writes_included": false,
+      "cpu_preprocessing_included": true,
+      "host_to_device_transfer_included": true,
+      "device_to_host_transfer_included": true,
+      "flow_color_conversion_included": true
+    },
+    "flowpsam": {
+      "gpu": "NVIDIA GeForce RTX 5070 Ti",
+      "precision": "float32",
+      "batch_size_target_frames": 1,
+      "rgb_encoder": "SAM ViT-H",
+      "flow_encoder": "SAM ViT-B",
+      "flow_gaps": [
+        1,
+        -1,
+        2,
+        -2
+      ],
+      "grid_size": [
+        20,
+        20
+      ],
+      "prompt_batch_size": 10,
+      "warmup_sequence": "cows",
+      "warmup_frames": 10,
+      "sequence": "parkour",
+      "measured_frames": 100,
+      "model_loading_included": false,
+      "source_image_and_flow_disk_io_included": false,
+      "mask_writes_included": false,
+      "cpu_preprocessing_included": true,
+      "host_to_device_transfer_included": true,
+      "nms_and_mask_overlay_included": true
+    },
+    "flowisam": {
+      "gpu": "NVIDIA GeForce RTX 5070 Ti",
+      "precision": "float32",
+      "batch_size_target_frames": 1,
+      "model": "FlowI-SAM",
+      "rgb_encoder": null,
+      "flow_encoder": "SAM ViT-H",
+      "flow_encoder_batching": "serial over flow gaps",
+      "flow_gaps": [
+        1,
+        -1,
+        2,
+        -2
+      ],
+      "grid_size": [
+        10,
+        10
+      ],
+      "prompt_batch_size": 10,
+      "warmup_sequence": "cows",
+      "warmup_frames": 10,
+      "sequence": "parkour",
+      "measured_frames": 100,
+      "model_loading_included": false,
+      "source_image_and_flow_disk_io_included": false,
+      "mask_writes_included": false,
+      "cpu_preprocessing_included": true,
+      "host_to_device_transfer_included": true,
+      "nms_and_mask_overlay_included": true
+    }
+  },
+  "results": [
+    {
+      "Method": "RAFT (4 flow gaps)",
+      "GPU": "NVIDIA GeForce RTX 5070 Ti",
+      "Measured frames": 100,
+      "Staged": "yes",
+      "mean_ms": 296.07676870931755,
+      "median_ms": 295.89197099994635,
+      "p95_ms": 298.30877499989583,
+      "peak_vram_gib": 1.5652976036071777
+    },
+    {
+      "Method": "FlowP-SAM",
+      "GPU": "NVIDIA GeForce RTX 5070 Ti",
+      "Measured frames": 100,
+      "Staged": "yes",
+      "mean_ms": 1184.3987126393768,
+      "median_ms": 1184.3097825039877,
+      "p95_ms": 1186.8458608420042,
+      "peak_vram_gib": 12.330277442932129
+    },
+    {
+      "Method": "FlowP-SAM (including RAFT)",
+      "GPU": "NVIDIA GeForce RTX 5070 Ti",
+      "Measured frames": 100,
+      "Staged": "yes",
+      "mean_ms": 1480.4754813486943,
+      "median_ms": 1480.468464003934,
+      "p95_ms": 1484.979315988312,
+      "peak_vram_gib": 12.330277442932129
+    },
+    {
+      "Method": "FlowI-SAM",
+      "GPU": "NVIDIA GeForce RTX 5070 Ti",
+      "Measured frames": 100,
+      "Staged": "yes",
+      "mean_ms": 1624.0492228697985,
+      "median_ms": 1625.3890204970958,
+      "p95_ms": 1629.63182531239,
+      "peak_vram_gib": 5.649615287780762
+    },
+    {
+      "Method": "Flow-SAM (FlowP + FlowI, including RAFT)",
+      "GPU": "NVIDIA GeForce RTX 5070 Ti",
+      "Measured frames": 100,
+      "Staged": "yes",
+      "mean_ms": 3104.524704218493,
+      "median_ms": 3106.564254499972,
+      "p95_ms": 3115.024445612653,
+      "peak_vram_gib": 12.330277442932129
+    }
+  ]
+}

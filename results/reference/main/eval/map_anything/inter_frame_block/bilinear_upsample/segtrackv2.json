@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "J": {
+      "M": 0.6226746448254534,
+      "R": 0.7569613114389,
+      "D": -0.004928502832312296
+    },
+    "F": {
+      "M": 0.5889556707883957,
+      "R": 0.6715497686546809,
+      "D": -0.0659734175728072
+    },
+    "J_and_F": {
+      "M": 0.6058151578069246,
+      "R": 0.7142555400467905,
+      "D": -0.03545096020255974
+    }
+  },
+  "model": "map_anything",
+  "group": "inter_frame_block",
+  "benchmark": "segtrackv2",
+  "variant": "bilinear_upsample",
+  "num_sequences": 14,
+  "num_frames": 1066,
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/outputs/isdynamic_motion_masks_eval/map_anything/inter_frame_block/bilinear_upsample/segtrackv2.json"
+}

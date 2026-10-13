@@ -1,0 +1,4 @@
+Backbone,Experiment,Split,Blocks,Pair accuracy (%),Always-same baseline (%),Gain (pp),Balanced accuracy (%),Source
+pi3x,correct_rank_4,YouTube-VOS val,18,95.70359389354954,84.47489218639409,11.228701707155441,91.59837273531608,results/reference/experiments/controls/pi3x/correct_rank_4
+pi3x,correct_rank_8,YouTube-VOS val,18,95.71955484899084,84.47489218639409,11.244662662596749,91.66916967186644,results/reference/experiments/controls/pi3x/correct_rank_8
+pi3x,shuffled_rank_8,YouTube-VOS val,18,84.48487778533722,84.47489218639409,0.00998559894312967,50.34422933830939,results/reference/experiments/controls/pi3x/shuffled_rank_8

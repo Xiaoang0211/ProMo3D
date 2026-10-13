@@ -1,0 +1,35 @@
+{
+  "protocol": {
+    "gpu": "NVIDIA GeForce RTX 5070 Ti",
+    "precision": "float32; SAM2 refinement uses bfloat16 autocast",
+    "batch_size": 1,
+    "sequence_length": 16,
+    "input_size": [
+      518,
+      518
+    ],
+    "warmup_sequence": "cows",
+    "warmup_frames": 10,
+    "sequence": "parkour",
+    "measured_frames": 100,
+    "model_loading_included": false,
+    "source_image_disk_io_included": false,
+    "mask_writes_included": false,
+    "cpu_preprocessing_included": true,
+    "host_to_device_transfer_included": true,
+    "sam2_temp_frame_io_included": true,
+    "sam2_hole_filling_included": false
+  },
+  "geomotion_coarse": {
+    "mean_ms_per_frame": 371.25492524006404,
+    "median_ms_per_frame": 376.06695593785844,
+    "p95_ms_per_frame": 376.4283496875578,
+    "peak_vram_gib": 8.827551364898682
+  },
+  "geomotion_sam2": {
+    "mean_ms_per_frame": 526.712727729755,
+    "median_ms_per_frame": 530.9187757493419,
+    "p95_ms_per_frame": 533.280680811913,
+    "peak_vram_gib": 9.80280876159668
+  }
+}

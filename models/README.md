@@ -1,0 +1,1 @@
+Third-party source trees and checkpoints belong here. Use `bash scripts/setup_third_party.sh` for pinned source code or `bash scripts/setup_local.sh /path/to/isDynamicProbe` to reuse installed local resources. See `docs/setup.md` for checkpoint locations.

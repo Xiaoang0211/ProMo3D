@@ -1,0 +1,56 @@
+{
+  "dataset": {
+    "train_npz": "REPLACE_TRAIN_NPZ",
+    "val_npz": "REPLACE_VAL_NPZ",
+    "test_npz": null,
+    "feature_key": "tokens_alt_attn",
+    "label_key": "is_dynamic",
+    "valid_key": "valid_mask"
+  },
+  "model": {
+    "input_dim": 2048,
+    "hidden_dim": 256,
+    "model_type": "pair_lowrank_quadratic",
+    "dropout": 0.0,
+    "rank": 8,
+    "use_value_features": false,
+    "value_feature_matrix_path": null,
+    "value_feature_matrix_key": null,
+    "attention_matrix_path": null,
+    "attention_matrix_key": null,
+    "value_matrix_path": null,
+    "value_matrix_key": null
+  },
+  "train": {
+    "seed": 42,
+    "batch_size": 256,
+    "eval_batch_size": 262144,
+    "epochs": 16,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "pos_weight": 1.0,
+    "num_workers": 0,
+    "use_step_lr": false,
+    "lr_step_size": 8,
+    "lr_gamma": 0.2,
+    "pair_train_samples": 200000,
+    "pair_val_samples": 50000,
+    "pair_test_samples": 50000,
+    "pair_same_group": true,
+    "pair_balance": false,
+    "pair_label_mode": "same_label",
+    "pair_tokens_per_group": 64,
+    "pair_anchor_local_index": 0,
+    "pair_force_anchor_static_label": false,
+    "pair_min_anchor_static_pairs_per_batch": 0,
+    "pair_min_anchor_dynamic_pairs_per_batch": 0,
+    "pair_resample_each_epoch": true,
+    "pair_eval_all_pairs": true,
+    "pair_eval_batchwise": true,
+    "selection_metric": "accuracy"
+  },
+  "output": {
+    "out_dir": "outputs/isdynamic_probe",
+    "save_name": "best_probe.pt"
+  }
+}

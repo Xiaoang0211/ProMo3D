@@ -1,0 +1,94 @@
+diff --git a/pi3/models/pi3.py b/pi3/models/pi3.py
+index 917c6cc..c45df1d 100644
+--- a/pi3/models/pi3.py
++++ b/pi3/models/pi3.py
+@@ -129,11 +129,13 @@ class Pi3(nn.Module, PyTorchModelHubMixin):
+         self.register_buffer("image_std", image_std)
+ 
+ 
+-    def decode(self, hidden, N, H, W):
++    def decode(self, hidden, N, H, W, return_split=False):
+         BN, hw, _ = hidden.shape
+         B = BN // N
+ 
+         final_output = []
++        frame_output_list = []
++        global_output_list = []
+         
+         hidden = hidden.reshape(B*N, hw, -1)
+ 
+@@ -164,11 +166,21 @@ class Pi3(nn.Module, PyTorchModelHubMixin):
+                 hidden = hidden.reshape(B, N*hw, -1)
+ 
+             hidden = blk(hidden, xpos=pos)
++            hidden_view = hidden.reshape(B, N, hw, -1)
++            if i % 2 == 0:
++                frame_output_list.append(hidden_view)
++            else:
++                global_output_list.append(hidden_view)
+ 
+             if i+1 in [len(self.decoder)-1, len(self.decoder)]:
+                 final_output.append(hidden.reshape(B*N, hw, -1))
+ 
+-        return torch.cat([final_output[0], final_output[1]], dim=-1), pos.reshape(B*N, hw, -1)
++        concat_hidden = torch.cat([final_output[0], final_output[1]], dim=-1)
++        pos = pos.reshape(B*N, hw, -1)
++
++        if return_split:
++            return concat_hidden, pos, frame_output_list, global_output_list
++        return concat_hidden, pos
+     
+     def forward(self, imgs):
+         imgs = (imgs - self.image_mean) / self.image_std
+diff --git a/pi3/models/pi3x.py b/pi3/models/pi3x.py
+index add9846..3c78f0b 100644
+--- a/pi3/models/pi3x.py
++++ b/pi3/models/pi3x.py
+@@ -421,7 +421,7 @@ class Pi3X(nn.Module, PyTorchModelHubMixin):
+         )
+ 
+ 
+-    def decode(self, hidden, N, H, W, poses, use_pose_mask):
++    def decode(self, hidden, N, H, W, poses, use_pose_mask, return_split=False):
+         device = hidden.device
+ 
+         if len(hidden.shape) == 4:
+@@ -431,6 +431,8 @@ class Pi3X(nn.Module, PyTorchModelHubMixin):
+             B = BN // N
+ 
+         hidden = hidden.reshape(B*N, hw, -1)
++        frame_output_list = []
++        global_output_list = []
+ 
+         register_token = self.register_token.repeat(B, N, 1, 1).reshape(B*N, *self.register_token.shape[-2:])
+         hidden = torch.cat([register_token, hidden], dim=1)
+@@ -475,12 +477,21 @@ class Pi3X(nn.Module, PyTorchModelHubMixin):
+                     hidden = hidden.reshape(B, N*hw, -1)
+                     pose_inject_blk_idx += 1
+ 
++            hidden_view = hidden.reshape(B, N, hw, -1)
++            if i % 2 == 0:
++                frame_output_list.append(hidden_view)
++            else:
++                global_output_list.append(hidden_view)
++
+             if i == len(self.decoder) - 2:
+                 temp_features = hidden.clone().reshape(B*N, hw, -1)
+ 
+         concatenated = torch.cat((temp_features, hidden.reshape(B*N, hw, -1)), dim=-1)
+ 
+-        return concatenated, pos.reshape(B*N, hw, -1)
++        pos = pos.reshape(B*N, hw, -1)
++        if return_split:
++            return concatenated, pos, frame_output_list, global_output_list
++        return concatenated, pos
+     
+     
+     def normalize_depth(self, depths: torch.Tensor, method: str = 'median') -> tuple[torch.Tensor, torch.Tensor]:
+@@ -532,4 +543,4 @@ class Pi3X(nn.Module, PyTorchModelHubMixin):
+         # Perform normalization, adding a small epsilon to prevent division by zero
+         normalized_depths = depths / (factors_for_division + epsilon)
+ 
+-        return normalized_depths, factors.reshape(-1)
+\ No newline at end of file
++        return normalized_depths, factors.reshape(-1)

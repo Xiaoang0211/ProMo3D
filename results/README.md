@@ -1,0 +1,1 @@
+Small reference results and provenance belong here. Newly generated training, masks, figures, and evaluation results belong under `outputs/`. References record exact stored values; plotted-image estimates are not used.

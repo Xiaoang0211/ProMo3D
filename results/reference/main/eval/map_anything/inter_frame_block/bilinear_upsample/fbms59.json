@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "J": {
+      "M": 0.6908837742966654,
+      "R": 0.7985070535836716,
+      "D": -0.024769415252346785
+    },
+    "F": {
+      "M": 0.6717502689449936,
+      "R": 0.7976614691345499,
+      "D": 0.010748143200979311
+    },
+    "J_and_F": {
+      "M": 0.6813170216208295,
+      "R": 0.7980842613591108,
+      "D": -0.007010636025683737
+    }
+  },
+  "model": "map_anything",
+  "group": "inter_frame_block",
+  "benchmark": "fbms59",
+  "variant": "bilinear_upsample",
+  "num_sequences": 59,
+  "num_frames": 720,
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/outputs/isdynamic_motion_masks_eval/map_anything/inter_frame_block/bilinear_upsample/fbms59.json"
+}

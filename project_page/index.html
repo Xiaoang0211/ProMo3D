@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models</title>
+  <meta name="description" content="ProMo3D studies lightweight motion decoding from frozen 3D foundation models. Explore full-sequence PMD motion scores, coarse masks, and optional SAM2 refinement.">
+  <meta property="og:title" content="ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models">
+  <meta property="og:description" content="Frozen geometry. Lightweight probing. Zero-shot motion segmentation.">
+  <meta property="og:image" content="https://promo3d.purplewhale16.chatgpt.site/assets/teaser.png">
+  <link rel="canonical" href="https://promo3d.purplewhale16.chatgpt.site/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/manrope.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="nav-wrap">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="wordmark" href="#">ProMo<span>3D</span><i aria-hidden="true"></i></a>
+      <div class="nav-links"><a href="#sequences">Sequences</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#reproduce">Reproduce</a></div>
+      <a class="venue" href="https://neurips.cc/virtual/2026/poster/151302" target="_blank" rel="noopener">NeurIPS 2026 <span aria-hidden="true">&#8599;</span></a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero shell">
+      <div class="eyebrow">NeurIPS 2026</div>
+      <h1>ProMo3D: Probing Motion Cues in<br><em>Frozen 3D Foundation Models</em></h1>
+      <p class="hero-copy">Supervised motion probing on frozen geometric representations, using low-rank readouts trained on 160 YouTube-VOS videos.</p>
+      <p class="authors">Xiaoang Zhang<sup>1*</sup> &nbsp; Mert Kiray<sup>1,2,3</sup> &nbsp; Yordanka Velikova<sup>1,2</sup><br class="mobile-break"> &nbsp; Manoj Biswanath<sup>1,2</sup> &nbsp; Benjamin Busam<sup>1,2,3</sup></p>
+      <p class="affiliations"><sup>1</sup> Technical University of Munich &nbsp; <sup>2</sup> Munich Center for Machine Learning &nbsp; <sup>3</sup> Obsphera</p>
+      <p class="guest">* Work conducted as a guest researcher at TUM.</p>
+      <div class="resources" aria-label="Paper resources">
+        <a class="resource primary" href="https://openreview.net/forum?id=bSpkdwCVuy" target="_blank" rel="noopener">Paper <span aria-hidden="true">&#8599;</span></a>
+        <span class="resource unavailable">arXiv <small>coming soon</small></span>
+        <span class="resource unavailable">Code <small>coming soon</small></span>
+        <span class="resource unavailable">Hugging Face Model Card <small>coming soon</small></span>
+      </div>
+      <div class="facts"><div><strong>160</strong><span>training videos</span></div><div><strong>Rank 8</strong><span>lightweight readout</span></div><div><strong>Zero-shot</strong><span>target-benchmark transfer</span></div></div>
+      <figure class="teaser"><img src="assets/teaser.png" width="2200" height="998" alt="PMD learns a low-rank pairwise probe on frozen geometric tokens and produces motion scores, coarse masks, and optional SAM2-refined masks."><figcaption>Probing-based Motion Distillation (PMD): from frozen geometry to motion segmentation.</figcaption></figure>
+    </section>
+
+    <section id="sequences" class="section gallery-section">
+      <div class="shell">
+        <div class="section-heading"><div><span class="eyebrow">01 / Qualitative evaluation</span><h2>Qualitative results</h2></div><p>Three complete sequences from the paper's unseen-category examples, with continuous motion scores, coarse PMD masks, and optional SAM2 refinement.</p></div>
+        <div class="sequence-tabs" aria-label="Sequence"><button data-sequence="rhino" aria-pressed="true">Rhino <small>DAVIS</small></button><button data-sequence="koala" aria-pressed="false">Koala <small>DAVIS</small></button><button data-sequence="bird_of_paradise" aria-pressed="false">Bird of paradise <small>SegTrackv2</small></button></div>
+        <div class="viewer-toolbar"><p id="sequence-description">Rhino behind a foreground tree</p><div class="view-tabs" aria-label="Prediction view"><button data-view="scores" aria-pressed="false">Dynamic scores</button><button data-view="coarse" aria-pressed="true">Coarse mask</button><button data-view="refined" aria-pressed="false">SAM2 refined</button></div></div>
+        <div class="video-pair">
+          <figure><span class="video-label">Input</span><video id="input-video" muted playsinline preload="metadata" poster="assets/videos/rhino-input.png" aria-label="Full input sequence"></video></figure>
+          <figure><span id="prediction-label" class="video-label">PMD coarse</span><video id="prediction-video" muted playsinline preload="metadata" poster="assets/videos/rhino-coarse.png" aria-label="Full PMD prediction sequence"></video></figure>
+        </div>
+        <div class="playback"><button id="play-button" class="play-button" aria-label="Play both videos">Play</button><label class="sr-only" for="seek">Sequence position</label><input id="seek" type="range" min="0" max="1000" step="1" value="0"><output id="frame-counter" for="seek">Loading sequence</output><label class="sr-only" for="speed">Playback speed</label><select id="speed" aria-label="Playback speed"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option></select></div>
+        <p class="viewer-note">Pi3X-PMD, rank 8, all 18 inter-frame blocks. Frame groups: 3 frames, stride 2. Playback is for visualization, not a runtime measurement.</p>
+        <p id="gallery-error" role="alert" hidden></p>
+      </div>
+    </section>
+
+    <section id="method" class="section shell">
+      <div class="section-heading"><div><span class="eyebrow">02 / Probing-based motion distillation</span><h2>Method overview</h2></div><p>PMD tests motion-state decodability through a low-rank pairwise probe. Backbone features remain frozen throughout probe training.</p></div>
+      <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Frozen geometry<small>Multi-frame tokens</small></button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank probe<small>Pairwise compatibility</small></button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion<small>Scores to masks</small></button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement<small>SAM2</small></button></div>
+      <div class="step-detail"><span id="step-number" class="step-number">01</span><div><h3 id="step-title">Frozen geometric features</h3><p id="step-copy">An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks.</p></div><button id="animate-pipeline" class="text-button" aria-pressed="false">Animate pipeline <span aria-hidden="true">&#8594;</span></button></div>
+      <div class="method-foot"><p><strong>Only the probe is learned.</strong> Pairwise same-state compatibility with a fixed reference token becomes a dense dynamic score map. Scores are reshaped, bilinearly upsampled, and binarized.</p><p><strong>Coarse and refined are separate.</strong> SAM2 is an optional external mask-refinement stage. Motion decoding is evaluated before refinement.</p></div>
+    </section>
+
+    <section id="evidence" class="section evidence-section">
+      <div class="shell">
+        <div class="section-heading"><div><span class="eyebrow">03 / Empirical analysis</span><h2>Representation analysis</h2></div><p>Layer-wise probing, PCA of the probe-induced representation, and training-video ablations characterize motion decodability and data efficiency.</p></div>
+        <div class="evidence-tabs" aria-label="Representation analysis"><button data-panel="layerwise" aria-pressed="true">Across layers</button><button data-panel="pca" aria-pressed="false">Probe-induced subspace</button><button data-panel="starvation" aria-pressed="false">Data efficiency</button><button data-panel="extended" aria-pressed="false">Additional backbones</button></div>
+        <figure class="evidence-figure"><button id="open-figure" class="figure-zoom" aria-label="Enlarge the current figure"><img id="evidence-image" src="assets/figures/layerwise.png" loading="lazy" alt="Layer-wise motion probing on Pi3X, DA3, and DUSt3R."></button><figcaption id="evidence-caption">Layer-wise motion decodability on Pi3X, DA3, and DUSt3R. Click the figure to enlarge.</figcaption></figure>
+        <p class="scope-note">PCA here visualizes the supervised <strong>probe-induced subspace</strong>. PMD recovers motion-relevant information; semantic leakage remains a documented limitation.</p>
+      </div>
+    </section>
+
+    <section id="reproduce" class="section shell">
+      <div class="section-heading"><div><span class="eyebrow">04 / Experimental protocol</span><h2>Reproducibility</h2></div><p>Bash entrypoints cover environment setup, token export, probe training, coarse-mask inference, refinement, and evaluation. Code release is pending.</p></div>
+      <div class="reproduction-grid"><div class="code-panel"><div class="code-heading"><span>Pi3X / end-to-end</span><button id="copy-commands">Copy commands</button></div><pre id="commands"><code>bash scripts/main/run.sh export pi3x
+bash scripts/main/run.sh train pi3x
+bash scripts/main/run.sh masks pi3x
+bash scripts/main/run.sh refine pi3x
+bash scripts/main/run.sh eval pi3x</code></pre></div><div class="reproduction-copy"><h3>Token export and dense inference</h3><p>Exported tokens prepare probe training and token-level evaluation. Mask inference runs the frozen backbone on images and decodes the full target-frame token grid; sampled test exports are not required.</p><p>Benchmark transfer covers DAVIS, SegTrackv2, and FBMS-59, with no target-benchmark fine-tuning.</p></div></div>
+      <div class="preprocessing"><h3>Backbone preprocessing</h3><div><p><strong>Pi3X / Pi3 / VGGT</strong><br>Padding is already part of the native PMD pipeline.</p><p><strong>DA3 / MapAnything / DUSt3R</strong><br>Paper reproduction uses native preprocessing. Additional aspect-padding is an optional experiment.</p></div></div>
+    </section>
+
+    <section class="citation shell"><div><span class="eyebrow">Reference</span><h2>Citation</h2><button id="copy-citation" class="text-button">Copy BibTeX</button></div><pre id="bibtex">@inproceedings{zhang2026promo3d,
+  title={ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models},
+  author={Zhang, Xiaoang and Kiray, Mert and Velikova, Yordanka
+          and Biswanath, Manoj and Busam, Benjamin},
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2026},
+  url={https://neurips.cc/virtual/2026/poster/151302}
+}</pre></section>
+  </main>
+  <footer class="shell"><a class="wordmark" href="#">ProMo<span>3D</span></a><p>Research page for ProMo3D / PMD.<br>Layout inspired by <a href="https://alberto-rota.github.io/UnReflectAnything/" target="_blank" rel="noopener">UnReflectAnything</a>.</p><a href="assets/provenance.json">Visual provenance <span aria-hidden="true">&#8599;</span></a></footer>
+  <dialog id="figure-dialog" aria-label="Enlarged analysis figure"><button id="close-figure" autofocus>Close</button><img id="large-figure" alt=""><p id="large-caption"></p></dialog>
+</body>
+</html>

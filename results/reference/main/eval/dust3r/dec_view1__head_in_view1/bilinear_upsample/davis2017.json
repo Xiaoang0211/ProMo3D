@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "J": {
+      "M": 0.6219893328448886,
+      "R": 0.6996466511050936,
+      "D": 0.018177707809081376
+    },
+    "F": {
+      "M": 0.5388262108610037,
+      "R": 0.5744564378274554,
+      "D": 0.04444903064049905
+    },
+    "J_and_F": {
+      "M": 0.5804077718529461,
+      "R": 0.6370515444662745,
+      "D": 0.031313369224790215
+    }
+  },
+  "model": "dust3r",
+  "group": "dec_view1__head_in_view1",
+  "benchmark": "davis2017",
+  "variant": "bilinear_upsample",
+  "num_sequences": 30,
+  "num_frames": 1999,
+  "archived_source": "/media/xiaoang/637ae275-d5e6-45cb-bf4e-860a889000ab/isDynamic/outputs/isdynamic_motion_masks_eval/dust3r/dec_view1__head_in_view1/bilinear_upsample/davis2017.json"
+}

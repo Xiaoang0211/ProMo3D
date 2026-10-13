@@ -1,0 +1,33 @@
+diagnostic,diagnostic_split,outcome,outcome_split,backbones_included,backbone_names,spearman,pearson
+Mean Normalized Gain,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.9280570924919157
+Mean Normalized Gain,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.8015790336584557
+Mean Normalized Gain,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.8913472763282658
+Mean Normalized Gain,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.7524766145304007
+Mean pairwise compatibility accuracy,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.9649974286442534
+Mean pairwise compatibility accuracy,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.898330877753261
+Mean pairwise compatibility accuracy,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.9357802885852112
+Mean pairwise compatibility accuracy,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.8507559035042533
+Mean Normalized Gain,test_davis,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.9570595431050458
+Mean Normalized Gain,test_davis,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.9430484312634623
+Mean Normalized Gain,test_davis,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.9310104694449787
+Mean Normalized Gain,test_davis,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.92839621422625
+Mean pairwise compatibility accuracy,test_davis,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.988652387436001
+Mean pairwise compatibility accuracy,test_davis,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.9642111634914307
+Mean pairwise compatibility accuracy,test_davis,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.9700211289410586
+Mean pairwise compatibility accuracy,test_davis,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.9249707141430367
+Mean Normalized Gain,youtubevos_val,Coarse J-M,youtubevos_val,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",1.0,0.9742616143802808
+Mean Normalized Gain,youtubevos_val,Coarse J-M,youtubevos_val,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",1.0,0.9812134608702547
+Mean Normalized Gain,youtubevos_val,Coarse J-R,youtubevos_val,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.9782694875399921
+Mean Normalized Gain,youtubevos_val,Coarse J-R,youtubevos_val,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.9582128198862132
+Mean pairwise compatibility accuracy,youtubevos_val,Coarse J-M,youtubevos_val,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",1.0,0.9954322749652446
+Mean pairwise compatibility accuracy,youtubevos_val,Coarse J-M,youtubevos_val,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",1.0,0.995230187952533
+Mean pairwise compatibility accuracy,youtubevos_val,Coarse J-R,youtubevos_val,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.9428571428571428,0.9977884014701867
+Mean pairwise compatibility accuracy,youtubevos_val,Coarse J-R,youtubevos_val,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.9,0.994306241733564
+Coarse J-M,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.9574476337328721
+Coarse J-M,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.8607682111861356
+Coarse J-M,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7714285714285715,0.9295081264311539
+Coarse J-M,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.6,0.8096882984480894
+Coarse J-R,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7142857142857143,0.9694139415978769
+Coarse J-R,youtubevos_val,Three-benchmark coarse mean J-M,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.5,0.9044871328332893
+Coarse J-R,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,all 6,"pi3X,pi3,VGGT,DA3,MapAnything,DUSt3R",0.7142857142857143,0.9429591016567684
+Coarse J-R,youtubevos_val,Three-benchmark coarse mean J-R,DAVIS17/SegTrackv2/FBMS-59,5 multi-view only,"pi3X,pi3,VGGT,DA3,MapAnything",0.5,0.8591798667945574

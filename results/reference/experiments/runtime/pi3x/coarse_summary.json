@@ -1,0 +1,58 @@
+{
+  "protocol": {
+    "gpu": "NVIDIA GeForce RTX 5070 Ti",
+    "device": "cuda",
+    "precision": "float32",
+    "batch_size": 1,
+    "context_size": 3,
+    "context_stride": 2,
+    "input_size": [
+      518,
+      518
+    ],
+    "warmup_frames": 10,
+    "measured_frames": 100,
+    "sequence": "parkour",
+    "model_loading_included": false,
+    "disk_io_included": false,
+    "cpu_preprocessing_included": true,
+    "mask_output_saving_included": false,
+    "blocks": [
+      "inter_frame_block_0",
+      "inter_frame_block_1",
+      "inter_frame_block_2",
+      "inter_frame_block_3",
+      "inter_frame_block_4",
+      "inter_frame_block_5",
+      "inter_frame_block_6",
+      "inter_frame_block_7",
+      "inter_frame_block_8",
+      "inter_frame_block_9",
+      "inter_frame_block_10",
+      "inter_frame_block_11",
+      "inter_frame_block_12",
+      "inter_frame_block_13",
+      "inter_frame_block_14",
+      "inter_frame_block_15",
+      "inter_frame_block_16",
+      "inter_frame_block_17"
+    ]
+  },
+  "backbone": {
+    "mean_ms": 480.58195745004923,
+    "median_ms": 480.5923889944097,
+    "p95_ms": 482.62499344418757,
+    "forward_only": {
+      "mean_ms": 469.05416592926485,
+      "median_ms": 469.01724099734565,
+      "p95_ms": 470.97387674366473
+    },
+    "peak_vram_gib": 4.469125270843506
+  },
+  "pmd_coarse": {
+    "mean_ms": 484.8200636495312,
+    "median_ms": 484.7619099964504,
+    "p95_ms": 487.0820905583969,
+    "peak_vram_gib": 4.469125270843506
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "Pi3": {
+    "url": "https://github.com/yyfz/Pi3.git",
+    "commit": "08d7288aaf4b0c08c8498bea7bafedc4672bb006",
+    "destination": "models/Pi3",
+    "patch": "configs/third_party_patches/Pi3.patch"
+  },
+  "vggt": {
+    "url": "https://github.com/facebookresearch/vggt.git",
+    "commit": "44b3afbd1869d8bde4894dd8ea1e293112dd5eba",
+    "destination": "models/vggt",
+    "patch": "configs/third_party_patches/vggt.patch"
+  },
+  "Depth-Anything-3": {
+    "url": "https://github.com/ByteDance-Seed/Depth-Anything-3.git",
+    "commit": "fcf07185b363b39543bbe0a67272a4e2ae11fff3",
+    "destination": "models/Depth-Anything-3",
+    "patch": "configs/third_party_patches/Depth-Anything-3.patch"
+  },
+  "map-anything": {
+    "url": "https://github.com/facebookresearch/map-anything.git",
+    "commit": "f065d13383ae84a7f80f0e0104a4d12afc7c7c82",
+    "destination": "models/map-anything"
+  },
+  "dust3r": {
+    "url": "https://github.com/naver/dust3r.git",
+    "commit": "4c24a6ebf04809f2cfe59915e51779c8984aaa40",
+    "destination": "models/dust3r",
+    "patch": "configs/third_party_patches/dust3r.patch"
+  },
+  "vggt-omega": {
+    "url": "https://github.com/facebookresearch/vggt-omega.git",
+    "commit": "815432d4384d707c8e33478a9a72e214cb4cf9f1",
+    "destination": "models/vggt-omega"
+  },
+  "sam2": {
+    "url": "https://github.com/facebookresearch/sam2.git",
+    "commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+    "destination": "models/sam2"
+  },
+  "GeoMotion": {
+    "url": "https://github.com/zjutcvg/GeoMotion.git",
+    "commit": "efbed8a4e1400277e6780f2bd08a5da0fea52702",
+    "destination": "models/GeoMotion"
+  },
+  "flowsam": {
+    "url": "https://github.com/Jyxarthur/flowsam.git",
+    "commit": "04d92018baef163b0008adbc9d3a1c4d89f8ea62",
+    "destination": "models/flowsam"
+  },
+  "SegAnyMo": {
+    "url": "https://github.com/nnanhuang/SegAnyMo",
+    "commit": "6fe8fe2874ccb47169d87d78ea3b2a59e203e5ac",
+    "destination": "models/SegAnyMo"
+  }
+}

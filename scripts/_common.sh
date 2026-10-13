@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+PROMO3D_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export PROMO3D_ROOT
+if [[ -f "${PROMO3D_CONFIG:-${PROMO3D_ROOT}/configs/local.env}" ]]; then
+  set -a
+  source "${PROMO3D_CONFIG:-${PROMO3D_ROOT}/configs/local.env}"
+  set +a
+fi
+export PYTHONPATH="${PROMO3D_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+export PYTHONDONTWRITEBYTECODE=1
+export DATASETS_DIR="${DATASETS_DIR:-${PROMO3D_ROOT}/datasets}"
+export TOKEN_ROOT="${TOKEN_ROOT:-${PROMO3D_ROOT}/outputs/tokens}"
+export OUTPUT_ROOT="${OUTPUT_ROOT:-${PROMO3D_ROOT}/outputs}"
+export YOUTUBEVOS_ROOT="${YOUTUBEVOS_ROOT:-${DATASETS_DIR}/youtubevos_160vids}"
+export DAVIS_ROOT="${DAVIS_ROOT:-${DATASETS_DIR}/DAVIS}"
+export SEGTRACK_ROOT="${SEGTRACK_ROOT:-${DATASETS_DIR}/SegTrackv2}"
+export FBMS_ROOT="${FBMS_ROOT:-${DATASETS_DIR}/FBMS-59}"
+export PI3_PYTHON_BIN="${PI3_PYTHON_BIN:-${PYTHON_BIN:-python}}"
+export VGGT_PYTHON_BIN="${VGGT_PYTHON_BIN:-${PYTHON_BIN:-python}}"
+export DA3_PYTHON_BIN="${DA3_PYTHON_BIN:-${PYTHON_BIN:-python}}"
+export MAPANYTHING_PYTHON_BIN="${MAPANYTHING_PYTHON_BIN:-${PYTHON_BIN:-python}}"
+export DUST3R_PYTHON_BIN="${DUST3R_PYTHON_BIN:-${PYTHON_BIN:-python}}"
+export SAM2_PYTHON_BIN="${SAM2_PYTHON_BIN:-${PI3_PYTHON_BIN}}"
+export ANALYSIS_PYTHON_BIN="${ANALYSIS_PYTHON_BIN:-${PI3_PYTHON_BIN}}"
+cd "${PROMO3D_ROOT}"
