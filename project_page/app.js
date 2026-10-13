@@ -142,8 +142,7 @@ document.querySelector('#animate-pipeline').addEventListener('click', () => {
 const panels = {
   layerwise: ['layerwise.png', 'Layer-wise motion decodability on Pi3X, DA3, and DUSt3R.'],
   pca: ['pca.png', 'Pi3X: PCA of the probe-induced representation, with low-rank and spectral analyses.'],
-  starvation: ['starvation.png', 'Token-level normalized gain as training scene diversity decreases from 160 to 10 videos.'],
-  extended: ['layerwise-extended.png', 'Additional layer-wise motion probing on VGGT, Pi3, and MapAnything.']
+  starvation: ['starvation.png', 'Token-level normalized gain as training scene diversity decreases from 160 to 10 videos.']
 };
 document.querySelectorAll('[data-panel]').forEach(button => button.addEventListener('click', () => {
   selected('[data-panel]', button.dataset.panel, 'panel');

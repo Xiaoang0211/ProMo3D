@@ -52,28 +52,28 @@
     }
   },
   {
-    "id": "bird_of_paradise",
-    "description": "Bird of paradise amid foliage",
+    "id": "cheetah",
+    "description": "Two animals running in a chase",
     "benchmark": "segtrackv2",
-    "frames": 98,
+    "frames": 29,
     "fps": 12,
-    "poster_frame": 50,
+    "poster_frame": 0,
     "views": {
       "input": {
-        "video": "assets/videos/bird_of_paradise-input.mp4",
-        "poster": "assets/videos/bird_of_paradise-input.png"
+        "video": "assets/videos/cheetah-input.mp4",
+        "poster": "assets/videos/cheetah-input.png"
       },
       "scores": {
-        "video": "assets/videos/bird_of_paradise-scores.mp4",
-        "poster": "assets/videos/bird_of_paradise-scores.png"
+        "video": "assets/videos/cheetah-scores.mp4",
+        "poster": "assets/videos/cheetah-scores.png"
       },
       "coarse": {
-        "video": "assets/videos/bird_of_paradise-coarse.mp4",
-        "poster": "assets/videos/bird_of_paradise-coarse.png"
+        "video": "assets/videos/cheetah-coarse.mp4",
+        "poster": "assets/videos/cheetah-coarse.png"
       },
       "refined": {
-        "video": "assets/videos/bird_of_paradise-refined.mp4",
-        "poster": "assets/videos/bird_of_paradise-refined.png"
+        "video": "assets/videos/cheetah-refined.mp4",
+        "poster": "assets/videos/cheetah-refined.png"
       }
     }
   }

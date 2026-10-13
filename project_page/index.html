@@ -19,13 +19,13 @@
   <header class="nav-wrap">
     <nav class="nav shell" aria-label="Main navigation">
       <a class="wordmark" href="#">ProMo<span>3D</span><i aria-hidden="true"></i></a>
-      <div class="nav-links"><a href="#sequences">Sequences</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#reproduce">Reproduce</a></div>
+      <div class="nav-links"><a href="#sequences">Sequences</a><a href="#method">Method</a><a href="#evidence">Analysis</a><a href="#reproduce">Reproduce</a></div>
       <a class="venue" href="https://neurips.cc/virtual/2026/poster/151302" target="_blank" rel="noopener">NeurIPS 2026 <span aria-hidden="true">&#8599;</span></a>
     </nav>
   </header>
   <main id="main">
     <section class="hero shell">
-      <div class="eyebrow">NeurIPS 2026</div>
+      <div class="conference-label">NeurIPS 2026</div>
       <h1>ProMo3D: Probing Motion Cues in<br><em>Frozen 3D Foundation Models</em></h1>
       <p class="hero-copy">Supervised motion probing on frozen geometric representations, using low-rank readouts trained on 160 YouTube-VOS videos.</p>
       <p class="authors">Xiaoang Zhang<sup>1*</sup> &nbsp; Mert Kiray<sup>1,2,3</sup> &nbsp; Yordanka Velikova<sup>1,2</sup><br class="mobile-break"> &nbsp; Manoj Biswanath<sup>1,2</sup> &nbsp; Benjamin Busam<sup>1,2,3</sup></p>
@@ -43,14 +43,13 @@
         <span class="resource unavailable">Code <small>coming soon</small></span>
         <span class="resource unavailable">Hugging Face Model Card <small>coming soon</small></span>
       </div>
-      <div class="facts"><div><strong>160</strong><span>training videos</span></div><div><strong>Rank 8</strong><span>lightweight readout</span></div><div><strong>Zero-shot</strong><span>target-benchmark transfer</span></div></div>
       <figure class="teaser"><img src="assets/teaser.png" width="2200" height="998" alt="PMD learns a low-rank pairwise probe on frozen geometric tokens and produces motion scores, coarse masks, and optional SAM2-refined masks."><figcaption>Probing-based Motion Distillation (PMD): from frozen geometry to motion segmentation.</figcaption></figure>
     </section>
 
     <section id="sequences" class="section gallery-section">
       <div class="shell">
         <div class="section-heading"><div><span class="eyebrow">01 / Qualitative evaluation</span><h2>Qualitative results</h2></div><p>Three complete sequences from the paper's unseen-category examples, with continuous motion scores, coarse PMD masks, and optional SAM2 refinement.</p></div>
-        <div class="sequence-tabs" aria-label="Sequence"><button data-sequence="rhino" aria-pressed="true">Rhino <small>DAVIS</small></button><button data-sequence="koala" aria-pressed="false">Koala <small>DAVIS</small></button><button data-sequence="bird_of_paradise" aria-pressed="false">Bird of paradise <small>SegTrackv2</small></button></div>
+        <div class="sequence-tabs" aria-label="Sequence"><button data-sequence="rhino" aria-pressed="true">Rhino <small>DAVIS</small></button><button data-sequence="koala" aria-pressed="false">Koala <small>DAVIS</small></button><button data-sequence="cheetah" aria-pressed="false">Cheetah <small>SegTrackv2</small></button></div>
         <div class="viewer-toolbar"><p id="sequence-description">Rhino behind a foreground tree</p><div class="view-tabs" aria-label="Prediction view"><button data-view="scores" aria-pressed="false">Dynamic scores</button><button data-view="coarse" aria-pressed="true">Coarse mask</button><button data-view="refined" aria-pressed="false">SAM2 refined</button></div></div>
         <div class="video-pair">
           <figure><span class="video-label">Input</span><video id="input-video" muted playsinline preload="metadata" poster="assets/videos/rhino-input.png" aria-label="Full input sequence"></video></figure>
@@ -72,7 +71,7 @@
     <section id="evidence" class="section evidence-section">
       <div class="shell">
         <div class="section-heading"><div><span class="eyebrow">03 / Empirical analysis</span><h2>Representation analysis</h2></div><p>Layer-wise probing, PCA of the probe-induced representation, and training-video ablations characterize motion decodability and data efficiency.</p></div>
-        <div class="evidence-tabs" aria-label="Representation analysis"><button data-panel="layerwise" aria-pressed="true">Across layers</button><button data-panel="pca" aria-pressed="false">Probe-induced subspace</button><button data-panel="starvation" aria-pressed="false">Data efficiency</button><button data-panel="extended" aria-pressed="false">Additional backbones</button></div>
+        <div class="evidence-tabs" aria-label="Representation analysis"><button data-panel="layerwise" aria-pressed="true">Across layers</button><button data-panel="pca" aria-pressed="false">Probe-induced subspace</button><button data-panel="starvation" aria-pressed="false">Data efficiency</button></div>
         <figure class="evidence-figure"><button id="open-figure" class="figure-zoom" aria-label="Enlarge the current figure"><img id="evidence-image" src="assets/figures/layerwise.png" loading="lazy" alt="Layer-wise motion probing on Pi3X, DA3, and DUSt3R."></button><figcaption id="evidence-caption">Layer-wise motion decodability on Pi3X, DA3, and DUSt3R. Click the figure to enlarge.</figcaption></figure>
         <p class="scope-note">PCA here visualizes the supervised <strong>probe-induced subspace</strong>. PMD recovers motion-relevant information; semantic leakage remains a documented limitation.</p>
       </div>

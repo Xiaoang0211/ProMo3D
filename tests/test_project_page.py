@@ -32,9 +32,9 @@ def test_project_page_references_existing_local_assets():
 def test_showcase_has_three_complete_sequences_and_four_real_views():
     samples = json.loads((PAGE / "assets/samples.json").read_text())
     provenance = json.loads((PAGE / "assets/provenance.json").read_text())
-    assert [sample["id"] for sample in samples] == ["rhino", "koala", "bird_of_paradise"]
+    assert [sample["id"] for sample in samples] == ["rhino", "koala", "cheetah"]
     for sample, source in zip(samples, provenance["sequences"]):
-        assert sample["frames"] > 80
+        assert sample["frames"] == {"rhino": 90, "koala": 100, "cheetah": 29}[sample["id"]]
         assert source["frame_range"] == [0, sample["frames"] - 1]
         assert len(source["blocks"]) == 18
         assert set(sample["views"]) == {"input", "scores", "coarse", "refined"}
@@ -64,7 +64,23 @@ def test_page_uses_exact_paper_title_and_official_poster_details():
     heading = re.search(r"<h1>(.*?)</h1>", html, re.DOTALL).group(1)
     assert " ".join(unescape(re.sub(r"<[^>]+>", " ", heading)).split()) == title
     assert f"<title>{title}</title>" in html
+    assert '<div class="conference-label">NeurIPS 2026</div>' in html
     assert "Wednesday, 9 December" in html
     assert "10:00-13:00 AEDT (UTC+11)" in html
     assert "ICC Sydney, Hall 1-4" in html
     assert "neurips.cc/virtual/2026/poster/151302" in html
+
+
+def test_hero_has_no_summary_badges():
+    html = (PAGE / "index.html").read_text()
+    hero = re.search(r'<section class="hero shell">(.*?)</section>', html, re.DOTALL).group(1)
+    assert 'class="facts"' not in hero
+    assert "<strong>Rank 8</strong>" not in hero
+    assert "target-benchmark transfer" not in hero
+
+
+def test_representation_analysis_has_three_panels():
+    html = (PAGE / "index.html").read_text()
+    assert re.findall(r'data-panel="([^"]+)"', html) == ["layerwise", "pca", "starvation"]
+    assert "Additional backbones" not in html
+    assert 'href="#evidence">Analysis</a>' in html

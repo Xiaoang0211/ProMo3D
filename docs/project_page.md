@@ -36,6 +36,6 @@ Author metadata and affiliations were checked against the camera-ready PDF and o
 
 ## Build and access
 
-Run `bash scripts/build_project_page.sh` to prepare `project_page/dist/`. The optional `--assets --archive_outputs /path/to/outputs` rebuilds twelve videos and four analysis figures without new inference. It validates that every source frame has a stored prediction and checks each encoded video's frame count. The clips use 12 fps for visualization; they do not report inference latency.
+Run `bash scripts/build_project_page.sh` to prepare `project_page/dist/`. The optional `--assets --archive_outputs /path/to/outputs` rebuilds twelve videos for rhino, koala, and cheetah, and three analysis figures without new inference. It validates that every source frame has a stored prediction and checks each encoded video's frame count. The clips use 12 fps for visualization; they do not report inference latency.
 
 The project page is deployed independently of the private GitHub code repository. Only `dist/` is published: no datasets, weights, probe exports, raw experiment logs, local environment configuration, or confidential review material. Hosting identity is in `project_page/.openai/hosting.json`; credentials are not stored in the repository.

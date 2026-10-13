@@ -11,11 +11,10 @@ REFINED = "sam2_prompt_otsu_off0.2_erode2_w30_mean_otsu_off0.3"
 SAMPLES = (
     ("rhino", "davis_all", 70, "Rhino behind a foreground tree"),
     ("koala", "davis_all", 70, "Koala against a textured background"),
-    ("bird_of_paradise", "segtrackv2", 50, "Bird of paradise amid foliage"),
+    ("cheetah", "segtrackv2", 0, "Two animals running in a chase"),
 )
 FIGURES = {
     "layerwise": "comparisons/blockwise/pi3x_da3_dust3r_blockwise_widescreen_panel.pdf",
-    "layerwise-extended": "comparisons/blockwise/vggt_pi3_mapanything_blockwise_widescreen_panel.pdf",
     "pca": "pi3x/comparisons/pi3x_test_davis_rank8_pca_lowrank_panel.pdf",
     "starvation": "comparisons/data_starvation/pi3x_da3_dust3r_test_davis_normalized_gain_panel.pdf",
 }
@@ -60,7 +59,7 @@ def main():
     samples, provenance = [], {"backbone": "pi3x", "rank": 8, "visualization_fps": args.fps, "sequences": [], "figures": {}}
     for name, benchmark, poster_idx, description in SAMPLES:
         data_root = args.davis_root / "JPEGImages/480p" if benchmark == "davis_all" else args.segtrack_root / "JPEGImages"
-        source_images = sorted(path for path in (data_root / name).iterdir() if path.suffix.lower() in {".jpg", ".jpeg", ".png"})
+        source_images = sorted(path for path in (data_root / name).iterdir() if path.suffix.lower() in {".jpg", ".jpeg", ".png", ".bmp"})
         if not source_images:
             raise ValueError(f"No source images for {name}")
         relative = Path("isdynamic_motion_masks/pi3x/inter_frame_block") / benchmark / name
