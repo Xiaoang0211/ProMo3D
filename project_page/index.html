@@ -46,6 +46,11 @@
       <figure class="teaser"><img src="assets/teaser.png" width="2200" height="998" alt="PMD learns a low-rank pairwise probe on frozen geometric tokens and produces motion scores, coarse masks, and optional SAM2-refined masks."><figcaption>Probing-based Motion Distillation (PMD): from frozen geometry to motion segmentation.</figcaption></figure>
     </section>
 
+    <section id="abstract" class="section abstract-section shell" aria-labelledby="abstract-title">
+      <h2 id="abstract-title">Abstract</h2>
+      <p>Feed-forward 3D foundation models have recently reshaped multi-view reconstruction, yet dynamic 4D understanding still often relies on large-scale motion supervision or hand-crafted, architecture-specific heuristics. We ask whether motion-relevant information is recoverable from frozen 3D tokens using low-capacity, rank-restricted probes trained with limited source-domain supervision. Across three representative backbones, supervised probing exposes static&ndash;dynamic discriminative information, and a shuffled-label control tests selectivity to the correct token&ndash;label correspondence. Rank-restricted and spectral analyses on &#960;<sup>3</sup>X characterize compactness of the supervised probe-induced representation. Building on this finding, Probing-based Motion Distillation (PMD) converts pairwise motion-state compatibility against a fixed anchor into dense motion scores and coarse masks, with optional SAM2 refinement. Trained on 160 YouTube-VOS videos using a single 16 GB GPU, PMD transfers zero-shot to DAVIS, SegTrackv2, and FBMS-59. Its strongest coarse variant is competitive with heavier motion decoders, while optional refinement improves mask quality. These results support data-efficient supervised recovery of motion-relevant information from frozen 3D representations.</p>
+    </section>
+
     <section id="sequences" class="section gallery-section">
       <div class="shell">
         <div class="section-heading"><div><span class="eyebrow">01 / Qualitative evaluation</span><h2>Qualitative results</h2></div><p>Three complete sequences from the paper's unseen-category examples, with continuous motion scores, coarse PMD masks, and optional SAM2 refinement.</p></div>
@@ -63,7 +68,7 @@
 
     <section id="method" class="section shell">
       <div class="section-heading"><div><span class="eyebrow">02 / Probing-based motion distillation</span><h2>Method overview</h2></div><p>PMD tests motion-state decodability through a low-rank pairwise probe. Backbone features remain frozen throughout probe training.</p></div>
-      <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Frozen geometry<small>Multi-frame tokens</small></button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank probe<small>Pairwise compatibility</small></button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion<small>Scores to masks</small></button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement<small>SAM2</small></button></div>
+      <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Frozen geometry<small>Multi-frame tokens</small></button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank quadratic probe<small>Pairwise compatibility</small></button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion<small>Scores to masks</small></button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement<small>SAM2</small></button></div>
       <figure class="method-figure">
         <div class="method-visual" role="group" aria-label="Interactive PMD pipeline">
           <button class="method-stage" data-stage="0" aria-pressed="true" aria-label="Inspect frozen geometry">
@@ -74,33 +79,35 @@
               <img src="assets/method/rhino-context-72.png" alt="Rhino context frame 72" loading="lazy">
               <img src="assets/videos/rhino-input.png" alt="Rhino target frame 70" loading="lazy">
             </span>
-            <span class="stage-note">Target frame + two context frames</span>
+            <span class="stage-note">Target frame + context frames</span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
             <span class="stage-model">Frozen 3D backbone</span>
             <span class="stage-tokens">H = [h<sub>0</sub>, h<sub>1</sub>, &#8230;, h<sub>N</sub>]</span>
             <span class="stage-note">Target-frame spatial tokens</span>
           </button>
-          <button class="method-stage" data-stage="1" aria-pressed="false" aria-label="Inspect the low-rank pairwise probe">
-            <span class="stage-title"><span>02</span> Low-rank probe</span>
+          <button class="method-stage" data-stage="1" aria-pressed="false" aria-label="Inspect the low-rank quadratic probe">
+            <span class="stage-title"><span>02</span> Low-rank quadratic probe</span>
             <span class="stage-kind">Only learned component</span>
             <svg class="pair-diagram" viewBox="0 0 220 230" role="img" aria-labelledby="pair-title">
-              <title id="pair-title">Schematic reference and target-token vectors passed to a rank-8 quadratic probe</title>
+              <title id="pair-title">Schematic reference and target-token vectors passed to a low-rank quadratic probe</title>
               <defs><pattern id="feature-stripes" width="18" height="30" patternUnits="userSpaceOnUse"><rect width="15" height="30" fill="#d5ddcb"/></pattern><marker id="pair-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#89937f"/></marker></defs>
               <text x="55" y="24" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">0</tspan></text><rect x="10" y="36" width="92" height="56" rx="2" fill="url(#feature-stripes)"/>
               <text x="165" y="24" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">i</tspan></text><rect x="120" y="36" width="92" height="56" rx="2" fill="url(#feature-stripes)"/>
               <path d="M56 92L56 113L88 131" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
               <path d="M166 92L166 113L138 131" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
               <rect x="15" y="139" width="196" height="58" rx="3" fill="#f5e5d8" stroke="#c6a58d"/>
-              <text x="113" y="164" text-anchor="middle">Quadratic readout</text><text x="113" y="184" text-anchor="middle" class="pair-rank">U, V: rank 8</text>
+              <text x="113" y="164" text-anchor="middle">Low-rank quadratic</text><text x="113" y="184" text-anchor="middle">probe</text>
               <path d="M113 197L113 225" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
             </svg>
-            <span class="stage-equation">p<sub>i0</sub> = &#963;(s<sub>i0</sub>)</span>
-            <span class="stage-note">Same-state compatibility with token 0</span>
+            <span class="stage-equation"><math display="block" aria-label="p hat i static equals f of h a and h i"><mrow><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>stat</mtext></msubsup><mo>=</mo><mi>f</mi><mo>(</mo><msub><mi mathvariant="bold">h</mi><mi>a</mi></msub><mo>,</mo><msub><mi mathvariant="bold">h</mi><mi>i</mi></msub><mo>)</mo></mrow></math></span>
+            <span class="stage-note anchor-static">With padding, token 0 (a = 0) is static by design.</span>
+            <span class="stage-note">Compatibility with token 0 gives the static score.</span>
             <span class="stage-note source-supervision">Trained on source motion masks</span>
           </button>
           <button class="method-stage" data-stage="2" aria-pressed="false" aria-label="Inspect dynamic scores and the coarse mask">
             <span class="stage-title"><span>03</span> Coarse motion</span>
             <span class="stage-kind">Prompt-free decoding</span>
+            <span class="stage-equation dynamic-equation"><math display="block" aria-label="p hat i dynamic equals one minus p hat i static"><mrow><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>dyn</mtext></msubsup><mo>=</mo><mn>1</mn><mo>&#8722;</mo><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>stat</mtext></msubsup></mrow></math></span>
             <span class="stage-panel"><img src="assets/videos/rhino-scores.png" alt="Stored PMD dynamic score map for rhino frame 70" loading="lazy"><span>Dynamic scores</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
             <span class="stage-panel"><img src="assets/videos/rhino-coarse.png" alt="Stored PMD coarse mask overlay for rhino frame 70" loading="lazy"><span>Coarse mask</span></span>
@@ -109,9 +116,9 @@
           <button class="method-stage" data-stage="3" aria-pressed="false" aria-label="Inspect optional SAM2 refinement">
             <span class="stage-title"><span>04</span> SAM2 refinement</span>
             <span class="stage-kind">Optional external model</span>
-            <span class="refinement-input">Coarse motion evidence</span>
+            <span class="stage-panel refinement-input"><img src="assets/videos/rhino-coarse.png" alt="PMD coarse mask supplied to SAM2 refinement" loading="lazy"><span>Coarse mask</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
-            <span class="stage-model external-model">SAM2</span>
+            <span class="stage-model external-model"><svg class="sam2-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M19 25C17 16 30 14 35 20C45 16 51 27 45 33C50 42 39 49 32 43C23 49 13 40 19 33Z" fill="var(--wash)" stroke="var(--accent)" stroke-width="2"/><circle cx="31" cy="30" r="4" fill="var(--accent)"/><path d="M30 11H50V31" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>SAM2</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
             <span class="stage-panel"><img src="assets/videos/rhino-refined.png" alt="Stored SAM2-refined PMD overlay for rhino frame 70" loading="lazy"><span>Refined mask</span></span>
             <span class="stage-note">Extent and boundary refinement</span>
@@ -120,7 +127,7 @@
         <figcaption>Click a stage to inspect the pipeline. Image panels use stored Pi3X-PMD outputs for the same rhino frame; the token and probe diagrams are schematic.</figcaption>
       </figure>
       <div class="step-detail"><span id="step-number" class="step-number">01</span><div><h3 id="step-title">Frozen geometric features</h3><p id="step-copy">An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks.</p></div><button id="animate-pipeline" class="text-button" aria-pressed="false">Animate pipeline <span aria-hidden="true">&#8594;</span></button></div>
-      <div class="method-foot"><p><strong>Only the probe is learned.</strong> Pairwise same-state compatibility with a fixed reference token becomes a dense dynamic score map. Scores are reshaped, bilinearly upsampled, and binarized.</p><p><strong>Coarse and refined are separate.</strong> SAM2 is an optional external mask-refinement stage. Motion decoding is evaluated before refinement.</p></div>
+      <div class="method-foot"><p><strong>Only the probe is learned.</strong> Compatibility with a static reference gives the static score; its complement gives the dynamic score. Scores are averaged across blocks, bilinearly upsampled, and binarized.</p><p><strong>Coarse and refined are separate.</strong> SAM2 is an optional external mask-refinement stage. Motion decoding is evaluated before refinement.</p></div>
     </section>
 
     <section id="evidence" class="section evidence-section">
@@ -139,7 +146,6 @@ bash scripts/main/run.sh train pi3x
 bash scripts/main/run.sh masks pi3x
 bash scripts/main/run.sh refine pi3x
 bash scripts/main/run.sh eval pi3x</code></pre></div><div class="reproduction-copy"><h3>Token export and dense inference</h3><p>Exported tokens prepare probe training and token-level evaluation. Mask inference runs the frozen backbone on images and decodes the full target-frame token grid; sampled test exports are not required.</p><p>Benchmark transfer covers DAVIS, SegTrackv2, and FBMS-59, with no target-benchmark fine-tuning.</p></div></div>
-      <div class="preprocessing"><h3>Backbone preprocessing</h3><div><p><strong>Pi3X / Pi3 / VGGT</strong><br>Padding is already part of the native PMD pipeline.</p><p><strong>DA3 / MapAnything / DUSt3R</strong><br>Paper reproduction uses native preprocessing. Additional aspect-padding is an optional experiment.</p></div></div>
     </section>
 
     <section class="citation shell"><div><span class="eyebrow">Reference</span><h2>Citation</h2><button id="copy-citation" class="text-button">Copy BibTeX</button></div><pre id="bibtex">@inproceedings{zhang2026promo3d,

@@ -10,6 +10,8 @@ The implementation uses our own static HTML/CSS/JavaScript and paper assets. It 
 
 The interactive method figure uses stored Pi3X-PMD outputs for rhino frame 70, with context frames 68 and 72. Only its token/probe glyphs are schematic. Clicking either the figure modules or the step controls updates the same walkthrough; on mobile, only the selected module is shown. Asset rebuilding also copies the context images and records their hashes in `assets/provenance.json`.
 
+The Abstract follows `ProMo3D_CR.pdf`. The method figure uses the static/dynamic score notation of its Equations 7-8; the static-by-design statement is qualified by padding. Preprocessing details remain in reproduction documentation rather than the project page.
+
 ## Paper resources
 
 - Public project page: https://xiaoang0211.github.io/ProMo3D/

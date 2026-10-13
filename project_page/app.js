@@ -110,9 +110,9 @@ fetch('assets/samples.json').then(response => { if (!response.ok) throw Error('M
 
 const steps = [
   ['Frozen geometric features', "An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks."],
-  ['Pairwise motion-state probing', 'A rank-restricted quadratic probe is trained on token pairs from 160 YouTube-VOS videos. The frozen backbone is not fine-tuned.'],
-  ['Dense motion-mask extraction', 'Compatibility with the fixed reference token becomes a dynamic score. The full token grid is reshaped, upsampled, and binarized using the same rule across target benchmarks.'],
-  ['SAM2 refinement', 'Optional SAM2 refinement uses the coarse motion evidence to improve mask extent and boundaries. Coarse and refined results remain separate.']
+  ['Low-rank quadratic probe', 'A low-rank quadratic probe is trained on token pairs from 160 YouTube-VOS videos. The backbone remains frozen.'],
+  ['Dense motion-mask extraction', 'In the padded example shown here, token 0 is static by design. Compatibility with it gives the static score; its complement gives the dynamic score. Scores are averaged across blocks, upsampled, and binarized.'],
+  ['SAM2 refinement', 'Optional SAM2 refinement uses the coarse mask to improve its extent and boundaries. Coarse and refined results remain separate.']
 ];
 let stepIndex = 0, walkthrough;
 function showStep(index) {

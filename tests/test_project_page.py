@@ -140,3 +140,28 @@ def test_static_build_versions_changed_assets(tmp_path):
         for name in ("style.css", "app.js"):
             version = hashlib.sha256((page / name).read_bytes()).hexdigest()[:12]
             assert f"{name}?v={version}" in html
+
+
+def test_method_figure_matches_paper_score_notation_and_refinement_input():
+    html = (PAGE / "index.html").read_text()
+    assert "Target frame + context frames" in html
+    assert "Target frame + two context frames" not in html
+    assert "Low-rank quadratic probe" in html
+    assert "U, V:" not in html
+    assert "<mtext>stat</mtext>" in html and "<mtext>dyn</mtext>" in html
+    assert '<mover accent="true"><mi>p</mi><mo>^</mo></mover>' in html
+    assert "With padding, token 0 (a = 0) is static by design." in html
+    assert "Compatibility with token 0 gives the static score." in html
+    assert 'alt="PMD coarse mask supplied to SAM2 refinement"' in html
+    assert 'class="sam2-icon"' in html
+
+
+def test_page_has_paper_abstract_without_preprocessing_section():
+    html = (PAGE / "index.html").read_text()
+    abstract = re.search(r'<section id="abstract".*?</section>', html, re.DOTALL).group()
+    assert "<h2 id=\"abstract-title\">Abstract</h2>" in abstract
+    assert "low-capacity, rank-restricted probes trained with limited source-domain supervision" in abstract
+    assert "data-efficient supervised recovery of motion-relevant information" in abstract
+    assert html.index('id="abstract"') < html.index('id="sequences"')
+    assert "Backbone preprocessing" not in html
+    assert 'class="preprocessing"' not in html
