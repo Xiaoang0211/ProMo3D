@@ -10,6 +10,6 @@ elif [[ $# -gt 0 ]]; then
 fi
 PAGE="$ROOT/project_page"
 mkdir -p "$PAGE/dist"
-cp "$PAGE/index.html" "$PAGE/style.css" "$PAGE/app.js" "$PAGE/dist/"
+cp "$PAGE/index.html" "$PAGE/style.css" "$PAGE/app.js" "$PAGE/.nojekyll" "$PAGE/dist/"
 cp -R "$PAGE/assets" "$PAGE/dist/"
 printf 'Static project page built: %s/dist\n' "$PAGE"

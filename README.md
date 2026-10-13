@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://neurips.cc/virtual/2026/poster/151302"><strong>NeurIPS 2026</strong></a>
-  &nbsp;|&nbsp; <a href="https://promo3d.purplewhale16.chatgpt.site">Project Page</a>
+  &nbsp;|&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/">Project Page</a>
   &nbsp;|&nbsp; arXiv (coming soon)
   &nbsp;|&nbsp; Hugging Face Model Card (coming soon)
 </p>

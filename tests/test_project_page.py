@@ -84,3 +84,13 @@ def test_representation_analysis_has_three_panels():
     assert re.findall(r'data-panel="([^"]+)"', html) == ["layerwise", "pca", "starvation"]
     assert "Additional backbones" not in html
     assert 'href="#evidence">Analysis</a>' in html
+
+
+def test_github_pages_project_path_has_relative_assets():
+    html = (PAGE / "index.html").read_text()
+    assert '<link rel="canonical" href="https://xiaoang0211.github.io/ProMo3D/">' in html
+    assert "https://xiaoang0211.github.io/ProMo3D/assets/teaser.png" in html
+    assert (PAGE / ".nojekyll").is_file()
+    parser = AssetLinks()
+    parser.feed(html)
+    assert all(not path.startswith("/") for path in parser.paths)

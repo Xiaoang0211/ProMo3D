@@ -10,7 +10,8 @@ The implementation uses our own static HTML/CSS/JavaScript and paper assets. It 
 
 ## Paper resources
 
-- Public project page: https://promo3d.purplewhale16.chatgpt.site
+- Public project page: https://xiaoang0211.github.io/ProMo3D/
+- Website-only repository: https://github.com/Xiaoang0211/Xiaoang0211.github.io
 - NeurIPS: https://neurips.cc/virtual/2026/poster/151302
 - OpenReview: https://openreview.net/forum?id=bSpkdwCVuy
 - arXiv: reserved until the paper record is available.
@@ -38,4 +39,6 @@ Author metadata and affiliations were checked against the camera-ready PDF and o
 
 Run `bash scripts/build_project_page.sh` to prepare `project_page/dist/`. The optional `--assets --archive_outputs /path/to/outputs` rebuilds twelve videos for rhino, koala, and cheetah, and three analysis figures without new inference. It validates that every source frame has a stored prediction and checks each encoded video's frame count. The clips use 12 fps for visualization; they do not report inference latency.
 
-The project page is deployed independently of the private GitHub code repository. Only `dist/` is published: no datasets, weights, probe exports, raw experiment logs, local environment configuration, or confidential review material. Hosting identity is in `project_page/.openai/hosting.json`; credentials are not stored in the repository.
+The project page is deployed independently of the private GitHub code repository. The public `Xiaoang0211.github.io` repository contains the generated page in `ProMo3D/`; its Pages source is `main`, directory `/`. Only `dist/` is copied there: no datasets, weights, probe exports, raw experiment logs, local environment configuration, or confidential review material.
+
+Run `bash scripts/publish_project_page.sh` to build and update the public page. The script changes only the website repository's `ProMo3D/` directory and never force-pushes. The root `.nojekyll` keeps the HTML/CSS/JavaScript and assets unchanged. The old Sites manifest is retained for the previous deployment, but is not included in GitHub Pages. Credentials are not stored in either repository.
