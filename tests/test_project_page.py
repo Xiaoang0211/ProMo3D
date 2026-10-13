@@ -94,3 +94,11 @@ def test_github_pages_project_path_has_relative_assets():
     parser = AssetLinks()
     parser.feed(html)
     assert all(not path.startswith("/") for path in parser.paths)
+
+
+def test_page_uses_demo_and_reproduce_labels():
+    html = (PAGE / "index.html").read_text()
+    assert 'href="#sequences">Demo</a>' in html
+    assert "<h2>Reproduce</h2>" in html
+    assert 'href="#sequences">Sequences</a>' not in html
+    assert "<h2>Reproducibility</h2>" not in html
