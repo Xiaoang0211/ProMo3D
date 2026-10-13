@@ -118,6 +118,7 @@ let stepIndex = 0, walkthrough;
 function showStep(index) {
   stepIndex = index;
   selected('[data-step]', String(index), 'step');
+  selected('.method-stage', String(index), 'stage');
   document.querySelector('#step-number').textContent = String(index + 1).padStart(2, '0');
   document.querySelector('#step-title').textContent = steps[index][0];
   document.querySelector('#step-copy').textContent = steps[index][1];
@@ -131,6 +132,7 @@ function stopWalkthrough() {
   document.querySelector('#animate-pipeline').setAttribute('aria-pressed', 'false');
 }
 document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => { stopWalkthrough(); showStep(Number(button.dataset.step)); }));
+document.querySelectorAll('.method-stage').forEach(button => button.addEventListener('click', () => { stopWalkthrough(); showStep(Number(button.dataset.stage)); }));
 document.querySelector('#animate-pipeline').addEventListener('click', () => {
   if (walkthrough) { stopWalkthrough(); return; }
   showStep(0);

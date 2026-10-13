@@ -8,6 +8,8 @@ The project page can live in `project_page/`, alongside the public reproduction 
 
 The implementation uses our own static HTML/CSS/JavaScript and paper assets. It shows synchronized input, dynamic scores, PMD coarse overlays, and PMD + SAM2 overlays as distinct views. No source code, logos, result images, or publication badges were copied from the reference page.
 
+The interactive method figure uses stored Pi3X-PMD outputs for rhino frame 70, with context frames 68 and 72. Only its token/probe glyphs are schematic. Clicking either the figure modules or the step controls updates the same walkthrough; on mobile, only the selected module is shown. Asset rebuilding also copies the context images and records their hashes in `assets/provenance.json`.
+
 ## Paper resources
 
 - Public project page: https://xiaoang0211.github.io/ProMo3D/
@@ -42,3 +44,5 @@ Run `bash scripts/build_project_page.sh` to prepare `project_page/dist/`. The op
 The project page is deployed independently of the private GitHub code repository. The public `Xiaoang0211.github.io` repository contains the generated page in `ProMo3D/`; its Pages source is `main`, directory `/`. Only `dist/` is copied there: no datasets, weights, probe exports, raw experiment logs, local environment configuration, or confidential review material.
 
 Run `bash scripts/publish_project_page.sh` to build and update the public page. The script changes only the website repository's `ProMo3D/` directory and never force-pushes. The root `.nojekyll` keeps the HTML/CSS/JavaScript and assets unchanged. The old Sites manifest is retained for the previous deployment, but is not included in GitHub Pages. Credentials are not stored in either repository.
+
+The build uses content-hash query parameters for CSS and JavaScript so changed styles and interactions are not hidden by a previously cached asset.

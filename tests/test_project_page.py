@@ -1,8 +1,11 @@
 from html.parser import HTMLParser
 from html import unescape
+import hashlib
 import json
 from pathlib import Path
 import re
+import shutil
+import subprocess
 
 import pytest
 
@@ -84,6 +87,9 @@ def test_representation_analysis_has_three_panels():
     assert re.findall(r'data-panel="([^"]+)"', html) == ["layerwise", "pca", "starvation"]
     assert "Additional backbones" not in html
     assert 'href="#evidence">Analysis</a>' in html
+    assert '>Layer-wise probing</button>' in html
+    assert '>Across layers</button>' not in html
+    assert "Layer-wise probing, PCA of the probe-induced representation" not in html
 
 
 def test_github_pages_project_path_has_relative_assets():
@@ -102,3 +108,35 @@ def test_page_uses_demo_and_reproduce_labels():
     assert "<h2>Reproduce</h2>" in html
     assert 'href="#sequences">Sequences</a>' not in html
     assert "<h2>Reproducibility</h2>" not in html
+
+
+def test_method_figure_uses_matched_real_outputs():
+    html = (PAGE / "index.html").read_text()
+    provenance = json.loads((PAGE / "assets/provenance.json").read_text())
+    assert re.findall(r'data-stage="([^"]+)"', html) == ["0", "1", "2", "3"]
+    assert provenance["method"]["target_frame"] == 70
+    assert provenance["method"]["context_frames"] == [68, 72]
+    assert provenance["method"]["output_views"] == json.loads((PAGE / "assets/samples.json").read_text())[0]["views"]
+    assert provenance["method"]["token_diagram"] == "schematic"
+    for frame in (68, 72):
+        image_path = PAGE / f"assets/method/rhino-context-{frame}.png"
+        assert hashlib.sha256(image_path.read_bytes()).hexdigest() == provenance["method"]["context_sha256"][str(frame)]
+
+
+def test_static_build_versions_changed_assets(tmp_path):
+    scripts = tmp_path / "scripts"
+    scripts.mkdir()
+    build = scripts / "build_project_page.sh"
+    shutil.copy2(PAGE.parent / "scripts/build_project_page.sh", build)
+    page = tmp_path / "project_page"
+    (page / "assets").mkdir(parents=True)
+    (page / ".nojekyll").touch()
+    (page / "index.html").write_text('<link href="style.css"><script src="app.js"></script>')
+    (page / "style.css").write_text("body{}")
+    for script in ("const step=0;", "const step=1;"):
+        (page / "app.js").write_text(script)
+        subprocess.run(["bash", str(build)], check=True, capture_output=True)
+        html = (page / "dist/index.html").read_text()
+        for name in ("style.css", "app.js"):
+            version = hashlib.sha256((page / name).read_bytes()).hexdigest()[:12]
+            assert f"{name}?v={version}" in html

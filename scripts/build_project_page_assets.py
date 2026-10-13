@@ -94,6 +94,17 @@ def main():
             "frame_range": [0, len(frames)-1], "poster_frame": poster_idx, "refinement_variant": REFINED,
             "blocks": meta["usable_blocks"], "input_protocol": meta.get("input_protocol"),
             "metadata_sha256": hashlib.sha256(meta_path.read_bytes()).hexdigest()})
+        if name == "rhino":
+            method_dir = assets / "method"
+            method_dir.mkdir(exist_ok=True)
+            context_frames = meta["context_frame_indices"]
+            for index in context_frames:
+                source = frames[index] / "input_image.png"
+                shutil.copy2(source, method_dir / f"rhino-context-{index}.png")
+            provenance["method"] = {"sequence": name, "target_frame": poster_idx,
+                "context_frames": context_frames, "source": str(relative),
+                "context_sha256": {str(index): hashlib.sha256((frames[index] / "input_image.png").read_bytes()).hexdigest() for index in context_frames},
+                "output_views": sample["views"], "token_diagram": "schematic"}
         print(f"[sequence] {name}: {len(frames)} frames, four complete views", flush=True)
     figure_dir = assets / "figures"
     figure_dir.mkdir(exist_ok=True)

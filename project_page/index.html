@@ -64,14 +64,69 @@
     <section id="method" class="section shell">
       <div class="section-heading"><div><span class="eyebrow">02 / Probing-based motion distillation</span><h2>Method overview</h2></div><p>PMD tests motion-state decodability through a low-rank pairwise probe. Backbone features remain frozen throughout probe training.</p></div>
       <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Frozen geometry<small>Multi-frame tokens</small></button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank probe<small>Pairwise compatibility</small></button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion<small>Scores to masks</small></button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement<small>SAM2</small></button></div>
+      <figure class="method-figure">
+        <div class="method-visual" role="group" aria-label="Interactive PMD pipeline">
+          <button class="method-stage" data-stage="0" aria-pressed="true" aria-label="Inspect frozen geometry">
+            <span class="stage-title"><span>01</span> Frozen geometry</span>
+            <span class="stage-kind">Frozen representations</span>
+            <span class="input-stack">
+              <img src="assets/method/rhino-context-68.png" alt="Rhino context frame 68" loading="lazy">
+              <img src="assets/method/rhino-context-72.png" alt="Rhino context frame 72" loading="lazy">
+              <img src="assets/videos/rhino-input.png" alt="Rhino target frame 70" loading="lazy">
+            </span>
+            <span class="stage-note">Target frame + two context frames</span>
+            <span class="stage-arrow" aria-hidden="true">&#8595;</span>
+            <span class="stage-model">Frozen 3D backbone</span>
+            <span class="stage-tokens">H = [h<sub>0</sub>, h<sub>1</sub>, &#8230;, h<sub>N</sub>]</span>
+            <span class="stage-note">Target-frame spatial tokens</span>
+          </button>
+          <button class="method-stage" data-stage="1" aria-pressed="false" aria-label="Inspect the low-rank pairwise probe">
+            <span class="stage-title"><span>02</span> Low-rank probe</span>
+            <span class="stage-kind">Only learned component</span>
+            <svg class="pair-diagram" viewBox="0 0 220 230" role="img" aria-labelledby="pair-title">
+              <title id="pair-title">Schematic reference and target-token vectors passed to a rank-8 quadratic probe</title>
+              <defs><pattern id="feature-stripes" width="18" height="30" patternUnits="userSpaceOnUse"><rect width="15" height="30" fill="#d5ddcb"/></pattern><marker id="pair-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#89937f"/></marker></defs>
+              <text x="55" y="24" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">0</tspan></text><rect x="10" y="36" width="92" height="56" rx="2" fill="url(#feature-stripes)"/>
+              <text x="165" y="24" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">i</tspan></text><rect x="120" y="36" width="92" height="56" rx="2" fill="url(#feature-stripes)"/>
+              <path d="M56 92L56 113L88 131" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
+              <path d="M166 92L166 113L138 131" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
+              <rect x="15" y="139" width="196" height="58" rx="3" fill="#f5e5d8" stroke="#c6a58d"/>
+              <text x="113" y="164" text-anchor="middle">Quadratic readout</text><text x="113" y="184" text-anchor="middle" class="pair-rank">U, V: rank 8</text>
+              <path d="M113 197L113 225" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
+            </svg>
+            <span class="stage-equation">p<sub>i0</sub> = &#963;(s<sub>i0</sub>)</span>
+            <span class="stage-note">Same-state compatibility with token 0</span>
+            <span class="stage-note source-supervision">Trained on source motion masks</span>
+          </button>
+          <button class="method-stage" data-stage="2" aria-pressed="false" aria-label="Inspect dynamic scores and the coarse mask">
+            <span class="stage-title"><span>03</span> Coarse motion</span>
+            <span class="stage-kind">Prompt-free decoding</span>
+            <span class="stage-panel"><img src="assets/videos/rhino-scores.png" alt="Stored PMD dynamic score map for rhino frame 70" loading="lazy"><span>Dynamic scores</span></span>
+            <span class="stage-arrow" aria-hidden="true">&#8595;</span>
+            <span class="stage-panel"><img src="assets/videos/rhino-coarse.png" alt="Stored PMD coarse mask overlay for rhino frame 70" loading="lazy"><span>Coarse mask</span></span>
+            <span class="stage-note">Block averaging, upsampling, binarization</span>
+          </button>
+          <button class="method-stage" data-stage="3" aria-pressed="false" aria-label="Inspect optional SAM2 refinement">
+            <span class="stage-title"><span>04</span> SAM2 refinement</span>
+            <span class="stage-kind">Optional external model</span>
+            <span class="refinement-input">Coarse motion evidence</span>
+            <span class="stage-arrow" aria-hidden="true">&#8595;</span>
+            <span class="stage-model external-model">SAM2</span>
+            <span class="stage-arrow" aria-hidden="true">&#8595;</span>
+            <span class="stage-panel"><img src="assets/videos/rhino-refined.png" alt="Stored SAM2-refined PMD overlay for rhino frame 70" loading="lazy"><span>Refined mask</span></span>
+            <span class="stage-note">Extent and boundary refinement</span>
+          </button>
+        </div>
+        <figcaption>Click a stage to inspect the pipeline. Image panels use stored Pi3X-PMD outputs for the same rhino frame; the token and probe diagrams are schematic.</figcaption>
+      </figure>
       <div class="step-detail"><span id="step-number" class="step-number">01</span><div><h3 id="step-title">Frozen geometric features</h3><p id="step-copy">An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks.</p></div><button id="animate-pipeline" class="text-button" aria-pressed="false">Animate pipeline <span aria-hidden="true">&#8594;</span></button></div>
       <div class="method-foot"><p><strong>Only the probe is learned.</strong> Pairwise same-state compatibility with a fixed reference token becomes a dense dynamic score map. Scores are reshaped, bilinearly upsampled, and binarized.</p><p><strong>Coarse and refined are separate.</strong> SAM2 is an optional external mask-refinement stage. Motion decoding is evaluated before refinement.</p></div>
     </section>
 
     <section id="evidence" class="section evidence-section">
       <div class="shell">
-        <div class="section-heading"><div><span class="eyebrow">03 / Empirical analysis</span><h2>Representation analysis</h2></div><p>Layer-wise probing, PCA of the probe-induced representation, and training-video ablations characterize motion decodability and data efficiency.</p></div>
-        <div class="evidence-tabs" aria-label="Representation analysis"><button data-panel="layerwise" aria-pressed="true">Across layers</button><button data-panel="pca" aria-pressed="false">Probe-induced subspace</button><button data-panel="starvation" aria-pressed="false">Data efficiency</button></div>
+        <div class="section-heading"><div><span class="eyebrow">03 / Empirical analysis</span><h2>Representation analysis</h2></div></div>
+        <div class="evidence-tabs" aria-label="Representation analysis"><button data-panel="layerwise" aria-pressed="true">Layer-wise probing</button><button data-panel="pca" aria-pressed="false">Probe-induced subspace</button><button data-panel="starvation" aria-pressed="false">Data efficiency</button></div>
         <figure class="evidence-figure"><button id="open-figure" class="figure-zoom" aria-label="Enlarge the current figure"><img id="evidence-image" src="assets/figures/layerwise.png" loading="lazy" alt="Layer-wise motion probing on Pi3X, DA3, and DUSt3R."></button><figcaption id="evidence-caption">Layer-wise motion decodability on Pi3X, DA3, and DUSt3R. Click the figure to enlarge.</figcaption></figure>
         <p class="scope-note">PCA here visualizes the supervised <strong>probe-induced subspace</strong>. PMD recovers motion-relevant information; semantic leakage remains a documented limitation.</p>
       </div>

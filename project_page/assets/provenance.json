@@ -131,5 +131,37 @@
       "source": "isdynamic_visualizations/comparisons/data_starvation/pi3x_da3_dust3r_test_davis_normalized_gain_panel.pdf",
       "sha256": "5e5c2ae02ae8f376696986e5ac7900d28fbee3ca0a678d3659d6101180c5b25a"
     }
+  },
+  "method": {
+    "sequence": "rhino",
+    "target_frame": 70,
+    "context_frames": [
+      68,
+      72
+    ],
+    "source": "isdynamic_motion_masks/pi3x/inter_frame_block/davis_all/rhino",
+    "context_sha256": {
+      "68": "fd49659d4f737164da8de8dede14eb97bb34df7e8ee1f67284f544a194604a26",
+      "72": "cdfeb8c537013dccbfd91842ac59b83dc0768129439a5762ac1875812ffdff0e"
+    },
+    "output_views": {
+      "input": {
+        "video": "assets/videos/rhino-input.mp4",
+        "poster": "assets/videos/rhino-input.png"
+      },
+      "scores": {
+        "video": "assets/videos/rhino-scores.mp4",
+        "poster": "assets/videos/rhino-scores.png"
+      },
+      "coarse": {
+        "video": "assets/videos/rhino-coarse.mp4",
+        "poster": "assets/videos/rhino-coarse.png"
+      },
+      "refined": {
+        "video": "assets/videos/rhino-refined.mp4",
+        "poster": "assets/videos/rhino-refined.png"
+      }
+    },
+    "token_diagram": "schematic"
   }
 }
