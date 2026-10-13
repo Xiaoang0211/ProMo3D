@@ -1,6 +1,8 @@
 from html.parser import HTMLParser
+from html import unescape
 import json
 from pathlib import Path
+import re
 
 import pytest
 
@@ -54,3 +56,15 @@ def test_resource_placeholders_do_not_advertise_huggingface_demo():
     assert "huggingface.co/spaces" not in html
     assert "Hugging Face Demo" not in html
     assert 'href="https://github.com/Xiaoang0211/promo3d"' not in html
+
+
+def test_page_uses_exact_paper_title_and_official_poster_details():
+    html = (PAGE / "index.html").read_text()
+    title = "ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models"
+    heading = re.search(r"<h1>(.*?)</h1>", html, re.DOTALL).group(1)
+    assert " ".join(unescape(re.sub(r"<[^>]+>", " ", heading)).split()) == title
+    assert f"<title>{title}</title>" in html
+    assert "Wednesday, 9 December" in html
+    assert "10:00-13:00 AEDT (UTC+11)" in html
+    assert "ICC Sydney, Hall 1-4" in html
+    assert "neurips.cc/virtual/2026/poster/151302" in html

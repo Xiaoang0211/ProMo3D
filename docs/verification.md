@@ -14,7 +14,7 @@ The original `isDynamicProbe` experiment artifacts were read as references. New 
 | Six-backbone diagnostic | Recomputed from exact stored metrics and evaluation JSONs, including source validation and association statistics |
 | Main/runtime tables | CSV, JSON, and Markdown generation passed against archived values |
 | Figure 2 | Rebuilt from numeric layer-wise logs; PDF embeds TrueType fonts |
-| Public CPU tests | 43 passed; covers pair labels, shuffling, probe equation, masks, evaluator, reporting, CLI paths, padding isolation, patch manifest, and project-page asset completeness |
+| Public CPU tests | 44 passed; covers pair labels, shuffling, probe equation, masks, evaluator, reporting, CLI paths, padding isolation, patch manifest, project-page assets, and paper/session metadata |
 | Project-page videos | Rhino 90, koala 100, bird of paradise 98 frames; all source frames preserved in input, score, coarse-overlay, and refined-overlay clips |
 | Project-page browser checks | All nine sequence/view switches preserve seeking position with zero measured synchronization error; playback, pipeline animation, figure modal, and mobile layout verified |
 | DA3 feature-extraction patch | Applied successfully to clean pinned source files, including the required recorder helper |

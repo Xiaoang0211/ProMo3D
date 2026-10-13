@@ -5,6 +5,16 @@ const seek = document.querySelector('#seek');
 const counter = document.querySelector('#frame-counter');
 let samples, currentSample, currentView = 'coarse', playing = false, loadId = 0;
 const viewNames = {scores: 'PMD dynamic scores', coarse: 'PMD coarse', refined: 'PMD + SAM2'};
+const mediaCache = new Map();
+
+function mediaSource(path) {
+  // Blob URLs support seeking even on hosts that do not serve byte ranges.
+  if (!mediaCache.has(path)) mediaCache.set(path, fetch(path).then(response => {
+    if (!response.ok) throw Error(`Unable to load ${path}`);
+    return response.blob();
+  }).then(blob => URL.createObjectURL(blob)));
+  return mediaCache.get(path);
+}
 
 function selected(selector, value, key) {
   document.querySelectorAll(selector).forEach(button => button.setAttribute('aria-pressed', String(button.dataset[key] === value)));
@@ -45,18 +55,26 @@ async function showSample(id, view, preserveTime = false) {
   selected('[data-view]', view, 'view');
   document.querySelector('#sequence-description').textContent = currentSample.description;
   document.querySelector('#prediction-label').textContent = viewNames[view];
-  const loading = [];
-  if (!sameSequence) {
-    input.src = currentSample.views.input.video;
-    input.poster = currentSample.views.input.poster;
-    loading.push(metadata(input));
-  }
-  prediction.src = currentSample.views[view].video;
-  prediction.poster = currentSample.views[view].poster;
-  loading.push(metadata(prediction));
   play.disabled = true;
   seek.disabled = true;
+  document.querySelector('.video-pair').setAttribute('aria-busy', 'true');
+  const sample = currentSample;
   try {
+    const [inputUrl, predictionUrl] = await Promise.all([
+      sameSequence ? null : mediaSource(sample.views.input.video), mediaSource(sample.views[view].video)
+    ]);
+    if (revision !== loadId) return;
+    const loading = [];
+    if (!sameSequence) {
+      input.src = inputUrl;
+      input.dataset.asset = sample.views.input.video;
+      input.poster = sample.views.input.poster;
+      loading.push(metadata(input));
+    }
+    prediction.src = predictionUrl;
+    prediction.dataset.asset = sample.views[view].video;
+    prediction.poster = sample.views[view].poster;
+    loading.push(metadata(prediction));
     await Promise.all(loading);
     if (revision !== loadId) return;
     const targetTime = Math.min(time, input.duration - .01);
@@ -65,6 +83,7 @@ async function showSample(id, view, preserveTime = false) {
     document.querySelector('.video-pair').style.setProperty('--video-ratio', input.videoWidth / input.videoHeight);
     updatePosition();
     play.disabled = seek.disabled = false;
+    document.querySelector('.video-pair').setAttribute('aria-busy', 'false');
     if (resume) await start();
   } catch {
     if (revision !== loadId) return;
