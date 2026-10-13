@@ -164,7 +164,18 @@ def test_method_figure_matches_paper_score_notation_and_refinement_input():
     assert "With padding, token 0 (a = 0) is static by design." in html
     assert "Compatibility with token 0 gives the static score." in html
     assert 'alt="PMD coarse mask supplied to SAM2 refinement"' in html
-    assert 'class="sam2-icon"' in html
+    assert 'class="sam2-logo"' in html
+
+
+def test_method_has_no_module_subtitles_and_uses_official_demo_branding():
+    html = (PAGE / "index.html").read_text()
+    assert 'class="stage-kind"' not in html
+    pipeline = re.search(r'<div class="pipeline".*?</div>', html, re.DOTALL).group()
+    assert "<small>" not in pipeline
+    logo = PAGE / "assets/method/sam2-meta-logo.svg"
+    assert hashlib.sha256(logo.read_bytes()).hexdigest() == "40860e86d8a4829158171787a3cb32fdeb18e8e907e200bdaa009a3b07ecf0a8"
+    assert 'alt="Meta logo from the official SAM 2 demo"' in html
+    assert 'class="sam2-icon"' not in html
 
 
 def test_page_has_paper_abstract_without_preprocessing_section():

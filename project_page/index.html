@@ -68,12 +68,11 @@
 
     <section id="method" class="section shell">
       <div class="section-heading"><div><span class="eyebrow">02 / Probing-based motion distillation</span><h2>Method overview</h2></div><p>PMD tests motion-state decodability through a low-rank pairwise probe. Backbone features remain frozen throughout probe training.</p></div>
-      <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Input frames<small>Multi-frame tokens</small></button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank quadratic probe<small>Pairwise compatibility</small></button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion<small>Scores to masks</small></button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement<small>SAM2</small></button></div>
+      <div class="pipeline" aria-label="Interactive method walkthrough"><button data-step="0" aria-pressed="true"><span>01</span>Input frames</button><b aria-hidden="true">&#8594;</b><button data-step="1" aria-pressed="false"><span>02</span>Low-rank quadratic probe</button><b aria-hidden="true">&#8594;</b><button data-step="2" aria-pressed="false"><span>03</span>Coarse motion</button><b aria-hidden="true">&#8594;</b><button data-step="3" aria-pressed="false"><span>04</span>Optional refinement</button></div>
       <figure class="method-figure">
         <div class="method-visual" role="group" aria-label="Interactive PMD pipeline">
           <button class="method-stage" data-stage="0" aria-pressed="true" aria-label="Inspect input frames">
             <span class="stage-title"><span>01</span> Input frames</span>
-            <span class="stage-kind">Temporal / multi-view context</span>
             <span class="input-stack">
               <img src="assets/method/rhino-context-68.png" alt="Rhino context frame 68" loading="lazy">
               <img src="assets/method/rhino-context-72.png" alt="Rhino context frame 72" loading="lazy">
@@ -87,7 +86,6 @@
           </button>
           <button class="method-stage" data-stage="1" aria-pressed="false" aria-label="Inspect the low-rank quadratic probe">
             <span class="stage-title"><span>02</span> Low-rank quadratic probe</span>
-            <span class="stage-kind">Only learned component</span>
             <svg class="pair-diagram" viewBox="0 0 220 230" role="img" aria-labelledby="pair-title">
               <title id="pair-title">Schematic reference and target-token vectors passed to a low-rank quadratic probe</title>
               <defs><pattern id="feature-stripes" width="18" height="30" patternUnits="userSpaceOnUse"><rect width="15" height="30" fill="#d5ddcb"/></pattern><marker id="pair-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#89937f"/></marker></defs>
@@ -106,7 +104,6 @@
           </button>
           <button class="method-stage" data-stage="2" aria-pressed="false" aria-label="Inspect dynamic scores and the coarse mask">
             <span class="stage-title"><span>03</span> Coarse motion</span>
-            <span class="stage-kind">Prompt-free decoding</span>
             <span class="stage-equation dynamic-equation"><math display="block" aria-label="p hat i dynamic equals one minus p hat i static"><mrow><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>dyn</mtext></msubsup><mo>=</mo><mn>1</mn><mo>&#8722;</mo><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>stat</mtext></msubsup></mrow></math></span>
             <span class="stage-panel"><img src="assets/videos/rhino-scores.png" alt="Stored PMD dynamic score map for rhino frame 70" loading="lazy"><span>Dynamic scores</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
@@ -115,10 +112,9 @@
           </button>
           <button class="method-stage" data-stage="3" aria-pressed="false" aria-label="Inspect optional SAM2 refinement">
             <span class="stage-title"><span>04</span> SAM2 refinement</span>
-            <span class="stage-kind">Optional external model</span>
             <span class="stage-panel refinement-input"><img src="assets/videos/rhino-coarse.png" alt="PMD coarse mask supplied to SAM2 refinement" loading="lazy"><span>Coarse mask</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
-            <span class="stage-model external-model"><svg class="sam2-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M19 25C17 16 30 14 35 20C45 16 51 27 45 33C50 42 39 49 32 43C23 49 13 40 19 33Z" fill="var(--wash)" stroke="var(--accent)" stroke-width="2"/><circle cx="31" cy="30" r="4" fill="var(--accent)"/><path d="M30 11H50V31" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>SAM2</span></span>
+            <span class="stage-model external-model"><img class="sam2-logo" src="assets/method/sam2-meta-logo.svg" alt="Meta logo from the official SAM 2 demo" width="80" height="16" loading="lazy"><span>SAM2</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
             <span class="stage-panel"><img src="assets/videos/rhino-refined.png" alt="Stored SAM2-refined PMD overlay for rhino frame 70" loading="lazy"><span>Refined mask</span></span>
             <span class="stage-note">Extent and boundary refinement</span>

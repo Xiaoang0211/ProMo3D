@@ -12,6 +12,8 @@ The interactive method figure uses stored Pi3X-PMD outputs for rhino frame 70, w
 
 The Abstract follows `ProMo3D_CR.pdf`. The method figure uses the static/dynamic score notation of its Equations 7-8; the static-by-design statement is qualified by padding. Preprocessing details remain in reproduction documentation rather than the project page.
 
+The SAM2 module uses the unmodified Meta logo served by the [official SAM 2 demo](https://sam2.metademolab.com/), displayed in monochrome next to the model name. This is Meta's mark, not a separately invented SAM2 logo; the source and checksum are recorded in `project_page/assets/method/SOURCES.md`.
+
 ## Paper resources
 
 - Public project page: https://xiaoang0211.github.io/ProMo3D/
