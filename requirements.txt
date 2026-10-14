@@ -8,3 +8,4 @@ tqdm
 einops
 safetensors
 gdown
+huggingface_hub>=0.27,<1.0

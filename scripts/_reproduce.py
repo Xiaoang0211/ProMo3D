@@ -9,6 +9,7 @@ from pathlib import Path
 import random
 import shlex
 import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = Path(os.environ.get("OUTPUT_ROOT", ROOT / "outputs")).expanduser().absolute()
@@ -37,7 +38,8 @@ def run(command, env=None, dry=False):
         visible = {key: value for key, value in env.items()
                    if key.endswith(("ROOT", "DIR", "BIN", "PREPROCESS_MODE")) or key in {
                        "ANCHOR0_SAFEGUARD", "TRAIN_LABEL_CONTROL", "BENCHMARKS",
-                       "CONTEXT_SIZE", "CONTEXT_STRIDE", "FEATURE_BATCH_SIZE", "SCORE_BATCH_SIZE"}}
+                       "CONTEXT_SIZE", "CONTEXT_STRIDE", "FEATURE_BATCH_SIZE", "SCORE_BATCH_SIZE",
+                       "ISDYNAMIC_MASK_OUTPUT_MODE"}}
         print("[settings] " + json.dumps(visible, sort_keys=True), flush=True)
     if not dry:
         subprocess.run(command, cwd=ROOT, env={**os.environ, **(env or {})}, check=True)
@@ -131,11 +133,11 @@ def train(model, destination, args, rank=8, types="pair_lowrank_quadratic", grou
 
 
 def masks(model, args, scope=MAIN, probe=None, context="temporal", preprocessing="native",
-          fixed=False, stage="masks"):
+          fixed=False, stage="masks", benchmarks=None, variants=None, qualitative=False):
     env = common_env(scope)
     prefix = "PI3X" if model == "pi3x" else SPECS[model][1]
     env.update(PYTHON_BIN=python_for(model), MODELS=SPECS[model][0],
-               BENCHMARKS=os.environ.get("BENCHMARKS", MASK_BENCHMARKS),
+               BENCHMARKS=benchmarks or os.environ.get("BENCHMARKS", MASK_BENCHMARKS),
                OUT_DIR=str(scope / "masks"), MASK_ROOT=str(scope / "masks"),
                EVAL_ROOT=str(scope / "eval"), CONTEXT_MODE=context,
                FEATURE_BATCH_SIZE=os.environ.get(f"{prefix}_FEATURE_BATCH_SIZE", "1" if model == "da3" else "4"))
@@ -145,17 +147,81 @@ def masks(model, args, scope=MAIN, probe=None, context="temporal", preprocessing
         env[f"{prefix}_PREPROCESS_MODE"] = preprocessing
     if model == "da3":
         env["SCORE_BATCH_SIZE"] = os.environ.get("DA3_SCORE_BATCH_SIZE", "32768")
+    if qualitative:
+        env.update(ISDYNAMIC_MASK_OUTPUT_MODE="full", VARIANTS="sam2_prompt",
+                   PIPELINE_REFINED_AFTER_EACH_SEQUENCE="0")
     if fixed:
         env.update(MOTION_MASK_THRESHOLD_MODE="fixed", MOTION_MASK_THRESHOLD="0.5",
                    MOTION_MASK_THRESHOLD_OFFSET="0.0")
     if stage == "eval":
-        env["BENCHMARKS"] = os.environ.get("BENCHMARKS", EVAL_BENCHMARKS)
-        for variant in ("bilinear_upsample", REFINED):
+        env["BENCHMARKS"] = benchmarks or os.environ.get("BENCHMARKS", EVAL_BENCHMARKS)
+        for variant in variants or ("bilinear_upsample", REFINED):
             env["VARIANT"] = variant
             run(["bash", ROOT / "bash/common/run_eval_motion_masks_all.sh"], env, args.dry_run)
     else:
         filename = "run_export_motion_masks_all.sh" if stage == "masks" else "run_refine_motion_masks_all.sh"
         run(["bash", ROOT / "bash/common" / filename], env, args.dry_run)
+
+
+def predict(args, models):
+    """Run pretrained probes on images, with the existing qualitative writer and evaluator."""
+    def resolve_input(path):
+        path = path.expanduser()
+        return (path if path.is_absolute() else Path(os.environ.get("PMD_CALLER_CWD", ROOT)) / path).resolve()
+
+    if args.probe_root and args.probes_root:
+        raise ValueError("Use --probe-root for one model or --probes-root for a model bundle, not both.")
+    if args.probe_root and len(models) != 1:
+        raise ValueError("--probe-root requires exactly one backbone.")
+    scope = resolve_input(args.output_dir or OUTPUT / "predictions")
+    for name in ("davis", "segtrack", "fbms"):
+        value = getattr(args, f"{name}_root")
+        if value is not None:
+            os.environ[f"{name.upper()}_ROOT"] = str(resolve_input(value))
+    benchmarks = args.benchmarks or ["davis2017", "segtrackv2", "fbms59"]
+    mask_benchmarks = list(dict.fromkeys("davis_all" if name.startswith("davis") else name for name in benchmarks))
+    variants = ("bilinear_upsample", REFINED) if args.sam2 else ("bilinear_upsample",)
+    jobs = []
+    for model in models:
+        prefix = "PI3X" if model == "pi3x" else SPECS[model][1]
+        bundle_probe = None
+        if args.probes_root:
+            bundle_model = resolve_input(args.probes_root) / model
+            released = bundle_model / "rank_8/pair_lowrank_quadratic"
+            bundle_probe = released if released.is_dir() else bundle_model / "pair_lowrank_quadratic"
+        probe = resolve_input(args.probe_root or bundle_probe or probe_root(model) / "pair_lowrank_quadratic")
+        protocol = {"model": model, "probe_root": str(probe), "benchmarks": benchmarks,
+                    "checkpoint_overrides": {key: os.environ[key] for key in
+                                             (f"{prefix}_CHECKPOINT", f"{prefix}_MODEL_DIR", f"{prefix}_WEIGHTS")
+                                             if key in os.environ},
+                    "dataset_roots": {key: os.environ[f"{key}_ROOT"] for key in ("DAVIS", "SEGTRACK", "FBMS")},
+                    "preprocessing": "native", "context_size": 3, "context_stride": 2,
+                    "threshold": "otsu+0.2", "qualitative_outputs": True}
+        manifest = scope / f"run_{model}.json"
+        if not args.dry_run:
+            if not probe.is_dir():
+                raise FileNotFoundError(f"Missing trained probes: {probe}. Use --probe-root or --probes-root; no training is run.")
+            for benchmark in benchmarks:
+                key = "DAVIS" if benchmark.startswith("davis") else "SEGTRACK" if benchmark == "segtrackv2" else "FBMS"
+                if not Path(os.environ[f"{key}_ROOT"]).is_dir():
+                    raise FileNotFoundError(f"Missing {key} dataset: {os.environ[f'{key}_ROOT']}")
+            if manifest.exists() and json.loads(manifest.read_text()) != protocol:
+                raise ValueError(f"Different inference settings already recorded in {manifest}; choose a new --output-dir.")
+            mask_dir = scope / "masks" / SPECS[model][0]
+            if not manifest.exists() and mask_dir.exists():
+                raise ValueError(f"Existing masks have no matching run manifest: {mask_dir}; choose a new --output-dir.")
+        jobs.append((model, probe, manifest, protocol))
+    if not args.dry_run:
+        scope.mkdir(parents=True, exist_ok=True)
+        for _, _, manifest, protocol in jobs:
+            manifest.write_text(json.dumps(protocol, indent=2) + "\n")
+    for model, probe, _, _ in jobs:
+        for stage in (("masks", "refine", "eval") if args.sam2 else ("masks", "eval")):
+            selected = benchmarks if stage == "eval" else mask_benchmarks
+            masks(model, args, scope, probe=probe, stage=stage, benchmarks=",".join(selected),
+                  variants=variants, qualitative=True)
+    analysis("isdynamic.release.tables", "--root", scope, "--kind", "main", dry=args.dry_run)
+    print(f"[results] {scope}\n[tables] {scope / 'tables/motion_masks.csv'}", flush=True)
 
 
 def subset(model, size, seed, args):
@@ -191,7 +257,9 @@ def analysis(name, *params, dry=False):
 
 
 def main_experiment(args, models):
-    if args.experiment == "export":
+    if args.experiment == "predict":
+        predict(args, models)
+    elif args.experiment == "export":
         export_tokens(models, args)
     elif args.experiment in {"train", "layerwise", "ranks"}:
         for model in models:
@@ -328,28 +396,47 @@ def additional_experiment(args, models):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Reproduce ProMo3D / PMD experiments using bash entrypoints.")
-    parser.add_argument("suite", choices=("main", "experiments"))
-    parser.add_argument("experiment")
+    direct = sys.argv[1:3] == ["main", "predict"]
+    parser = argparse.ArgumentParser(
+        prog="bash scripts/evaluate.sh" if direct else None,
+        description="Pretrained masks, qualitative outputs, and benchmark evaluation." if direct
+                    else "Reproduce ProMo3D / PMD experiments using bash entrypoints.")
+    if direct:
+        parser.set_defaults(suite="main", experiment="predict")
+    else:
+        parser.add_argument("suite", choices=("main", "experiments"))
+        parser.add_argument("experiment")
     parser.add_argument("models", nargs="*")
     parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--ranks", type=int, nargs="+", default=[4, 8, 16, 32, 64, 128, 256])
-    parser.add_argument("--sizes", type=int, nargs="+", default=[160, 80, 40, 20, 10])
-    parser.add_argument("--seeds", type=int, nargs="+", default=[42, 13, 7])
-    parser.add_argument("--methods", nargs="+", choices=("pi3x", "geomotion", "flowsam", "seganymo"), default=["pi3x"])
-    parser.add_argument("--stage", choices=("export", "train", "masks", "refine", "eval", "geometry"), default="train")
-    parser.add_argument("--panels", nargs="+", choices=("layerwise", "pca", "starvation", "starvation_masks"), default=["layerwise"])
-    parser.add_argument("--table", choices=("main", "ranks", "controls", "runtime"), default="main")
-    return parser.parse_args()
+    if direct:
+        parser.add_argument("--probe-root", type=Path, help="Trained pair_lowrank_quadratic directory for one backbone.")
+        parser.add_argument("--probes-root", type=Path, help="Model bundle containing <backbone>/[rank_8/]pair_lowrank_quadratic/.")
+        parser.add_argument("--output-dir", type=Path, help="Output folder; default: outputs/predictions/.")
+        parser.add_argument("--davis-root", type=Path)
+        parser.add_argument("--segtrack-root", type=Path)
+        parser.add_argument("--fbms-root", type=Path)
+        parser.add_argument("--benchmarks", nargs="+", choices=EVAL_BENCHMARKS.split(","))
+        parser.add_argument("--sam2", action="store_true", help="Also generate and separately evaluate SAM2-refined masks.")
+    else:
+        parser.add_argument("--ranks", type=int, nargs="+", default=[4, 8, 16, 32, 64, 128, 256])
+        parser.add_argument("--sizes", type=int, nargs="+", default=[160, 80, 40, 20, 10])
+        parser.add_argument("--seeds", type=int, nargs="+", default=[42, 13, 7])
+        parser.add_argument("--methods", nargs="+", choices=("pi3x", "geomotion", "flowsam", "seganymo"), default=["pi3x"])
+        parser.add_argument("--stage", choices=("export", "train", "masks", "refine", "eval", "geometry"), default="train")
+        parser.add_argument("--panels", nargs="+", choices=("layerwise", "pca", "starvation", "starvation_masks"), default=["layerwise"])
+        parser.add_argument("--table", choices=("main", "ranks", "controls", "runtime"), default="main")
+    return parser.parse_args(sys.argv[3:] if direct else None)
 
 
 if __name__ == "__main__":
     args = parse_args()
-    choices = {"main": {"export", "train", "layerwise", "ranks", "starvation", "starvation_masks", "masks", "refine", "eval", "figures", "tables", "qualitative", "all"},
+    choices = {"main": {"predict", "export", "train", "layerwise", "ranks", "starvation", "starvation_masks", "masks", "refine", "eval", "figures", "tables", "qualitative", "all"},
                "experiments": {"controls", "thresholds", "val_masks", "diagnostic", "runtime", "tables", "repeated_context", "position_residual", "padding"}}
     if args.experiment not in choices[args.suite]:
         raise SystemExit(f"Choose an experiment from: {', '.join(sorted(choices[args.suite]))}")
     defaults = ["pi3x", "pi3", "da3", "dust3r"] if args.suite == "main" else list(SPECS)
+    if args.experiment == "predict":
+        defaults = list(SPECS)
     if args.experiment == "controls":
         defaults = ["pi3x", "da3", "dust3r"]
     if args.experiment in {"starvation", "starvation_masks", "ranks"}:

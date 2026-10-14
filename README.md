@@ -4,12 +4,12 @@
   <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="project_page/assets/icons/paper.svg" width="20" height="20" alt=""> <strong>NeurIPS 2026</strong></a>
   &nbsp;&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="project_page/assets/icons/project-page.svg" width="20" height="20" alt=""> Project Page</a>
   &nbsp;&nbsp; <img src="project_page/assets/icons/paper.svg" width="20" height="20" alt=""> arXiv (coming soon)
-  &nbsp;&nbsp; <img src="project_page/assets/icons/huggingface.svg" width="22" height="20" alt=""> Hugging Face: Models &amp; Data (coming soon)
+  &nbsp;&nbsp; <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="project_page/assets/icons/huggingface.svg" width="22" height="20" alt=""> Models</a>
+  &nbsp;&nbsp; <a href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"><img src="project_page/assets/icons/huggingface.svg" width="22" height="20" alt=""> Data</a>
 </p>
 
 <!-- Resource links to fill when released:
 ARXIV_URL: https://arxiv.org/abs/<paper-id>
-HUGGINGFACE_RESOURCES_URL: collection linking model and dataset repositories
 -->
 
 **How much motion information is already recoverable from frozen 3D foundation models?** ProMo3D investigates this question through lightweight representation probing. Our method, **Probing-based Motion Distillation (PMD)**, learns a low-rank pairwise readout of frozen tokens and converts motion-state compatibility into dense motion masks.
@@ -28,7 +28,7 @@ An input frame group provides multi-view or temporal context. PMD reads intermed
 
 The release includes Pi3X, Pi3, VGGT, DA3, MapAnything, and DUSt3R. [Main-paper reproduction](docs/main.md) covers the selected token groups, layer-wise probing, low-rank analysis, probe-induced PCA, and data-starvation experiments.
 
-The planned **Hugging Face: Models & Data** release will contain trained PMD probes and training/validation assets, with model cards, dataset documentation, and the applicable upstream licenses.
+The **Hugging Face Models & Data** release provides the original six-backbone rank-8 PMD probes and training/validation assets (160/80 sequences, RGB images and binary motion masks), with model cards, dataset documentation, and upstream terms. Models are public; dataset downloads require accepting the research-use agreement. Native padding is retained for Pi3/Pi3X/VGGT. These are the original paper probes, not later safeguard or additional-padding experiments.
 
 ## Setup
 
@@ -47,7 +47,9 @@ pip install -r requirements.txt
 
 Set the interpreter paths in `configs/local.env` and place checkpoints at the locations listed in [Setup](docs/setup.md). Separate backbone environments are supported; a single environment containing every model is not required.
 
-Download the supplied motion-mask training/validation subsets and evaluation datasets, then check the installation:
+For inference-only use with downloaded evaluation datasets, skip the training-data download and follow [Pretrained inference](#pretrained-inference) below. It requires neither YouTube-VOS nor token exports.
+
+For full reproduction, download the supplied motion-mask training/validation subsets and evaluation datasets, then check the installation:
 
 ```bash
 bash scripts/download_datasets.sh
@@ -55,6 +57,31 @@ bash scripts/check_setup.sh --models pi3x pi3 vggt da3 mapanything dust3r
 ```
 
 Datasets default to `datasets/`. See [Setup](docs/setup.md) for checkpoint paths, reusing existing installations, and runtime overrides for token data stored on another disk.
+
+## Pretrained Inference
+
+Download a backbone's PMD probes, then generate masks, qualitative outputs, and benchmark metrics directly from images, without training or token export:
+
+```bash
+bash scripts/download_huggingface.sh --assets models --models pi3x
+
+bash scripts/evaluate.sh pi3x \
+  --probe-root outputs/pretrained/pi3x/rank_8/pair_lowrank_quadratic \
+  --davis-root /path/to/DAVIS \
+  --segtrack-root /path/to/SegTrackv2 \
+  --fbms-root /path/to/FBMS-59 \
+  --output-dir outputs/predictions/pi3x_native
+```
+
+Add `--sam2` for optional refinement and separate coarse/refined evaluation. Dataset paths default to `datasets/`; `--benchmarks` selects individual benchmarks. Outputs include input images, score heatmaps, binary masks, overlays, evaluation JSONs, and a J-Mean/J-Recall CSV. See [Pretrained inference](docs/inference.md) for all six backbones, model bundles, output paths, and submodule use. Backbone environments/checkpoints are still required and obtained from the official sources in [Setup](docs/setup.md).
+
+For probe training, accept the terms on the [data page](https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data), authenticate your local Hugging Face client, and download the source RGB images and masks:
+
+```bash
+bash scripts/download_huggingface.sh --assets data
+```
+
+Data go to `datasets/youtubevos_160vids/{train,validation}/`; probes go to `outputs/pretrained/<backbone>/rank_8/`. Checksums are verified and different existing files are never overwritten. Existing linked datasets can be reused without downloading; choose a fresh `--data-root` for an independent copy. See the dataset card for the exact source-release provenance and sequence/frame manifests.
 
 ## Reproduction
 
@@ -119,4 +146,4 @@ outputs/       New experiment outputs (ignored)
 bash/          Internal compatibility scripts used by the public entrypoints
 ```
 
-Third-party implementations, datasets, and checkpoints retain their original licenses. The arXiv record, Hugging Face model/data links, and final citation will be added when released.
+Third-party implementations, datasets, and checkpoints retain their original licenses. The arXiv record will be added when released.

@@ -56,8 +56,9 @@ def test_partial_sequence_cannot_be_presented_as_complete(tmp_path):
 def test_resource_placeholders_do_not_advertise_huggingface_demo():
     html = (PAGE / "index.html").read_text()
     assert "Hugging Face Model Card" not in html
-    assert "Hugging Face" in html
-    assert "Models &amp; Data" in html
+    assert 'href="https://huggingface.co/Xiaoang0211/ProMo3D"' in html
+    assert 'href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"' in html
+    assert 'href="https://github.com/Xiaoang0211/ProMo3D"' in html
     assert "huggingface.co/spaces" not in html
     assert "Hugging Face Demo" not in html
     assert 'href="https://github.com/Xiaoang0211/promo3d"' not in html
@@ -303,12 +304,12 @@ def test_method_probe_does_not_repeat_static_dynamic_color_legend():
 def test_resource_icons_are_local_and_shared_with_github_readme():
     html = (PAGE / "index.html").read_text()
     resources = re.search(r'<div class="resources".*?</div>', html, re.DOTALL).group()
-    assert resources.count('class="resource-icon"') == 4
+    assert resources.count('class="resource-icon"') == 5
     readme = (PAGE.parent / "README.md").read_text()
     assert "Hugging Face Model Card" not in readme
-    assert "Hugging Face: Models &amp; Data" in readme
+    assert "Hugging Face Models & Data" in readme
     icons = re.findall(r'src="(project_page/assets/icons/[^"]+)"', readme)
-    assert len(icons) == 4
+    assert len(icons) == 5
     assert all((PAGE.parent / icon).is_file() for icon in icons)
     assert "model cards" in readme
     assert "training/validation assets" in readme

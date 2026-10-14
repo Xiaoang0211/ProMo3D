@@ -54,7 +54,7 @@ The lock file contains the upstream repository URLs. Local third-party patches a
 bash scripts/download_datasets.sh
 ```
 
-This downloads the provided 160-training/80-validation and 10-training YouTube-VOS subsets, DAVIS 2017 train/validation at 480p, SegTrackv2, and both FBMS-59 splits. The pipeline uses the supplied binary motion-mask subset. Official object-instance annotations are not an interchangeable replacement for that source supervision.
+This obtains the 160-training/80-validation source RGB/masks from Hugging Face, plus DAVIS 2017 train/validation at 480p, SegTrackv2, and both FBMS-59 splits. Accept the dataset-page research-use terms and log into the local Hugging Face client first. Existing source subsets are reused. Training-video ablations derive smaller subsets from the 160 videos in code; a separate 10-video download is not required. Official object-instance annotations are not an interchangeable replacement for the supplied binary motion masks. Exact source-release metadata is documented on the dataset card.
 
 YouTube-VOS subset archives may use `train/validation` instead of `train_motion/valid_motion`; the runner builds a local directory view with the expected names. FBMS uses `Trainingset/` and `Testset/`, and only annotated frames contribute to evaluation.
 

@@ -7,13 +7,12 @@ DATASETS_DIR="${DATASETS_DIR:-${ROOT_DIR}/datasets}"
 DOWNLOADS_DIR="${DOWNLOADS_DIR:-${DATASETS_DIR}/downloads}"
 
 DOWNLOAD_PMD_160="${DOWNLOAD_PMD_160:-1}"
-DOWNLOAD_PMD_10="${DOWNLOAD_PMD_10:-1}"
+DOWNLOAD_PMD_10="${DOWNLOAD_PMD_10:-0}"
 DOWNLOAD_DAVIS="${DOWNLOAD_DAVIS:-1}"
 DOWNLOAD_SEGTRACK="${DOWNLOAD_SEGTRACK:-1}"
 DOWNLOAD_FBMS="${DOWNLOAD_FBMS:-1}"
 
 # PMD subset assets
-PMD_160_URL="${PMD_160_URL:-https://drive.google.com/file/d/1eWnp4GQTyu5EiKHcnUSnSKyHO7H5tdli/view?usp=drive_link}"
 PMD_10_URL="${PMD_10_URL:-https://drive.google.com/file/d/1J4Rz5tzXb_qIZ2t0-0TaQlIuv8zFWBGN/view?usp=drive_link}"
 
 # Evaluation datasets
@@ -131,9 +130,11 @@ main() {
   mkdir -p "$DATASETS_DIR" "$DOWNLOADS_DIR"
 
   if [[ "$DOWNLOAD_PMD_160" == "1" ]]; then
-    local_archive="${DOWNLOADS_DIR}/pmd_youtubevos_160_train_80_valid.zip"
-    ensure_download "PMD 160-train + 80-valid subset" "$PMD_160_URL" "$local_archive"
-    extract_zip_if_needed "$local_archive" "$DATASETS_DIR" "${DATASETS_DIR}/youtubevos_160vids"
+    if [[ -d "${DATASETS_DIR}/youtubevos_160vids/train/Annotations" && -d "${DATASETS_DIR}/youtubevos_160vids/validation/Annotations" ]]; then
+      echo "[skip] PMD source subset already exists: ${DATASETS_DIR}/youtubevos_160vids"
+    else
+      bash "${ROOT_DIR}/scripts/download_huggingface.sh" --assets data --data-root "${DATASETS_DIR}/youtubevos_160vids"
+    fi
   fi
 
   if [[ "$DOWNLOAD_PMD_10" == "1" ]]; then

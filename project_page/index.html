@@ -39,8 +39,9 @@
       <div class="resources" aria-label="Paper resources">
         <a class="resource primary" href="https://openreview.net/forum?id=bSpkdwCVuy" target="_blank" rel="noopener"><img class="resource-icon" src="assets/icons/paper.svg" alt="" aria-hidden="true">Paper <span aria-hidden="true">&#8599;</span></a>
         <span class="resource unavailable"><img class="resource-icon" src="assets/icons/paper.svg" alt="" aria-hidden="true">arXiv <small>coming soon</small></span>
-        <span class="resource unavailable"><img class="resource-icon" src="assets/icons/code.svg" alt="" aria-hidden="true">Code <small>coming soon</small></span>
-        <span class="resource unavailable"><img class="resource-icon" src="assets/icons/huggingface.svg" alt="" aria-hidden="true">Hugging Face <small>Models &amp; Data &middot; coming soon</small></span>
+        <a class="resource" href="https://github.com/Xiaoang0211/ProMo3D" target="_blank" rel="noopener"><img class="resource-icon" src="assets/icons/code.svg" alt="" aria-hidden="true">GitHub <small>private repository</small><span aria-hidden="true">&#8599;</span></a>
+        <a class="resource" href="https://huggingface.co/Xiaoang0211/ProMo3D" target="_blank" rel="noopener"><img class="resource-icon" src="assets/icons/huggingface.svg" alt="" aria-hidden="true">Models <span aria-hidden="true">&#8599;</span></a>
+        <a class="resource" href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data" target="_blank" rel="noopener"><img class="resource-icon" src="assets/icons/huggingface.svg" alt="" aria-hidden="true">Data <span aria-hidden="true">&#8599;</span></a>
       </div>
       <figure class="teaser"><img src="assets/teaser.png" width="2200" height="998" alt="PMD learns a low-rank pairwise probe on frozen geometric tokens and produces motion scores, coarse masks, and optional SAM2-refined masks."><figcaption>Probing-based Motion Distillation (PMD): from frozen geometry to motion segmentation.</figcaption></figure>
     </section>
@@ -135,8 +136,9 @@
     </section>
 
     <section id="reproduce" class="section shell">
-      <div class="section-heading"><div><span class="eyebrow">04 / Experimental protocol</span><h2>Reproduce</h2></div><p>Bash scripts cover environment setup, token export, probe training, coarse-mask inference, refinement, and evaluation. Code release is pending.</p></div>
-      <div class="reproduction-grid"><div class="code-panel"><div class="code-heading"><span>Pi3X / end-to-end</span><button id="copy-commands">Copy commands</button></div><pre id="commands"><code>bash scripts/main/run.sh export pi3x
+      <div class="section-heading"><div><span class="eyebrow">04 / Experimental protocol</span><h2>Reproduce</h2></div><p>Hugging Face hosts the trained PMD probes and source RGB/masks. Bash scripts cover training and evaluation; the code repository is currently private.</p></div>
+      <div class="reproduction-grid"><div class="code-panel"><div class="code-heading"><span>Pi3X / end-to-end</span><button id="copy-commands">Copy commands</button></div><pre id="commands"><code>bash scripts/download_huggingface.sh --assets all
+bash scripts/main/run.sh export pi3x
 bash scripts/main/run.sh train pi3x
 bash scripts/main/run.sh masks pi3x
 bash scripts/main/run.sh refine pi3x
