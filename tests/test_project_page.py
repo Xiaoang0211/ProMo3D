@@ -159,8 +159,8 @@ def test_method_figure_matches_paper_score_notation_and_refinement_input():
     assert "U, V:" not in html
     assert "<mtext>stat</mtext>" in html and "<mtext>dyn</mtext>" in html
     assert '<mover accent="true"><mi>p</mi><mo>^</mo></mover>' in html
-    assert "token 0 (a = 0) lies outside the image content and is static by design." in html
-    assert "high compatibility with this static reference gives a high static score" in html
+    assert "Token 0 (a = 0) lies in Pi3X's padded border and is static by design." in html
+    assert "compatibility with the static anchor gives the static score" in html
     assert 'alt="PMD coarse mask supplied to SAM2 refinement"' in html
     assert '<span class="stage-model external-model">SAM2</span>' in html
 
@@ -186,11 +186,13 @@ def test_each_method_step_is_explained_in_place():
     assert len(stages) == 4
     assert all(stage.count('class="stage-title"') == 1 for stage in stages)
     assert all(stage.count('class="stage-explanation"') == 1 for stage in stages)
-    assert "feature vector (a token)" in stages[0]
+    assert "predefined intermediate blocks of a frozen 3D backbone" in stages[0]
+    assert "feature vector (a token)" not in html
+    assert "rank-8 probe" in stages[1]
     assert "160 YouTube-VOS videos" in stages[1]
-    assert "high static score" in stages[1]
-    assert "Subtract the static score from 1" in stages[2]
-    assert "mask prompts for pretrained SAM2" in stages[3]
+    assert "same/different motion-state labels" in stages[1]
+    assert "same thresholding rule across benchmarks" in stages[2]
+    assert "PMD-derived region-mask prompts with pretrained SAM2" in stages[3]
 
 
 def test_page_omits_guest_footnote_and_frame_group_details():
