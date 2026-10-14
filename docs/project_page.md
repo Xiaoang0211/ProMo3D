@@ -17,13 +17,15 @@ The SAM2 module is text-only. The figure does not use duplicate navigation, a cl
 ## Paper resources
 
 - Public project page: https://xiaoang0211.github.io/ProMo3D/
+- Public research repository: https://github.com/Xiaoang0211/ProMo3D
 - Website-only repository: https://github.com/Xiaoang0211/Xiaoang0211.github.io
 - NeurIPS: https://neurips.cc/virtual/2026/poster/151302
 - OpenReview: https://openreview.net/forum?id=bSpkdwCVuy
 - arXiv: reserved until the paper record is available.
-- Hugging Face: Models & Data. Reserve a collection/resource URL for trained PMD probes and training/validation assets; the individual releases will carry model cards, dataset documentation, and their applicable licenses.
+- Hugging Face models: https://huggingface.co/Xiaoang0211/ProMo3D
+- Hugging Face data: https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data
 
-Unavailable resources are labeled "coming soon", not linked to invented URLs. The code repository is private; the public page does not advertise its private URL as a usable download. The README and project page use local SVG resource icons and the same resource names. "Model card" describes a model's documentation, not the combined model/data release. Final URLs remain placeholders until those resources are published.
+Unavailable resources are labeled "coming soon", not linked to invented URLs. Code and model downloads are public; dataset downloads require accepting the upstream research-use agreement. The README and project page use local SVG resource icons and the same resource names. "Model card" describes a model's documentation, not the combined model/data release. No hosted-demo link is advertised.
 
 The official paper-specific poster schedule was checked on 13 October 2026: Wednesday, 9 December 2026, 10:00-13:00 AEDT (UTC+11), Hall 1-4. The conference venue is ICC Sydney, Australia. Only the project page shows the session details; the repository README retains the NeurIPS 2026 paper and project-page links.
 
@@ -39,13 +41,13 @@ Use `outputs/main/figures/` and the full mask-stage visualizations as regenerate
 
 The README teaser is `project_page/assets/teaser.png`, rendered from the existing paper figure without changing its content; `teaser.pdf` retains the vector original. Both can be shared with the project page.
 
-Author metadata and affiliations were checked against the camera-ready PDF and official NeurIPS listing. The page includes a BibTeX citation without inventing volume or page numbers. The PMD license decision and resource release URLs remain to be finalized before code release.
+Author metadata and affiliations were checked against the camera-ready PDF and official NeurIPS listing. The page includes a BibTeX citation without inventing volume or page numbers. Upstream backbones and source data retain their original terms.
 
 ## Build and access
 
 Run `bash scripts/build_project_page.sh` to prepare `project_page/dist/`. The optional `--assets --archive_outputs /path/to/outputs` rebuilds twelve videos for rhino, koala, and cheetah, and three analysis figures without new inference. It validates that every source frame has a stored prediction and checks each encoded video's frame count. The clips use 12 fps for visualization; they do not report inference latency.
 
-The project page is deployed independently of the private GitHub code repository. The public `Xiaoang0211.github.io` repository contains the generated page in `ProMo3D/`; its Pages source is `main`, directory `/`. Only `dist/` is copied there: no datasets, weights, probe exports, raw experiment logs, local environment configuration, or confidential review material.
+The project page is deployed independently of the public GitHub research repository. The public `Xiaoang0211.github.io` repository contains the generated page in `ProMo3D/`; its Pages source is `main`, directory `/`. Only `dist/` is copied there: no datasets, weights, probe exports, raw experiment logs, local environment configuration, or confidential review material.
 
 Run `bash scripts/publish_project_page.sh` to build and update the public page. The script changes only the website repository's `ProMo3D/` directory and never force-pushes. The root `.nojekyll` keeps the HTML/CSS/JavaScript and assets unchanged. The old Sites manifest is retained for the previous deployment, but is not included in GitHub Pages. Credentials are not stored in either repository.
 

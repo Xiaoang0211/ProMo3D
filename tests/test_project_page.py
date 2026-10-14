@@ -59,6 +59,8 @@ def test_resource_placeholders_do_not_advertise_huggingface_demo():
     assert 'href="https://huggingface.co/Xiaoang0211/ProMo3D"' in html
     assert 'href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"' in html
     assert 'href="https://github.com/Xiaoang0211/ProMo3D"' in html
+    assert "private repository" not in html
+    assert "currently private" not in html
     assert "huggingface.co/spaces" not in html
     assert "Hugging Face Demo" not in html
     assert 'href="https://github.com/Xiaoang0211/promo3d"' not in html

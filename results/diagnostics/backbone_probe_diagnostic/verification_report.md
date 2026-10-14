@@ -37,9 +37,3 @@ The selected lists were extracted from the coarse-mask `meta.json` files. The ex
 - DUSt3R's selected feature dimensions are 768 except `head_in_view1_0`, which is 1024. This is recorded per block and is not treated as a training-protocol mismatch.
 - The stored `accuracy`, TP, FP, FN, and TN are pairwise same/different-motion-state compatibility metrics (`pair_label_mode=same_label`). A separate unary dynamic-token accuracy is not stored. The secondary accuracy analysis is therefore labeled pairwise compatibility accuracy.
 - No source files required by the analysis were missing. The complete machine-readable provenance is in `backbone_probe_diagnostic.json`.
-
-## Reply audit
-
-- Proposed reply: `reviewer_dwjw_backbone_reply.md`.
-- Exact character count including Markdown, tables, and line breaks: 2,431 characters.
-- Limit requested in the analysis plan: 5,000 characters.
