@@ -272,6 +272,10 @@ def test_unknown_tokens_are_purple_and_known_static_anchor_is_blue():
     assert all(f'class="feature-channel-{i}"' in diagram for i in range(1, 6))
     assert "#d5ddcb" not in diagram
     assert 'fill="var(--static)"' in diagram
+    anchor = re.search(r'<g class="anchor-token".*?</g>', diagram, re.DOTALL).group()
+    assert anchor.count('<rect ') == 5
+    assert anchor.count('width="14"') == 5
+    assert 'width="92" height="56" rx="2" fill="var(--static)"' not in diagram
     assert "Anchor token" in diagram
     assert "Token being scored" in diagram
     assert "Both are spatial tokens from the same target frame" in diagram
