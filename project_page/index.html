@@ -126,7 +126,7 @@
         <div class="section-heading"><div><span class="eyebrow">03 / Empirical analysis</span><h2>Representation analysis</h2></div></div>
         <div class="evidence-tabs" aria-label="Representation analysis"><button data-panel="layerwise" aria-pressed="true">Layer-wise probing</button><button data-panel="pca" aria-pressed="false">Probe-induced subspace</button><button data-panel="starvation" aria-pressed="false">Data efficiency</button></div>
         <figure class="evidence-figure"><button id="open-figure" class="figure-zoom" aria-label="Enlarge the current figure"><img id="evidence-image" src="assets/figures/layerwise.png" loading="lazy" alt="Layer-wise motion probing on Pi3X, DA3, and DUSt3R."></button><figcaption id="evidence-caption">Layer-wise motion decodability on Pi3X, DA3, and DUSt3R. Click the figure to enlarge.</figcaption></figure>
-        <p class="scope-note">PCA here visualizes the supervised <strong>probe-induced subspace</strong>. PMD recovers motion-relevant information; semantic leakage remains a documented limitation.</p>
+        <p id="pca-note" class="scope-note" hidden>PCA here visualizes the supervised <strong>probe-induced subspace</strong>. PMD recovers motion-relevant information for static-dynamic separation.</p>
       </div>
     </section>
 

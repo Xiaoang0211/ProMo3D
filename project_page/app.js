@@ -119,6 +119,7 @@ document.querySelectorAll('[data-panel]').forEach(button => button.addEventListe
   const img = document.querySelector('#evidence-image');
   img.src = `assets/figures/${file}`; img.alt = caption;
   document.querySelector('#evidence-caption').textContent = `${caption} Click the figure to enlarge.`;
+  document.querySelector('#pca-note').hidden = button.dataset.panel !== 'pca';
 }));
 const dialog = document.querySelector('#figure-dialog');
 document.querySelector('#open-figure').addEventListener('click', () => {

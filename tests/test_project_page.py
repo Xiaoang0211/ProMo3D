@@ -92,6 +92,17 @@ def test_representation_analysis_has_three_panels():
     assert "Layer-wise probing, PCA of the probe-induced representation" not in html
 
 
+def test_probe_induced_subspace_note_is_scoped_to_pca():
+    html = (PAGE / "index.html").read_text()
+    note = re.search(r'<p id="pca-note".*?</p>', html).group()
+    assert 'class="scope-note" hidden' in note
+    assert "supervised <strong>probe-induced subspace</strong>" in note
+    assert "motion-relevant information for static-dynamic separation" in note
+    assert "semantic leakage" not in note
+    script = (PAGE / "app.js").read_text()
+    assert "document.querySelector('#pca-note').hidden = button.dataset.panel !== 'pca'" in script
+
+
 def test_github_pages_project_path_has_relative_assets():
     html = (PAGE / "index.html").read_text()
     assert '<link rel="canonical" href="https://xiaoang0211.github.io/ProMo3D/">' in html
