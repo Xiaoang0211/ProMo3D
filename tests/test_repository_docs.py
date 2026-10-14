@@ -1,20 +1,34 @@
 import json
 from pathlib import Path
 import re
+import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_readme_uses_independently_hosted_visuals():
+def test_readme_uses_vector_resource_logos_and_independently_hosted_teaser():
     readme = (ROOT / "README.md").read_text()
     images = re.findall(r'<img[^>]+src="([^"]+)"', readme)
     assert len(images) == 6
-    official_neurips_logo = "https://neurips.cc/media/Press/NeurIPS_logo.svg"
-    assert images[0] == official_neurips_logo
-    assert all(url.startswith("https://xiaoang0211.github.io/ProMo3D/assets/") for url in images[1:])
+    assert images[:3] == ["https://neurips.cc/media/Press/NeurIPS_logo.svg",
+                          "docs/assets/promo3d.svg",
+                          "https://info.arxiv.org/assets/arxiv-logo-one-color-black.svg"]
+    assert all(url.endswith(".svg") for url in images[:5])
+    assert images[-1] == "https://xiaoang0211.github.io/ProMo3D/assets/teaser.png"
     assert 'alt="Official NeurIPS logo"' in readme
     assert "project_page/" not in readme
+
+
+def test_promo3d_wordmark_uses_outlined_vectors_and_project_colors():
+    logo = ET.parse(ROOT / "docs/assets/promo3d.svg").getroot()
+    ns = "{http://www.w3.org/2000/svg}"
+    assert logo.tag == ns + "svg"
+    paths = logo.findall(".//" + ns + "path")
+    assert len(paths) == 7
+    assert [path.attrib["fill"] for path in paths] == ["#252525"] * 5 + ["#1F77B4"] * 2
+    assert logo.findall(".//" + ns + "image") == []
+    assert logo.findall(".//" + ns + "text") == []
 
 
 def test_original_code_has_mit_license_with_third_party_scope_separated():
