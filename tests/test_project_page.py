@@ -197,17 +197,32 @@ def test_each_method_step_is_explained_in_place():
     assert len(stages) == 4
     assert all(stage.count('class="stage-title"') == 1 for stage in stages)
     assert all(stage.count('class="stage-explanation"') == 1 for stage in stages)
-    assert "predefined intermediate blocks of a frozen 3D backbone" in stages[0]
+    assert "selected intermediate layers, based on the layer-wise probing results" in stages[0]
+    assert "token group is fixed per backbone" in stages[0]
+    assert "scores are averaged across all its layers" in stages[0]
     assert "feature vector (a token)" not in html
     assert "rank-8 probe" in stages[1]
     assert "160 YouTube-VOS videos" in stages[1]
-    assert "same/different motion-state labels" in stages[1]
+    assert "predict whether two tokens share the same motion state" in stages[1]
     diagram = re.search(r'<svg class="pair-diagram".*?</svg>', stages[1], re.DOTALL).group()
     assert 'font-size="12">a</tspan>' in diagram
     assert 'font-size="12">0</tspan>' not in diagram
     assert "same thresholding rule across benchmarks" in stages[2]
     assert "<math" not in stages[2]
-    assert "PMD-derived region-mask prompts with pretrained SAM2" in stages[3]
+    assert "region masks generated from PMD scores as SAM2 prompts" in stages[3]
+
+
+def test_page_uses_consistent_direct_research_wording():
+    html = (PAGE / "index.html").read_text()
+    assert "low-rank probes trained on 160 YouTube-VOS videos" in html
+    assert "Bash scripts cover" in html
+    assert "Pre-exported test tokens are not required for mask inference" in html
+    assert "Figure and video sources" in html
+    for phrase in ("low-rank readouts", "Bash entrypoints", "sampled test exports", "Visual provenance"):
+        assert phrase not in html
+    script = (PAGE / "app.js").read_text()
+    assert "the number of training videos decreases from 160 to 10" in script
+    assert "training scene diversity decreases" not in script
 
 
 def test_page_omits_guest_footnote_and_frame_group_details():

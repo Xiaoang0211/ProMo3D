@@ -27,7 +27,7 @@
     <section class="hero shell">
       <div class="conference-label">NeurIPS 2026</div>
       <h1>ProMo3D: Probing Motion Cues in<br><em>Frozen 3D Foundation Models</em></h1>
-      <p class="hero-copy">Supervised motion probing on frozen geometric representations, using low-rank readouts trained on 160 YouTube-VOS videos.</p>
+      <p class="hero-copy">Supervised motion probing on frozen geometric representations, using low-rank probes trained on 160 YouTube-VOS videos.</p>
       <p class="authors">Xiaoang Zhang<sup>1</sup> &nbsp; Mert Kiray<sup>1,2,3</sup> &nbsp; Yordanka Velikova<sup>1,2</sup><br class="mobile-break"> &nbsp; Manoj Biswanath<sup>1,2</sup> &nbsp; Benjamin Busam<sup>1,2,3</sup></p>
       <p class="affiliations"><sup>1</sup> Technical University of Munich &nbsp; <sup>2</sup> Munich Center for Machine Learning &nbsp; <sup>3</sup> Obsphera</p>
       <aside class="poster-session" aria-label="NeurIPS poster presentation">
@@ -81,7 +81,7 @@
             <span class="stage-model">3D foundation model</span>
             <span class="stage-tokens">H = [h<sub>0</sub>, h<sub>1</sub>, &#8230;, h<sub>N</sub>]</span>
             <span class="stage-note">Target-frame tokens</span>
-            <p class="stage-explanation">Extract target-frame representations from predefined intermediate blocks of a frozen 3D backbone, jointly processing the target and context frames.</p>
+            <p class="stage-explanation">Extract target-frame tokens from selected intermediate layers, based on the layer-wise probing results. The token group is fixed per backbone, and scores are averaged across all its layers.</p>
           </article>
           <article class="method-stage" aria-labelledby="method-probe-title">
             <h3 class="stage-title" id="method-probe-title"><span>02</span> Low-rank quadratic probe</h3>
@@ -98,7 +98,7 @@
             </svg>
             <span class="stage-equation"><math display="block" aria-label="p hat i static equals f of h a and h i"><mrow><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>stat</mtext></msubsup><mo>=</mo><mi>f</mi><mo>(</mo><msub><mi mathvariant="bold">h</mi><mi>a</mi></msub><mo>,</mo><msub><mi mathvariant="bold">h</mi><mi>i</mi></msub><mo>)</mo></mrow></math></span>
             <span class="stage-note anchor-static">The anchor a = 0 lies in Pi3X's padded border and is static by design.</span>
-            <p class="stage-explanation">Train the rank-8 probe on same/different motion-state labels from 160 YouTube-VOS videos. At inference, compatibility with the static anchor gives the static score.</p>
+            <p class="stage-explanation">Train the rank-8 probe to predict whether two tokens share the same motion state, using 160 YouTube-VOS videos. At inference, compatibility with the static anchor gives the static score.</p>
           </article>
           <article class="method-stage" aria-labelledby="method-mask-title">
             <h3 class="stage-title" id="method-mask-title"><span>03</span> Coarse motion mask</h3>
@@ -114,7 +114,7 @@
             <span class="stage-model external-model">SAM2</span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
             <span class="stage-panel"><img src="assets/videos/rhino-refined.png" alt="Stored SAM2-refined PMD overlay for rhino frame 70" loading="lazy"><span>Refined mask</span></span>
-            <p class="stage-explanation">Use PMD-derived region-mask prompts with pretrained SAM2 to refine mask extent and boundaries. This stage is optional and separate from probe training.</p>
+            <p class="stage-explanation">Use region masks generated from PMD scores as SAM2 prompts to refine mask extent and boundaries. This stage is optional and separate from probe training.</p>
           </article>
         </div>
         <figcaption>Pi3X-PMD outputs for the same target frame. Token vectors and the probe diagram are schematic.</figcaption>
@@ -131,12 +131,12 @@
     </section>
 
     <section id="reproduce" class="section shell">
-      <div class="section-heading"><div><span class="eyebrow">04 / Experimental protocol</span><h2>Reproduce</h2></div><p>Bash entrypoints cover environment setup, token export, probe training, coarse-mask inference, refinement, and evaluation. Code release is pending.</p></div>
+      <div class="section-heading"><div><span class="eyebrow">04 / Experimental protocol</span><h2>Reproduce</h2></div><p>Bash scripts cover environment setup, token export, probe training, coarse-mask inference, refinement, and evaluation. Code release is pending.</p></div>
       <div class="reproduction-grid"><div class="code-panel"><div class="code-heading"><span>Pi3X / end-to-end</span><button id="copy-commands">Copy commands</button></div><pre id="commands"><code>bash scripts/main/run.sh export pi3x
 bash scripts/main/run.sh train pi3x
 bash scripts/main/run.sh masks pi3x
 bash scripts/main/run.sh refine pi3x
-bash scripts/main/run.sh eval pi3x</code></pre></div><div class="reproduction-copy"><h3>Token export and dense inference</h3><p>Exported tokens prepare probe training and token-level evaluation. Mask inference runs the frozen backbone on images and decodes the full target-frame token grid; sampled test exports are not required.</p><p>Benchmark transfer covers DAVIS, SegTrackv2, and FBMS-59, with no target-benchmark fine-tuning.</p></div></div>
+bash scripts/main/run.sh eval pi3x</code></pre></div><div class="reproduction-copy"><h3>Token export and dense inference</h3><p>Exported tokens prepare probe training and token-level evaluation. Mask inference runs the frozen backbone on images and decodes the full target-frame token grid. Pre-exported test tokens are not required for mask inference.</p><p>Benchmark transfer covers DAVIS, SegTrackv2, and FBMS-59, with no target-benchmark fine-tuning.</p></div></div>
     </section>
 
     <section class="citation shell"><div><span class="eyebrow">Reference</span><h2>Citation</h2><button id="copy-citation" class="text-button">Copy BibTeX</button></div><pre id="bibtex">@inproceedings{zhang2026promo3d,
@@ -148,7 +148,7 @@ bash scripts/main/run.sh eval pi3x</code></pre></div><div class="reproduction-co
   url={https://neurips.cc/virtual/2026/poster/151302}
 }</pre></section>
   </main>
-  <footer class="shell"><a class="wordmark" href="#">ProMo<span>3D</span></a><p>Research page for ProMo3D / PMD.<br>Layout inspired by <a href="https://alberto-rota.github.io/UnReflectAnything/" target="_blank" rel="noopener">UnReflectAnything</a>.</p><a href="assets/provenance.json">Visual provenance <span aria-hidden="true">&#8599;</span></a></footer>
+  <footer class="shell"><a class="wordmark" href="#">ProMo<span>3D</span></a><p>Research page for ProMo3D / PMD.<br>Layout inspired by <a href="https://alberto-rota.github.io/UnReflectAnything/" target="_blank" rel="noopener">UnReflectAnything</a>.</p><a href="assets/provenance.json">Figure and video sources <span aria-hidden="true">&#8599;</span></a></footer>
   <dialog id="figure-dialog" aria-label="Enlarged analysis figure"><button id="close-figure" autofocus>Close</button><img id="large-figure" alt=""><p id="large-caption"></p></dialog>
 </body>
 </html>

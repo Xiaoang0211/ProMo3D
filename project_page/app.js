@@ -111,7 +111,7 @@ fetch('assets/samples.json').then(response => { if (!response.ok) throw Error('M
 const panels = {
   layerwise: ['layerwise.png', 'Layer-wise motion decodability on Pi3X, DA3, and DUSt3R.'],
   pca: ['pca.png', 'Pi3X: PCA of the probe-induced representation, with low-rank and spectral analyses.'],
-  starvation: ['starvation.png', 'Token-level normalized gain as training scene diversity decreases from 160 to 10 videos.']
+  starvation: ['starvation.png', 'Token-level normalized gain as the number of training videos decreases from 160 to 10.']
 };
 document.querySelectorAll('[data-panel]').forEach(button => button.addEventListener('click', () => {
   selected('[data-panel]', button.dataset.panel, 'panel');
