@@ -1,11 +1,11 @@
 # ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models
 
 <p align="center">
-  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="docs/assets/links/paper.svg" width="132" height="88" alt="Paper at NeurIPS 2026"></a>
-  <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="docs/assets/links/project.svg" width="132" height="88" alt="ProMo3D project page"></a>
-  <img src="docs/assets/links/arxiv.svg" width="132" height="88" alt="arXiv preprint coming soon">
-  <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="docs/assets/links/models.svg" width="132" height="88" alt="Models on Hugging Face"></a>
-  <a href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"><img src="docs/assets/links/data.svg" width="132" height="88" alt="Data on Hugging Face"></a>
+  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="assets/links/paper.svg" width="132" height="88" alt="Paper at NeurIPS 2026"></a>
+  <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="assets/links/project.svg" width="132" height="88" alt="ProMo3D project page"></a>
+  <img src="assets/links/arxiv.svg" width="132" height="88" alt="arXiv preprint coming soon">
+  <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="assets/links/models.svg" width="132" height="88" alt="Models on Hugging Face"></a>
+  <a href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"><img src="assets/links/data.svg" width="132" height="88" alt="Data on Hugging Face"></a>
 </p>
 
 <!-- Resource links to fill when released:
@@ -134,6 +134,7 @@ See [Testing](docs/testing.md) for coverage.
 
 ```text
 configs/       Public probe configs, third-party version lock, local settings template
+assets/        Images only: logos/ and resource-link images in links/
 isdynamic/     Feature adapters, probe training, mask inference, and evaluation
 scripts/       Bash entrypoints for setup, main experiments, and additional experiments
 tests/         CPU pytest checks without backbones or datasets
@@ -163,7 +164,7 @@ If you find our work helpful, you can cite it as follows:
 
 ## Acknowledgements
 
-Our pairwise representation-probing formulation is informed by Li et al.'s [Does Object Binding Naturally Emerge in Large Pretrained Vision Transformers?](https://github.com/liyihao0302/vit-object-binding), including its IsSameObject probing perspective and linear/quadratic probe formulations. PMD applies this perspective to motion-state compatibility in frozen 3D representations.
+Our pairwise representation-probing formulation is inspired by Li et al.'s [Does Object Binding Naturally Emerge in Large Pretrained Vision Transformers?](https://github.com/liyihao0302/vit-object-binding), including its IsSameObject probing perspective and linear/quadratic probe formulations. PMD applies this perspective to motion-state compatibility in frozen 3D representations.
 
 We thank the authors of [Pi3/Pi3X](https://github.com/yyfz/Pi3), [VGGT](https://github.com/facebookresearch/vggt), [Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3), [MapAnything](https://github.com/facebookresearch/map-anything), [DUSt3R](https://github.com/naver/dust3r), and [SAM2](https://github.com/facebookresearch/sam2) for their public implementations. Additional experiment and comparison utilities also use [VGGT-omega](https://github.com/facebookresearch/vggt-omega), [GeoMotion](https://github.com/zjutcvg/GeoMotion), [Flow-SAM](https://github.com/Jyxarthur/flowsam), and [SegAnyMo](https://github.com/nnanhuang/SegAnyMo).
 
