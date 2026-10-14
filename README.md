@@ -1,11 +1,11 @@
 # ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models
 
 <p align="center">
-  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="https://neurips.cc/media/Press/NeurIPS_logo.svg" height="32" alt="Official NeurIPS logo"> <strong>NeurIPS 2026</strong></a>
-  &nbsp;&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="docs/assets/promo3d.svg" height="20" alt="ProMo3D"> Project Page</a>
-  &nbsp;&nbsp; <img src="https://info.arxiv.org/assets/arxiv-logo-one-color-black.svg" height="20" alt="arXiv"> (coming soon)
-  &nbsp;&nbsp; <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/huggingface.svg" width="22" height="20" alt=""> Models</a>
-  &nbsp;&nbsp; <a href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/huggingface.svg" width="22" height="20" alt=""> Data</a>
+  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="docs/assets/links/paper.svg" width="132" height="88" alt="Paper at NeurIPS 2026"></a>
+  <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="docs/assets/links/project.svg" width="132" height="88" alt="ProMo3D project page"></a>
+  <img src="docs/assets/links/arxiv.svg" width="132" height="88" alt="arXiv preprint coming soon">
+  <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="docs/assets/links/models.svg" width="132" height="88" alt="Models on Hugging Face"></a>
+  <a href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"><img src="docs/assets/links/data.svg" width="132" height="88" alt="Data on Hugging Face"></a>
 </p>
 
 <!-- Resource links to fill when released:

@@ -11,13 +11,26 @@ def test_readme_uses_vector_resource_logos_and_independently_hosted_teaser():
     readme = (ROOT / "README.md").read_text()
     images = re.findall(r'<img[^>]+src="([^"]+)"', readme)
     assert len(images) == 6
-    assert images[:3] == ["https://neurips.cc/media/Press/NeurIPS_logo.svg",
-                          "docs/assets/promo3d.svg",
-                          "https://info.arxiv.org/assets/arxiv-logo-one-color-black.svg"]
+    assert images[:5] == [f"docs/assets/links/{name}.svg" for name in ("paper", "project", "arxiv", "models", "data")]
     assert all(url.endswith(".svg") for url in images[:5])
     assert images[-1] == "https://xiaoang0211.github.io/ProMo3D/assets/teaser.png"
-    assert 'alt="Official NeurIPS logo"' in readme
     assert "project_page/" not in readme
+
+
+def test_resource_links_have_uniform_vector_layout_and_no_broken_arxiv_link():
+    ns = "{http://www.w3.org/2000/svg}"
+    for name in ("paper", "project", "arxiv", "models", "data"):
+        icon = ET.parse(ROOT / f"docs/assets/links/{name}.svg").getroot()
+        assert icon.attrib["viewBox"] == "0 0 132 88"
+        assert icon.find(ns + "title") is not None
+        assert icon.find(ns + "svg") is not None
+        assert icon.findall(".//" + ns + "path")
+        assert icon.findall(".//" + ns + "image") == []
+        assert icon.findall(".//" + ns + "text") == []
+    readme = (ROOT / "README.md").read_text()
+    links = re.findall(r'<a href="([^"]+)">(<img[^>]+>)</a>', readme)
+    assert len(links) == 4
+    assert not any("links/arxiv.svg" in image for _, image in links)
 
 
 def test_promo3d_wordmark_uses_outlined_vectors_and_project_colors():
