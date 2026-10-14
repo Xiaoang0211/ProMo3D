@@ -10,7 +10,7 @@ The implementation uses our own static HTML/CSS/JavaScript and paper assets. It 
 
 The method figure uses stored Pi3X-PMD outputs for rhino frame 70, with context frames 68 and 72. Only its token/probe glyphs are schematic. It has one set of four numbered headings, with an explanation inside each stage. All steps remain visible on mobile, stacked vertically. Asset rebuilding also copies the context images and records their hashes in `assets/provenance.json`.
 
-The Abstract follows `ProMo3D_CR.pdf`. The method figure uses the static/dynamic score notation of its Equations 7-8; the static-by-design statement is qualified by padding. Preprocessing details remain in reproduction documentation rather than the project page.
+The Abstract follows `ProMo3D_CR.pdf`. The method figure uses the static-score notation of its Equation 7, consistently denoting the reference vector as h_a with a = 0; the static-by-design statement is qualified by padding. Preprocessing details remain in reproduction documentation rather than the project page.
 
 The SAM2 module is text-only. The figure does not use duplicate navigation, a click-to-read explanation panel, or an automatic pipeline-playback button.
 

@@ -157,9 +157,9 @@ def test_method_figure_matches_paper_score_notation_and_refinement_input():
     assert '<span class="stage-note">Input frames</span>' in html
     assert "Low-rank quadratic probe" in html
     assert "U, V:" not in html
-    assert "<mtext>stat</mtext>" in html and "<mtext>dyn</mtext>" in html
+    assert "<mtext>stat</mtext>" in html
     assert '<mover accent="true"><mi>p</mi><mo>^</mo></mover>' in html
-    assert "Token 0 (a = 0) lies in Pi3X's padded border and is static by design." in html
+    assert "The anchor a = 0 lies in Pi3X's padded border and is static by design." in html
     assert "compatibility with the static anchor gives the static score" in html
     assert 'alt="PMD coarse mask supplied to SAM2 refinement"' in html
     assert '<span class="stage-model external-model">SAM2</span>' in html
@@ -191,7 +191,11 @@ def test_each_method_step_is_explained_in_place():
     assert "rank-8 probe" in stages[1]
     assert "160 YouTube-VOS videos" in stages[1]
     assert "same/different motion-state labels" in stages[1]
+    diagram = re.search(r'<svg class="pair-diagram".*?</svg>', stages[1], re.DOTALL).group()
+    assert 'font-size="12">a</tspan>' in diagram
+    assert 'font-size="12">0</tspan>' not in diagram
     assert "same thresholding rule across benchmarks" in stages[2]
+    assert "<math" not in stages[2]
     assert "PMD-derived region-mask prompts with pretrained SAM2" in stages[3]
 
 

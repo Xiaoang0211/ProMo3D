@@ -88,7 +88,7 @@
             <svg class="pair-diagram" viewBox="0 0 220 230" role="img" aria-labelledby="pair-title">
               <title id="pair-title">Schematic reference and target-token vectors passed to a low-rank quadratic probe</title>
               <defs><pattern id="feature-stripes" width="18" height="30" patternUnits="userSpaceOnUse"><rect width="15" height="30" fill="#d5ddcb"/></pattern><marker id="pair-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#89937f"/></marker></defs>
-              <text x="55" y="24" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">0</tspan></text><rect x="10" y="36" width="92" height="56" rx="2" fill="url(#feature-stripes)"/>
+              <text x="55" y="24" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">a</tspan></text><rect x="10" y="36" width="92" height="56" rx="2" fill="url(#feature-stripes)"/>
               <text x="165" y="24" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">i</tspan></text><rect x="120" y="36" width="92" height="56" rx="2" fill="url(#feature-stripes)"/>
               <path d="M56 92L56 113L88 131" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
               <path d="M166 92L166 113L138 131" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
@@ -97,12 +97,11 @@
               <path d="M113 197L113 225" fill="none" stroke="#89937f" stroke-width="1.5" marker-end="url(#pair-arrow)"/>
             </svg>
             <span class="stage-equation"><math display="block" aria-label="p hat i static equals f of h a and h i"><mrow><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>stat</mtext></msubsup><mo>=</mo><mi>f</mi><mo>(</mo><msub><mi mathvariant="bold">h</mi><mi>a</mi></msub><mo>,</mo><msub><mi mathvariant="bold">h</mi><mi>i</mi></msub><mo>)</mo></mrow></math></span>
-            <span class="stage-note anchor-static">Token 0 (a = 0) lies in Pi3X's padded border and is static by design.</span>
+            <span class="stage-note anchor-static">The anchor a = 0 lies in Pi3X's padded border and is static by design.</span>
             <p class="stage-explanation">Train the rank-8 probe on same/different motion-state labels from 160 YouTube-VOS videos. At inference, compatibility with the static anchor gives the static score.</p>
           </article>
           <article class="method-stage" aria-labelledby="method-mask-title">
             <h3 class="stage-title" id="method-mask-title"><span>03</span> Coarse motion mask</h3>
-            <span class="stage-equation dynamic-equation"><math display="block" aria-label="p hat i dynamic equals one minus p hat i static"><mrow><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>dyn</mtext></msubsup><mo>=</mo><mn>1</mn><mo>&#8722;</mo><msubsup><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi><mtext>stat</mtext></msubsup></mrow></math></span>
             <span class="stage-panel"><img src="assets/videos/rhino-scores.png" alt="Stored PMD dynamic score map for rhino frame 70" loading="lazy"><span>Dynamic scores</span></span>
             <span class="stage-arrow" aria-hidden="true">&#8595;</span>
             <span class="stage-panel"><img src="assets/videos/rhino-coarse.png" alt="Stored PMD coarse mask overlay for rhino frame 70" loading="lazy"><span>Coarse mask</span></span>
