@@ -28,4 +28,4 @@ bash scripts/publish_project_page.sh
 
 This updates only `ProMo3D/` in the public website-only repository, `Xiaoang0211/Xiaoang0211.github.io`. The research repository remains private. GitHub Pages publishes its `main` branch; no custom domain is required.
 
-The page supports synchronized playback, timeline seeking, playback speed, result-view switching, a method walkthrough, analysis tabs, enlarged figures, and copying reproduction commands or BibTeX. It respects reduced-motion preferences and does not auto-play videos.
+The page supports synchronized playback, timeline seeking, playback speed, result-view switching, analysis tabs, enlarged figures, and copying reproduction commands or BibTeX. The four-step method figure explains each stage in place, without duplicate controls. It respects reduced-motion preferences and does not auto-play videos.

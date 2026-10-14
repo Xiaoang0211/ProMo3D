@@ -108,25 +108,6 @@ document.querySelectorAll('[data-sequence]').forEach(button => button.addEventLi
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { if (currentSample) showSample(currentSample.id, button.dataset.view, true); }));
 fetch('assets/samples.json').then(response => { if (!response.ok) throw Error('Missing sample manifest'); return response.json(); }).then(data => { samples = data; showSample('rhino', 'coarse'); }).catch(() => { counter.textContent = 'Sequence unavailable'; play.disabled = true; });
 
-const steps = [
-  ['Input frames', "An input frame group supplies temporal or multi-view context. PMD uses the target frame's spatial tokens from predefined intermediate blocks."],
-  ['Low-rank quadratic probe', 'A low-rank quadratic probe is trained on token pairs from 160 YouTube-VOS videos. The backbone remains frozen.'],
-  ['Dense motion-mask extraction', 'In the padded example shown here, token 0 is static by design. Compatibility with it gives the static score; its complement gives the dynamic score. Scores are averaged across blocks, upsampled, and binarized.'],
-  ['SAM2 refinement', 'Optional SAM2 refinement uses the coarse mask to improve its extent and boundaries. Coarse and refined results remain separate.']
-];
-function showStep(index) {
-  selected('[data-step]', String(index), 'step');
-  selected('.method-stage', String(index), 'stage');
-  document.querySelector('#step-number').textContent = String(index + 1).padStart(2, '0');
-  document.querySelector('#step-title').textContent = steps[index][0];
-  document.querySelector('#step-copy').textContent = steps[index][1];
-  const detail = document.querySelector('.step-detail');
-  detail.classList.remove('active');
-  requestAnimationFrame(() => detail.classList.add('active'));
-}
-document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => showStep(Number(button.dataset.step))));
-document.querySelectorAll('.method-stage').forEach(button => button.addEventListener('click', () => showStep(Number(button.dataset.stage))));
-
 const panels = {
   layerwise: ['layerwise.png', 'Layer-wise motion decodability on Pi3X, DA3, and DUSt3R.'],
   pca: ['pca.png', 'Pi3X: PCA of the probe-induced representation, with low-rank and spectral analyses.'],

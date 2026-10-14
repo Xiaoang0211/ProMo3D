@@ -113,7 +113,7 @@ def test_page_uses_demo_and_reproduce_labels():
 def test_method_figure_uses_matched_real_outputs():
     html = (PAGE / "index.html").read_text()
     provenance = json.loads((PAGE / "assets/provenance.json").read_text())
-    assert re.findall(r'data-stage="([^"]+)"', html) == ["0", "1", "2", "3"]
+    assert html.count('<article class="method-stage"') == 4
     assert provenance["method"]["target_frame"] == 70
     assert provenance["method"]["context_frames"] == [68, 72]
     assert provenance["method"]["output_views"] == json.loads((PAGE / "assets/samples.json").read_text())[0]["views"]
@@ -153,16 +153,14 @@ def test_static_build_versions_changed_assets(tmp_path):
 
 def test_method_figure_matches_paper_score_notation_and_refinement_input():
     html = (PAGE / "index.html").read_text()
-    assert '<span class="stage-title"><span>01</span> Input frames</span>' in html
-    assert '<h3 id="step-title">Input frames</h3>' in html
-    assert "Target frame + context frames" in html
-    assert "Target frame + two context frames" not in html
+    assert '<h3 class="stage-title" id="method-backbone-title"><span>01</span> Frozen 3D backbone</h3>' in html
+    assert '<span class="stage-note">Input frames</span>' in html
     assert "Low-rank quadratic probe" in html
     assert "U, V:" not in html
     assert "<mtext>stat</mtext>" in html and "<mtext>dyn</mtext>" in html
     assert '<mover accent="true"><mi>p</mi><mo>^</mo></mover>' in html
-    assert "With padding, token 0 (a = 0) is static by design." in html
-    assert "Compatibility with token 0 gives the static score." in html
+    assert "token 0 (a = 0) lies outside the image content and is static by design." in html
+    assert "high compatibility with this static reference gives a high static score" in html
     assert 'alt="PMD coarse mask supplied to SAM2 refinement"' in html
     assert '<span class="stage-model external-model">SAM2</span>' in html
 
@@ -170,16 +168,38 @@ def test_method_figure_matches_paper_score_notation_and_refinement_input():
 def test_method_has_no_module_subtitles_branding_or_animation_controls():
     html = (PAGE / "index.html").read_text()
     assert 'class="stage-kind"' not in html
-    pipeline = re.search(r'<div class="pipeline".*?</div>', html, re.DOTALL).group()
-    assert "<small>" not in pipeline
+    assert 'class="pipeline"' not in html
+    assert 'class="step-detail"' not in html
+    assert 'class="method-foot"' not in html
     assert 'class="sam2-logo"' not in html
     assert 'class="sam2-icon"' not in html
     assert "animate-pipeline" not in html
     script = (PAGE / "app.js").read_text()
     assert "animate-pipeline" not in script
     assert "setInterval" not in script
-    assert "showStep(Number(button.dataset.step))" in script
-    assert "showStep(Number(button.dataset.stage))" in script
+    assert "showStep" not in script
+
+
+def test_each_method_step_is_explained_in_place():
+    html = (PAGE / "index.html").read_text()
+    stages = re.findall(r'<article class="method-stage".*?</article>', html, re.DOTALL)
+    assert len(stages) == 4
+    assert all(stage.count('class="stage-title"') == 1 for stage in stages)
+    assert all(stage.count('class="stage-explanation"') == 1 for stage in stages)
+    assert "feature vector (a token)" in stages[0]
+    assert "160 YouTube-VOS videos" in stages[1]
+    assert "high static score" in stages[1]
+    assert "Subtract the static score from 1" in stages[2]
+    assert "mask prompts for pretrained SAM2" in stages[3]
+
+
+def test_page_omits_guest_footnote_and_frame_group_details():
+    html = (PAGE / "index.html").read_text()
+    assert "guest researcher" not in html
+    assert '<sup>1*</sup>' not in html
+    assert "Xiaoang Zhang<sup>1</sup>" in html
+    assert "Frame groups:" not in html
+    assert "stride 2" not in html
 
 
 def test_page_has_paper_abstract_without_preprocessing_section():
