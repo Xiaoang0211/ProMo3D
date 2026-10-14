@@ -1,7 +1,7 @@
 # ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models
 
 <p align="center">
-  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/paper.svg" width="20" height="20" alt=""> <strong>NeurIPS 2026</strong></a>
+  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="https://neurips.cc/media/Press/NeurIPS_logo.svg" height="32" alt="Official NeurIPS logo"> <strong>NeurIPS 2026</strong></a>
   &nbsp;&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/project-page.svg" width="20" height="20" alt=""> Project Page</a>
   &nbsp;&nbsp; <img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/paper.svg" width="20" height="20" alt=""> arXiv (coming soon)
   &nbsp;&nbsp; <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/huggingface.svg" width="22" height="20" alt=""> Models</a>
@@ -146,6 +146,20 @@ bash/          Internal compatibility scripts used by the public entrypoints
 ```
 
 The project page is maintained separately in the [website repository](https://github.com/Xiaoang0211/Xiaoang0211.github.io/tree/main/ProMo3D). The arXiv record will be added when released.
+
+## Citation
+
+If you use ProMo3D or PMD in your research, please cite:
+
+```bibtex
+@inproceedings{zhang2026promo3d,
+  title     = {{ProMo3D}: Probing Motion Cues in Frozen {3D} Foundation Models},
+  author    = {Zhang, Xiaoang and Kiray, Mert and Velikova, Yordanka and Biswanath, Manoj and Busam, Benjamin},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2026},
+  url       = {https://neurips.cc/virtual/2026/poster/151302}
+}
+```
 
 ## Acknowledgements
 

@@ -10,7 +10,10 @@ def test_readme_uses_independently_hosted_visuals():
     readme = (ROOT / "README.md").read_text()
     images = re.findall(r'<img[^>]+src="([^"]+)"', readme)
     assert len(images) == 6
-    assert all(url.startswith("https://xiaoang0211.github.io/ProMo3D/assets/") for url in images)
+    official_neurips_logo = "https://neurips.cc/media/Press/NeurIPS_logo.svg"
+    assert images[0] == official_neurips_logo
+    assert all(url.startswith("https://xiaoang0211.github.io/ProMo3D/assets/") for url in images[1:])
+    assert 'alt="Official NeurIPS logo"' in readme
     assert "project_page/" not in readme
 
 
@@ -32,3 +35,14 @@ def test_acknowledgements_cover_pinned_implementations_and_probing_reference():
         assert entry["url"].removesuffix(".git").rstrip("/") in readme
     assert "https://github.com/liyihao0302/vit-object-binding" in readme
     assert "methodological reference, not a runtime dependency" in readme
+
+
+def test_readme_provides_paper_bibtex_with_camera_ready_authors():
+    readme = (ROOT / "README.md").read_text()
+    citation = readme.split("## Citation\n", 1)[1].split("## Acknowledgements\n", 1)[0]
+    assert "```bibtex\n@inproceedings{zhang2026promo3d," in citation
+    assert "{{ProMo3D}: Probing Motion Cues in Frozen {3D} Foundation Models}" in citation
+    assert "{Zhang, Xiaoang and Kiray, Mert and Velikova, Yordanka and Biswanath, Manoj and Busam, Benjamin}" in citation
+    assert "{Advances in Neural Information Processing Systems}" in citation
+    assert "{2026}" in citation
+    assert "{https://neurips.cc/virtual/2026/poster/151302}" in citation
