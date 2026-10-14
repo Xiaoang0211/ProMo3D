@@ -149,7 +149,7 @@ The project page is maintained separately in the [website repository](https://gi
 
 ## Citation
 
-If you use ProMo3D or PMD in your research, please cite:
+If you find our work helpful, you can cite it as follows:
 
 ```bibtex
 @inproceedings{zhang2026promo3d,
