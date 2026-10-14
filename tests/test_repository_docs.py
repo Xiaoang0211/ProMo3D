@@ -34,7 +34,7 @@ def test_acknowledgements_cover_pinned_implementations_and_probing_reference():
     for entry in lock.values():
         assert entry["url"].removesuffix(".git").rstrip("/") in readme
     assert "https://github.com/liyihao0302/vit-object-binding" in readme
-    assert "methodological reference, not a runtime dependency" in readme
+    assert "IsSameObject" in readme
 
 
 def test_readme_provides_paper_bibtex_with_camera_ready_authors():
