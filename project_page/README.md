@@ -4,7 +4,11 @@ Static ProMo3D project page, with our own HTML/CSS/JavaScript and a visual-first
 
 Public page: https://xiaoang0211.github.io/ProMo3D/
 
+Resource links share local SVG icons with the GitHub README. Paper/project/code icons are original outlines; the Hugging Face mark is from its official website, recorded in `assets/icons/sources.json`. The planned Hugging Face resource is labeled **Models & Data**, covering trained probes and training/validation assets rather than only a model card. Unreleased links stay marked as coming soon.
+
 `assets/teaser.png` is shared with the repository README. `assets/videos/` contains all-frame input, motion-score, coarse-overlay, and SAM2-overlay clips for rhino, koala, and cheetah. `assets/provenance.json` records source outputs and exact frame coverage. No online inference is performed by the page.
+
+`assets/palette.json` records the exact teaser palette. Undecoded-token schematics use purple shades; the known-static anchor is blue (`#1F77B4`), dynamic is red (`#D62728`), and the probe uses the teaser's peach/orange colors. The anchor `h_a` and the token `h_i` being scored are both spatial tokens from the same target frame, not attention query/key projections. Training uses arbitrary token pairs; the fixed anchor is designated for mask inference. Tests verify CSS consistency and the palette's exact teaser provenance. Talk/poster materials are maintained separately in `isDynamicProbe/presentation/`, using the same palette. Original analysis curves, score maps, mask overlays and videos remain unchanged.
 
 Build the static page with:
 

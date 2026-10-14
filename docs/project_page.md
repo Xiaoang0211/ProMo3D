@@ -21,9 +21,9 @@ The SAM2 module is text-only. The figure does not use duplicate navigation, a cl
 - NeurIPS: https://neurips.cc/virtual/2026/poster/151302
 - OpenReview: https://openreview.net/forum?id=bSpkdwCVuy
 - arXiv: reserved until the paper record is available.
-- Hugging Face Model Card: reserve the model repository URL for checkpoints and usage information.
+- Hugging Face: Models & Data. Reserve a collection/resource URL for trained PMD probes and training/validation assets; the individual releases will carry model cards, dataset documentation, and their applicable licenses.
 
-Unavailable resources are labeled "coming soon", not linked to invented URLs. The code repository is private; the public page does not advertise its private URL as a usable download. The README and project page should use the same finalized paper/model links.
+Unavailable resources are labeled "coming soon", not linked to invented URLs. The code repository is private; the public page does not advertise its private URL as a usable download. The README and project page use local SVG resource icons and the same resource names. "Model card" describes a model's documentation, not the combined model/data release. Final URLs remain placeholders until those resources are published.
 
 The official paper-specific poster schedule was checked on 13 October 2026: Wednesday, 9 December 2026, 10:00-13:00 AEDT (UTC+11), Hall 1-4. The conference venue is ICC Sydney, Australia. Only the project page shows the session details; the repository README retains the NeurIPS 2026 paper and project-page links.
 

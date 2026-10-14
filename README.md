@@ -1,15 +1,15 @@
 # ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models
 
 <p align="center">
-  <a href="https://neurips.cc/virtual/2026/poster/151302"><strong>NeurIPS 2026</strong></a>
-  &nbsp;|&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/">Project Page</a>
-  &nbsp;|&nbsp; arXiv (coming soon)
-  &nbsp;|&nbsp; Hugging Face Model Card (coming soon)
+  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="project_page/assets/icons/paper.svg" width="20" height="20" alt=""> <strong>NeurIPS 2026</strong></a>
+  &nbsp;&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="project_page/assets/icons/project-page.svg" width="20" height="20" alt=""> Project Page</a>
+  &nbsp;&nbsp; <img src="project_page/assets/icons/paper.svg" width="20" height="20" alt=""> arXiv (coming soon)
+  &nbsp;&nbsp; <img src="project_page/assets/icons/huggingface.svg" width="22" height="20" alt=""> Hugging Face: Models &amp; Data (coming soon)
 </p>
 
 <!-- Resource links to fill when released:
 ARXIV_URL: https://arxiv.org/abs/<paper-id>
-HUGGINGFACE_MODEL_CARD_URL: https://huggingface.co/<owner>/<model>
+HUGGINGFACE_RESOURCES_URL: collection linking model and dataset repositories
 -->
 
 **How much motion information is already recoverable from frozen 3D foundation models?** ProMo3D investigates this question through lightweight representation probing. Our method, **Probing-based Motion Distillation (PMD)**, learns a low-rank pairwise readout of frozen tokens and converts motion-state compatibility into dense motion masks.
@@ -27,6 +27,8 @@ HUGGINGFACE_MODEL_CARD_URL: https://huggingface.co/<owner>/<model>
 An input frame group provides multi-view or temporal context. PMD reads intermediate spatial tokens, predicts whether token pairs share the same motion state, and converts compatibility with a fixed reference token into a dynamic score map. The scores are reshaped to the token grid, upsampled, and binarized to obtain the coarse mask. SAM2 can optionally refine its extent and boundaries.
 
 The release includes Pi3X, Pi3, VGGT, DA3, MapAnything, and DUSt3R. [Main-paper reproduction](docs/main.md) covers the selected token groups, layer-wise probing, low-rank analysis, probe-induced PCA, and data-starvation experiments.
+
+The planned **Hugging Face: Models & Data** release will contain trained PMD probes and training/validation assets, with model cards, dataset documentation, and the applicable upstream licenses.
 
 ## Setup
 
@@ -117,4 +119,4 @@ outputs/       New experiment outputs (ignored)
 bash/          Internal compatibility scripts used by the public entrypoints
 ```
 
-Third-party implementations and checkpoints retain their original licenses. The arXiv record, Hugging Face Model Card, and final citation will be added when released.
+Third-party implementations, datasets, and checkpoints retain their original licenses. The arXiv record, Hugging Face model/data links, and final citation will be added when released.

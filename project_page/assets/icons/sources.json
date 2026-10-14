@@ -1,0 +1,9 @@
+{
+  "paper.svg": {"source": "Original ProMo3D document outline icon"},
+  "project-page.svg": {"source": "Original ProMo3D globe outline icon"},
+  "code.svg": {"source": "Original ProMo3D code outline icon"},
+  "huggingface.svg": {
+    "source": "https://huggingface.co/front/assets/huggingface_logo-noborder.svg",
+    "change": "Added a matching viewBox for responsive scaling; original paths and colors preserved"
+  }
+}

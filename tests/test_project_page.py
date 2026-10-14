@@ -55,7 +55,9 @@ def test_partial_sequence_cannot_be_presented_as_complete(tmp_path):
 
 def test_resource_placeholders_do_not_advertise_huggingface_demo():
     html = (PAGE / "index.html").read_text()
-    assert "Hugging Face Model Card" in html
+    assert "Hugging Face Model Card" not in html
+    assert "Hugging Face" in html
+    assert "Models &amp; Data" in html
     assert "huggingface.co/spaces" not in html
     assert "Hugging Face Demo" not in html
     assert 'href="https://github.com/Xiaoang0211/promo3d"' not in html
@@ -203,7 +205,7 @@ def test_each_method_step_is_explained_in_place():
     assert "feature vector (a token)" not in html
     assert "rank-8 probe" in stages[1]
     assert "160 YouTube-VOS videos" in stages[1]
-    assert "predict whether two tokens share the same motion state" in stages[1]
+    assert "predict whether two tokens from the same target frame share the same motion state" in stages[1]
     diagram = re.search(r'<svg class="pair-diagram".*?</svg>', stages[1], re.DOTALL).group()
     assert 'font-size="12">a</tspan>' in diagram
     assert 'font-size="12">0</tspan>' not in diagram
@@ -243,3 +245,70 @@ def test_page_has_paper_abstract_without_preprocessing_section():
     assert html.index('id="abstract"') < html.index('id="sequences"')
     assert "Backbone preprocessing" not in html
     assert 'class="preprocessing"' not in html
+
+
+def test_semantic_palette_matches_original_teaser_and_css():
+    palette = json.loads((PAGE / "assets/palette.json").read_text())
+    assert hashlib.sha256((PAGE / "assets" / palette["source"]["file"]).read_bytes()).hexdigest() == palette["source"]["sha256"]
+    assert palette["static"] == "#1F77B4"
+    assert palette["dynamic"] == "#D62728"
+    css = (PAGE / "style.css").read_text()
+    for key in ("static", "dynamic", "backbone_fill"):
+        assert f"--{key.replace('_', '-')}:{palette[key]}" in css
+    for index, color in enumerate(palette["raw_tokens"], 1):
+        assert f"--token-purple-{index}:{color}" in css
+    assert f'--probe-bg:{palette["probe"]["background"]}' in css
+    assert f'--probe-fill:{palette["probe"]["fill"]}' in css
+    assert f'--probe-border:{palette["probe"]["border"]}' in css
+
+
+def test_unknown_tokens_are_purple_and_known_static_anchor_is_blue():
+    html = (PAGE / "index.html").read_text()
+    assert 'class="raw-tokens"' in html
+    diagram = re.search(r'<svg class="pair-diagram".*?</svg>', html, re.DOTALL).group()
+    assert all(f'class="feature-channel-{i}"' in diagram for i in range(1, 6))
+    assert "#d5ddcb" not in diagram
+    assert 'fill="var(--static)"' in diagram
+    assert "Anchor token" in diagram
+    assert "Token being scored" in diagram
+    assert "Both are spatial tokens from the same target frame" in diagram
+
+
+def test_project_page_abstract_matches_camera_ready_when_source_is_available():
+    source = PAGE.parent.parent / "isDynamicProbe/3D_Pretext/neurips_2026.tex"
+    if not source.is_file():
+        pytest.skip("Camera-ready Overleaf source is maintained outside the public code repository")
+    tex = source.read_text()
+    abstract = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", tex, re.DOTALL).group(1).split(r"\par")[0]
+    abstract = abstract.replace(r"$\pi^3$X", "\u03c03X").replace("--", "\u2013")
+    section = re.search(r'<section id="abstract".*?</section>', (PAGE / "index.html").read_text(), re.DOTALL).group()
+    paragraph = re.search(r"<p>(.*?)</p>", section, re.DOTALL).group(1)
+    rendered = unescape(re.sub(r"<[^>]+>", "", paragraph))
+    assert " ".join(abstract.split()) == " ".join(rendered.split())
+
+
+def test_method_probe_does_not_repeat_static_dynamic_color_legend():
+    html = (PAGE / "index.html").read_text()
+    stage = re.search(
+        r'<article class="method-stage" aria-labelledby="method-probe-title">.*?</article>',
+        html,
+        re.DOTALL,
+    ).group()
+    assert 'class="motion-key"' not in stage
+    assert 'class="state-static"' not in stage
+    assert 'class="state-dynamic"' not in stage
+    assert '<math display="block"' in stage
+
+
+def test_resource_icons_are_local_and_shared_with_github_readme():
+    html = (PAGE / "index.html").read_text()
+    resources = re.search(r'<div class="resources".*?</div>', html, re.DOTALL).group()
+    assert resources.count('class="resource-icon"') == 4
+    readme = (PAGE.parent / "README.md").read_text()
+    assert "Hugging Face Model Card" not in readme
+    assert "Hugging Face: Models &amp; Data" in readme
+    icons = re.findall(r'src="(project_page/assets/icons/[^"]+)"', readme)
+    assert len(icons) == 4
+    assert all((PAGE.parent / icon).is_file() for icon in icons)
+    assert "model cards" in readme
+    assert "training/validation assets" in readme
