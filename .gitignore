@@ -22,8 +22,4 @@ outputs_*/
 *.log
 *.orig
 .env
-project_page/dist/
-project_page/.sites-runtime/
-project_page/.sites-checkout*/
-project_page/.openai/*.local.*
 bash/_ablation_subsets*/

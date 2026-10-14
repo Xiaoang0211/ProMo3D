@@ -2,17 +2,16 @@
 
 The public package keeps the validated `isdynamic` import name. Shell entrypoints select the right Python environment for each backbone; they do not require one shared environment containing every third-party project.
 
-## On our current machine
+## Reuse an existing installation
 
 Reuse the installed code, checkpoints, environments, and downloaded datasets:
 
 ```bash
-cd /home/xiaoang/FF_Reconstruction/promo3d
-bash scripts/setup_local.sh /home/xiaoang/FF_Reconstruction/isDynamicProbe
+bash scripts/setup_local.sh /path/to/existing/isDynamicProbe
 bash scripts/check_setup.sh
 ```
 
-This creates links under `models/` and `datasets/` and writes `configs/local.env` if it does not exist. Experiment code runs from `promo3d`. Token exports and newly generated results default to `promo3d/outputs/`.
+Run from the repository root. This creates links under `models/` and `datasets/` and writes `configs/local.env` if it does not exist. Experiment code runs from this checkout; token exports and newly generated results default to its `outputs/` directory.
 
 To use existing token exports, set per-model source roots at runtime:
 

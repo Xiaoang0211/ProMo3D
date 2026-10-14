@@ -1,11 +1,11 @@
 # ProMo3D: Probing Motion Cues in Frozen 3D Foundation Models
 
 <p align="center">
-  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="project_page/assets/icons/paper.svg" width="20" height="20" alt=""> <strong>NeurIPS 2026</strong></a>
-  &nbsp;&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="project_page/assets/icons/project-page.svg" width="20" height="20" alt=""> Project Page</a>
-  &nbsp;&nbsp; <img src="project_page/assets/icons/paper.svg" width="20" height="20" alt=""> arXiv (coming soon)
-  &nbsp;&nbsp; <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="project_page/assets/icons/huggingface.svg" width="22" height="20" alt=""> Models</a>
-  &nbsp;&nbsp; <a href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"><img src="project_page/assets/icons/huggingface.svg" width="22" height="20" alt=""> Data</a>
+  <a href="https://neurips.cc/virtual/2026/poster/151302"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/paper.svg" width="20" height="20" alt=""> <strong>NeurIPS 2026</strong></a>
+  &nbsp;&nbsp; <a href="https://xiaoang0211.github.io/ProMo3D/"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/project-page.svg" width="20" height="20" alt=""> Project Page</a>
+  &nbsp;&nbsp; <img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/paper.svg" width="20" height="20" alt=""> arXiv (coming soon)
+  &nbsp;&nbsp; <a href="https://huggingface.co/Xiaoang0211/ProMo3D"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/huggingface.svg" width="22" height="20" alt=""> Models</a>
+  &nbsp;&nbsp; <a href="https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data"><img src="https://xiaoang0211.github.io/ProMo3D/assets/icons/huggingface.svg" width="22" height="20" alt=""> Data</a>
 </p>
 
 <!-- Resource links to fill when released:
@@ -15,7 +15,7 @@ ARXIV_URL: https://arxiv.org/abs/<paper-id>
 **How much motion information is already recoverable from frozen 3D foundation models?** ProMo3D investigates this question through lightweight representation probing. Our method, **Probing-based Motion Distillation (PMD)**, learns a low-rank pairwise readout of frozen tokens and converts motion-state compatibility into dense motion masks.
 
 <p align="center">
-  <img src="project_page/assets/teaser.png" width="100%" alt="PMD pipeline: input frames, a frozen 3D foundation model, a lightweight probe-induced static-dynamic subspace, and coarse or optionally SAM2-refined motion masks.">
+  <img src="https://xiaoang0211.github.io/ProMo3D/assets/teaser.png" width="100%" alt="PMD pipeline: input frames, a frozen 3D foundation model, a lightweight probe-induced static-dynamic subspace, and coarse or optionally SAM2-refined motion masks.">
 </p>
 
 - **Frozen backbones, lightweight readout:** the 3D model stays frozen; only the pairwise probe is trained.
@@ -139,11 +139,20 @@ scripts/       Bash entrypoints for setup, main experiments, and additional expe
 tests/         CPU pytest checks without backbones or datasets
 docs/          Setup and experiment-to-paper mapping
 results/       Small reference tables and provenance; not experiment outputs
-project_page/  Project-page asset staging
 datasets/      Downloaded datasets (ignored)
 models/        Third-party code and checkpoints (ignored)
 outputs/       New experiment outputs (ignored)
 bash/          Internal compatibility scripts used by the public entrypoints
 ```
 
-Third-party implementations, datasets, and checkpoints retain their original licenses. The arXiv record will be added when released.
+The project page is maintained separately in the [website repository](https://github.com/Xiaoang0211/Xiaoang0211.github.io/tree/main/ProMo3D). The arXiv record will be added when released.
+
+## Acknowledgements
+
+Our pairwise representation-probing formulation is informed by Li et al.'s [Does Object Binding Naturally Emerge in Large Pretrained Vision Transformers?](https://github.com/liyihao0302/vit-object-binding), including its IsSameObject probing perspective and linear/quadratic probe formulations. PMD applies this perspective to motion-state compatibility in frozen 3D representations. This is a methodological reference, not a runtime dependency.
+
+We thank the authors of [Pi3/Pi3X](https://github.com/yyfz/Pi3), [VGGT](https://github.com/facebookresearch/vggt), [Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3), [MapAnything](https://github.com/facebookresearch/map-anything), [DUSt3R](https://github.com/naver/dust3r), and [SAM2](https://github.com/facebookresearch/sam2) for their public implementations. Additional experiment and comparison utilities also use [VGGT-omega](https://github.com/facebookresearch/vggt-omega), [GeoMotion](https://github.com/zjutcvg/GeoMotion), [Flow-SAM](https://github.com/Jyxarthur/flowsam), and [SegAnyMo](https://github.com/nnanhuang/SegAnyMo).
+
+## License
+
+Original ProMo3D code is released under the [MIT License](LICENSE). Third-party code, pretrained models, datasets, and media retain their respective licenses and terms. This license does not relicense assets downloaded from Hugging Face or upstream providers.

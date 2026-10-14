@@ -120,5 +120,5 @@ def test_publication_rejects_path_traversal(prepared_release):
 
 
 def test_no_huggingface_demo_placeholder_on_public_surfaces():
-    for path in (ROOT / "README.md", ROOT / "project_page/index.html"):
+    for path in (ROOT / "README.md", ROOT / "docs/huggingface/MODEL_CARD.md", ROOT / "docs/huggingface/DATASET_CARD.md"):
         assert "huggingface.co/spaces/" not in path.read_text().lower()

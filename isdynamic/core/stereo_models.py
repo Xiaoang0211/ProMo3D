@@ -1,3 +1,8 @@
+"""PMD stereo readouts informed by Li et al.'s pairwise object-binding probes.
+
+Methodological reference: https://github.com/liyihao0302/vit-object-binding
+"""
+
 from pathlib import Path
 from typing import Optional
 

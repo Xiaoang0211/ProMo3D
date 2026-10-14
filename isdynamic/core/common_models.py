@@ -1,3 +1,8 @@
+"""PMD readouts informed by Li et al.'s pairwise object-binding probes.
+
+Methodological reference: https://github.com/liyihao0302/vit-object-binding
+"""
+
 import torch
 import torch.nn as nn
 import numpy as np
