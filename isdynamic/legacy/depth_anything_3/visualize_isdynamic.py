@@ -59,7 +59,7 @@ def canonical_group_name(group: str) -> str:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Per-image, per-block IsDynamic score-map visualization for Depth-Anything-3."
+        description="Per-image, per-block dynamic score-map visualization for Depth-Anything-3."
     )
     parser.add_argument("--dataset", type=str, default="davis", choices=["davis", "segtrackv2", "fbms59"])
     parser.add_argument("--benchmark_name", type=str, default=None)

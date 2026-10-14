@@ -46,7 +46,7 @@ GROUP_CHOICES = ["inter_frame_block", "intra_frame_block", "dense_head", "pose_h
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Per-image, per-block IsDynamic score-map visualization for Map-Anything."
+        description="Per-image, per-block dynamic score-map visualization for Map-Anything."
     )
     parser.add_argument("--dataset", type=str, default="davis", choices=["davis", "segtrackv2", "fbms59"])
     parser.add_argument("--benchmark_name", type=str, default=None)

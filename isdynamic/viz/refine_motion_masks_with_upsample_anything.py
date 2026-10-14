@@ -60,7 +60,7 @@ def parse_args() -> argparse.Namespace:
         "--instance_mean_score_threshold",
         type=float,
         default=0.0,
-        help="Discard a connected component in the final binary mask if its mean refined isDynamic score is below this threshold.",
+        help="Discard a connected component in the final binary mask if its mean refined dynamic score is below this threshold.",
     )
     parser.add_argument(
         "--color_instances",

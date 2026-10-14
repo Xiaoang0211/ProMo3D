@@ -24,7 +24,7 @@ ARXIV_URL: https://arxiv.org/abs/<paper-id>
 
 ## Method
 
-An input frame group provides multi-view or temporal context. PMD reads intermediate spatial tokens, predicts whether token pairs share the same motion state, and converts compatibility with a fixed reference token into a dynamic score map. The scores are reshaped to the token grid, upsampled, and binarized to obtain the coarse mask. SAM2 can optionally refine its extent and boundaries.
+An input frame group provides multi-view or temporal context. PMD reads intermediate spatial tokens and predicts whether token pairs share the same motion state. Compatibility with a fixed static reference token gives the static score; its complement gives the dynamic score. These dynamic scores are reshaped to the token grid and upsampled into a dynamic score map, then binarized to obtain the coarse mask. SAM2 can optionally refine its extent and boundaries.
 
 The release includes Pi3X, Pi3, VGGT, DA3, MapAnything, and DUSt3R. [Main-paper reproduction](docs/main.md) covers the selected token groups, layer-wise probing, low-rank analysis, probe-induced PCA, and data-starvation experiments.
 

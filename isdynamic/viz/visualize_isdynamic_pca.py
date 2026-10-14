@@ -867,7 +867,7 @@ def _plot_score_histogram(
     fig, ax = plt.subplots(figsize=(7.0, 4.8))
     ax.hist(static_scores, bins=bins, range=(0.0, 1.0), density=True, alpha=0.45, color="#1f77b4", label="static")
     ax.hist(dynamic_scores, bins=bins, range=(0.0, 1.0), density=True, alpha=0.45, color="#d62728", label="dynamic")
-    ax.set_xlabel("isDynamic score", fontsize=label_fontsize)
+    ax.set_xlabel("Dynamic score", fontsize=label_fontsize)
     ax.set_ylabel("Density", fontsize=label_fontsize)
     ax.tick_params(axis="both", labelsize=tick_fontsize)
     ax.grid(alpha=0.2, linewidth=0.6)

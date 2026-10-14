@@ -65,7 +65,7 @@ HEAD_GROUPS = {"cam_head", "conf_head", "point_head"}
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Per-image, per-block IsDynamic score-map visualization (Figure-5 style)."
+        description="Per-image, per-block dynamic score-map visualization (Figure-5 style)."
     )
     parser.add_argument("--dataset", type=str, default="davis", choices=["davis", "segtrackv2", "fbms59"])
     parser.add_argument("--benchmark_name", type=str, default=None)
@@ -518,7 +518,7 @@ def plot_block_maps(
     cols: int,
     patch_size: int,
     heatmap_renderer,
-    title: str = "Per-block IsDynamic score maps",
+    title: str = "Per-block dynamic score maps",
     show_global_title: bool = True,
 ) -> None:
     import matplotlib

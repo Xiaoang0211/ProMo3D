@@ -343,6 +343,7 @@ def _save_score_heatmap_figure(
         if with_colorbar:
             cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.03)
             cbar.ax.tick_params(labelsize=heatmap_font_size)
+            cbar.set_label("Dynamic score", fontsize=heatmap_font_size)
         save_png_pdf_figure(fig, out_dir / f"{stem}_{suffix}.png", dpi=220, bbox_inches="tight", pad_inches=0.02)
         plt.close(fig)
 

@@ -9,7 +9,7 @@ import pytest
 
 from isdynamic.viz.evaluate_motion_masks import db_eval_iou, db_statistics
 from isdynamic.viz.motion_mask_utils import binary_mask_from_score, otsu_threshold, save_motion_mask_outputs
-from isdynamic.viz.scoremap_utils import average_block_maps, upsample_patch_map
+from isdynamic.viz.scoremap_utils import average_block_maps, build_scoremap_title, upsample_patch_map
 
 
 def test_bilinear_then_strict_threshold():
@@ -36,6 +36,21 @@ def test_block_aggregation_averages_every_selected_block():
             "inter_frame_block_1": np.ones((2, 2)),
             "inter_frame_block_2": np.ones((2, 2))}
     np.testing.assert_allclose(average_block_maps(maps), 2/3)
+
+
+def test_heatmap_uses_paper_score_terminology(tmp_path, monkeypatch):
+    from isdynamic.viz import motion_mask_utils
+
+    labels = []
+    def record_labels(figure, path, **kwargs):
+        labels.extend(ax.get_ylabel() for ax in figure.axes)
+
+    monkeypatch.setattr(motion_mask_utils, "save_png_pdf_figure", record_labels)
+    motion_mask_utils._save_score_heatmap_figure(tmp_path, "toy", np.array([[0, 1], [0.5, 0.7]]))
+    assert "Dynamic score" in labels
+    assert not any("isDynamic" in label for label in labels)
+    title = build_scoremap_title("outputs/pi3x/rank_8", "inter_frame_block")
+    assert "Dynamic score maps" in title and "isDynamic" not in title
 
 
 def test_iou_and_j_recall_conventions():

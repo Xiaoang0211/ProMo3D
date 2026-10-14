@@ -240,7 +240,7 @@ def build_scoremap_title(probe_root: str | Path, group: str) -> str:
     parts = [first]
     if videos is not None:
         parts.append(f"{videos} training videos (YouTube-VOS)")
-    parts.append("isDynamic")
+    parts.append("Dynamic score maps")
     parts.append(describe_scoremap_group(group, model_name))
     return " | ".join(parts)
 
@@ -381,7 +381,7 @@ def plot_block_maps(
     cols: int,
     patch_size: int,
     heatmap_renderer: Callable[[np.ndarray, Tuple[int, int]], np.ndarray],
-    title: str = "Per-block IsDynamic score maps",
+    title: str = "Per-block dynamic score maps",
 ) -> None:
     import matplotlib
 
