@@ -7,6 +7,20 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_readme_introduces_the_research_before_setup_and_reproduction():
+    readme = (ROOT / "README.md").read_text()
+    introduction = readme.split("## Method\n", 1)[0]
+    assert "Official implementation of **ProMo3D**" in introduction
+    assert "NeurIPS 2026" in introduction
+    assert "low-capacity supervised probing" in introduction
+    assert "probe-induced representation" in introduction
+    assert "Probing-based Motion Distillation (PMD)" in introduction
+    assert "reproduc" not in introduction.lower()
+    assert "private project-page source" not in readme
+    assert readme.index("## Method\n") < readme.index("## Setup\n")
+    assert readme.index("## Pretrained Inference\n") < readme.index("## Reproduction\n")
+
+
 def test_readme_uses_vector_resource_logos_and_independently_hosted_teaser():
     readme = (ROOT / "README.md").read_text()
     images = re.findall(r'<img[^>]+src="([^"]+)"', readme)

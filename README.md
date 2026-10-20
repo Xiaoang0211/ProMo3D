@@ -12,7 +12,9 @@
 ARXIV_URL: https://arxiv.org/abs/<paper-id>
 -->
 
-**How much motion information is already recoverable from frozen 3D foundation models?** ProMo3D investigates this question through lightweight representation probing. Our method, **Probing-based Motion Distillation (PMD)**, learns a low-rank pairwise readout of frozen tokens and converts motion-state compatibility into dense motion masks.
+Official implementation of **ProMo3D**, presented at **NeurIPS 2026**.
+
+**How much motion information is recoverable from frozen 3D foundation models?** We study this question through low-capacity supervised probing, examining layer-wise motion decodability, the compactness of the probe-induced representation, and transfer with limited source supervision. Building on these findings, **Probing-based Motion Distillation (PMD)** uses a low-rank pairwise probe to convert motion-state compatibility into dynamic score maps and dense motion masks.
 
 <p align="center">
   <img src="https://xiaoang0211.github.io/ProMo3D/assets/teaser.png" width="100%" alt="PMD pipeline: input frames, a frozen 3D foundation model, a lightweight probe-induced static-dynamic subspace, and coarse or optionally SAM2-refined motion masks.">
@@ -26,9 +28,9 @@ ARXIV_URL: https://arxiv.org/abs/<paper-id>
 
 An input frame group provides multi-view or temporal context. PMD reads intermediate spatial tokens and predicts whether token pairs share the same motion state. Compatibility with a fixed static reference token gives the static score; its complement gives the dynamic score. These dynamic scores are reshaped to the token grid and upsampled into a dynamic score map, then binarized to obtain the coarse mask. SAM2 can optionally refine its extent and boundaries.
 
-The release includes Pi3X, Pi3, VGGT, DA3, MapAnything, and DUSt3R. [Main-paper reproduction](docs/main.md) covers the selected token groups, layer-wise probing, low-rank analysis, probe-induced PCA, and data-starvation experiments.
+PMD supports six frozen backbones: **Pi3X, Pi3, VGGT, DA3, MapAnything, and DUSt3R**.
 
-The **Hugging Face Models & Data** release provides the original six-backbone rank-8 PMD probes and training/validation assets (160/80 sequences, RGB images and binary motion masks), with model cards, dataset documentation, and upstream terms. Models are public; dataset downloads require accepting the research-use agreement. Native padding is retained for Pi3/Pi3X/VGGT. These are the original paper probes, not later safeguard or additional-padding experiments.
+Pretrained rank-8 PMD probes for all six backbones are available on [Hugging Face](https://huggingface.co/Xiaoang0211/ProMo3D). The [training and validation data](https://huggingface.co/datasets/Xiaoang0211/ProMo3D-data) include RGB images and binary motion masks for 160 training and 80 validation sequences. Models are public; dataset downloads require accepting the research-use agreement.
 
 ## Setup
 
@@ -49,7 +51,7 @@ Set the interpreter paths in `configs/local.env` and place checkpoints at the lo
 
 For inference-only use with downloaded evaluation datasets, skip the training-data download and follow [Pretrained inference](#pretrained-inference) below. It requires neither YouTube-VOS nor token exports.
 
-For full reproduction, download the supplied motion-mask training/validation subsets and evaluation datasets, then check the installation:
+To train and evaluate your own probes, download the supplied training/validation subsets and evaluation datasets, then check the installation:
 
 ```bash
 bash scripts/download_datasets.sh
@@ -111,7 +113,7 @@ bash scripts/main/run.sh tables
 
 **Token export is for probe training and token-level evaluation, not dense mask inference.** The `masks` stage runs the frozen backbone on images and uses the full target-frame token grid. It does not require exported test tokens. `refine` consumes the saved coarse scores, and `eval` reports coarse and SAM2-refined results separately.
 
-The commands support `--dry-run` to inspect paths and settings before running. New main results live under `outputs/main/`; additional experiments live under `outputs/experiments/`; sampled token data live under `outputs/tokens/`. The original research workspace and its outputs are not overwritten.
+The commands support `--dry-run` to inspect paths and settings before running. New main results live under `outputs/main/`; additional experiments live under `outputs/experiments/`; sampled token data live under `outputs/tokens/`.
 
 ### Figures and additional experiments
 
